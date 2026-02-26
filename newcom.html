@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Masterclass - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FFD43B;
+            --secondary: #4ecdc4;
+            --glass: rgba(255, 255, 255, 0.1);
+            --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- ব্যাকগ্রাউন্ড অ্যানিমেশন --- */
+        .bg-animation { position: fixed; top: 0; left: 0; width: 100%; height: 100%; filter: blur(80px); z-index: -2; background: radial-gradient(circle at 50% 50%, rgba(78,205,196,0.15), transparent); }
+        #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .particle { position: absolute; border-radius: 50%; animation: fall linear infinite; opacity: 0.6; }
+        @keyframes fall { 0% { transform: translateY(-10vh) scale(0); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(100vh) scale(1.2); opacity: 0; } }
+
+        .container { max-width: 950px; margin: 0 auto; padding: 40px 20px; }
+
+        /* --- নেভিগেশন মেনু --- */
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 22px;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover { background: rgba(255,255,255,0.2); }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255, 212, 59, 0.4);
+        }
+
+        /* --- পেজ সেকশন --- */
+        .page-section {
+            display: none;
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        .page-section.active { display: block; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 45px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        }
+
+        /* --- হোম পেজ কন্টেন্ট --- */
+        .home-content { text-align: center; }
+        .home-content h1 { font-size: 3.5em; color: var(--primary); margin-bottom: 10px; }
+        .home-content p { font-size: 1.2em; opacity: 0.8; margin-bottom: 30px; }
+        
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .hero-card {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hero-card:hover { 
+            background: rgba(255,255,255,0.1); 
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+        }
+
+        .hero-card h3 { color: var(--secondary); margin-bottom: 10px; }
+
+        /* --- জেনারেল স্টাইল --- */
+        h2 { color: var(--primary); margin-bottom: 20px; border-bottom: 2px solid var(--glass); padding-bottom: 10px; }
+        .topic-list { list-style: none; text-align: left; }
+        .topic-list li {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .topic-list li::before { content: "⚡"; color: var(--primary); }
+
+        code {
+            display: block;
+            background: #1e1e1e;
+            color: #9cdcfe;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-family: 'Fira Code', monospace;
+            border: 1px solid #333;
+        }
+    </style>
+
+
+
+<style>
+        /* --- ভ্যারিয়েবল এবং গ্লোবাল সেটআপ --- */
+        :root {
+            --primary: #FFD43B; /* Python Yellow */
+            --secondary: #4ecdc4; /* Cyan/Teal */
+            --dark-bg: #0f0c29;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --code-bg: #282c34;
+            --mcq-q-bg: rgba(0, 0, 0, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- স্টাইল ১: অ্যানিমেটেড ব্যাকগ্রাউন্ড (পার্টিকেল ও স্টার) --- */
+        .bg-animation {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,107,107,0.3) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(78,205,196,0.3) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(255,230,109,0.2) 0%, transparent 40%);
+            filter: blur(60px);
+            animation: bgMove 20s ease-in-out infinite alternate;
+            z-index: -2;
+        }
+
+        .stars {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px);
+            background-size: 250px 250px;
+            opacity: 0.4;
+            animation: twinkle 4s infinite;
+            z-index: -1;
+        }
+
+        #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .particle { position: absolute; border-radius: 50%; animation: particleFall linear infinite; }
+        
+        @keyframes bgMove { from { transform: scale(1); } to { transform: scale(1.2); } }
+        @keyframes twinkle { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.5; } }
+        @keyframes particleFall {
+            0% { transform: translateY(-10vh) scale(0.5); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(100vh) scale(1.2); opacity: 0; }
+        }
+
+        /* --- স্টাইল ২: লেকচার স্লাইড (গ্লাস-মরফিজম কন্টেন্ট) --- */
+        .container { max-width: 900px; margin: 40px auto; padding: 20px; z-index: 10; position: relative; }
+
+        .slide {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .slide-header { 
+            border-bottom: 3px solid var(--primary); 
+            margin-bottom: 25px; 
+            padding-bottom: 10px; 
+        }
+
+        h1 { color: var(--primary); text-align: center; font-size: 2.3em; margin-bottom: 10px; }
+        h2 { color: var(--secondary); font-size: 1.6em; border-left: 5px solid var(--primary); padding-left: 15px; margin: 25px 0 15px 0; }
+
+        /* টপিক লিস্ট */
+        .topic-list { list-style: none; }
+        .topic-list li {
+            background: rgba(255, 255, 255, 0.05);
+            margin: 10px 0;
+            padding: 12px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .topic-list li:hover { background: rgba(255, 255, 255, 0.15); transform: translateX(10px); }
+        .topic-list li::before { content: "🐍"; margin-right: 15px; }
+
+        /* MCQ বক্স */
+        .q-box { 
+            background: var(--mcq-q-bg);
+            margin-bottom: 20px; 
+            padding: 20px; 
+            border-radius: 12px;
+            border-left: 5px solid var(--primary);
+            transition: 0.3s;
+        }
+        .question { font-weight: 600; color: #fff; display: block; margin-bottom: 12px; font-size: 1.15em; }
+        .options { color: #ddd; margin-left: 15px; line-height: 1.8; }
+        .opt-item { display: block; margin-bottom: 5px; }
+        .ans { 
+            color: #27ae60; 
+            font-weight: bold; 
+            font-size: 0.9em; 
+            margin-top: 10px; 
+            display: inline-block;
+            background: rgba(39, 174, 96, 0.15);
+            padding: 4px 12px;
+            border-radius: 5px;
+        }
+
+        /* কোড ব্লক */
+        code {
+            font-family: 'Fira Code', monospace;
+            background-color: var(--code-bg);
+            color: #e06c75;
+            padding: 15px;
+            display: block;
+            border-radius: 8px;
+            margin: 15px 0;
+            line-height: 1.5;
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow-x: auto;
+        }
+
+        .footer { 
+            margin-top: auto; 
+            text-align: center; 
+            font-size: 0.85em; 
+            color: rgba(255,255,255,0.5); 
+            padding-top: 20px; 
+            border-top: 1px solid rgba(255,255,255,0.1); 
+        }
+
+        /* প্রিন্ট সেটআপ */
+        @media print {
+            .bg-animation, .stars, #particles { display: none; }
+            body { background: white; color: black; }
+            .slide { 
+                background: white; border: 1px solid #ccc; color: black; 
+                backdrop-filter: none; box-shadow: none; margin: 0; 
+                page-break-after: always; min-height: 100vh;
+            }
+            h1, h2, .question { color: black; }
+            code { background: #f5f5f5; color: #c7254e; border: 1px solid #ddd; }
+        }
+    </style>
+
+
+
+
+
+
+
+</head>
+<body>
+
+    <div class="bg-animation"></div>
+    <div id="particles"></div>
+
+    <div class="container">
+        <nav class="nav-menu">
+            <button class="nav-btn active" onclick="showPage('home', this)">🏠 হোম</button>
+            <button class="nav-btn" onclick="showPage('topics', this)">📋 টপিক তালিকা</button>
+            <button class="nav-btn" onclick="showPage('lecture', this)">📖 লেকচার শিট</button>
+        </nav>
+
+        <section id="home" class="page-section active">
+            <div class="glass-card home-content">
+                <h1>Python 2026</h1>
+                <p>স্বাগতম! আপনার পাইথন লার্নিং ড্যাশবোর্ড এখন প্রস্তুত।</p>
+                
+                <div class="hero-grid">
+                    <div class="hero-card" onclick="document.querySelector('[onclick*=\'topics\']').click()">
+                        <h3>টপিক তালিকা</h3>
+                        <p>কি কি শিখতে হবে তার পূর্ণাঙ্গ রোডম্যাপ দেখুন।</p>
+                    </div>
+                    <div class="hero-card" onclick="document.querySelector('[onclick*=\'lecture\']').click()">
+                        <h3>লেকচার শিট</h3>
+                        <p>অধ্যায় ভিত্তিক বিস্তারিত আলোচনা ও MCQ সমাধান।</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="topics" class="page-section">
+    <div class="glass-card">
+        <h1 style="margin-bottom: 30px; text-align: center;">🐍 Python পূর্ণাঙ্গ রোডম্যাপ</h1>
+        
+        <div class="topic-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+            
+            <div class="hero-card" style="text-align: left; cursor: default;">
+                <div style="font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                    <span>📐</span> প্রোগ্রাম ডিজাইন ও অনুবাদক
+                </div>
+                <ul style="list-style: none; font-size: 0.9em; opacity: 0.9; line-height: 1.8;">
+                    <li>• ডিজাইন ও অ্যালগরিদম</li>
+                    <li>• কম্পাইলার ও ইন্টারপ্রেটার</li>
+                    <li>• ডিবাগিং ও এরর হ্যান্ডলিং</li>
+                    <li>• ফ্লোচার্ট ও সিউডোকোড</li>
+                </ul>
+                <div style="margin-top: 15px; font-size: 0.8em; color: var(--secondary);">🔹 ৪টি সাবটপিক | ⚡ মৌলিক ধারণা</div>
+                <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 10px; overflow: hidden;">
+                    <div style="width: 100%; height: 100%; background: var(--primary);"></div>
+                </div>
+            </div>
+
+            <div class="hero-card" style="text-align: left; cursor: default;">
+                <div style="font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                    <span>📊</span> ডেটা টাইপ ও ভ্যারিয়েবল
+                </div>
+                <ul style="list-style: none; font-size: 0.9em; opacity: 0.9; line-height: 1.8;">
+                    <li>• নিউমেরিক ডেটা টাইপ</li>
+                    <li>• স্ট্রিং ও বুলিয়ান</li>
+                    <li>• ভ্যারিয়েবল ডিক্লেয়ারেশন</li>
+                    <li>• টাইপ কনভার্শন</li>
+                </ul>
+                <div style="margin-top: 15px; font-size: 0.8em; color: var(--secondary);">🔹 ৫টি সাবটপিক | ⚡ মৌলিক ধারণা</div>
+                <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 10px; overflow: hidden;">
+                    <div style="width: 80%; height: 100%; background: var(--secondary);"></div>
+                </div>
+            </div>
+
+            <div class="hero-card" style="text-align: left; cursor: default;">
+                <div style="font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                    <span>🔧</span> অপারেটর বিশ্লেষণ
+                </div>
+                <ul style="list-style: none; font-size: 0.9em; opacity: 0.9; line-height: 1.8;">
+                    <li>• অ্যারিথমেটিক অপারেটর</li>
+                    <li>• লজিক্যাল অপারেটর (and, or)</li>
+                    <li>• কম্পারিজন অপারেটর</li>
+                    <li>• বিটওয়াইজ অপারেটর</li>
+                </ul>
+                <div style="margin-top: 15px; font-size: 0.8em; color: var(--secondary);">🔹 ৫টি সাবটপিক | ⚡ অপারেটর</div>
+                <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 10px; overflow: hidden;">
+                    <div style="width: 60%; height: 100%; background: #ff6b6b;"></div>
+                </div>
+            </div>
+
+            <div class="hero-card" style="text-align: left; cursor: default;">
+                <div style="font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                    <span>📥</span> ইনপুট ও আউটপুট
+                </div>
+                <ul style="list-style: none; font-size: 0.9em; opacity: 0.9; line-height: 1.8;">
+                    <li>• input() ও print() ফাংশন</li>
+                    <li>• sep ও end প্যারামিটার</li>
+                    <li>• ফর্ম্যাটেড আউটপুট</li>
+                    <li>• ফাইল I/O বেসিক</li>
+                </ul>
+                <div style="margin-top: 15px; font-size: 0.8em; color: var(--secondary);">🔹 ৫টি সাবটপিক | ⚡ I/O অপারেশন</div>
+                <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 10px; overflow: hidden;">
+                    <div style="width: 45%; height: 100%; background: #a8e6cf;"></div>
+                </div>
+            </div>
+
+            <div class="hero-card" style="text-align: left; cursor: default;">
+                <div style="font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                    <span>🔄</span> লুপের ব্যবহার (Loop)
+                </div>
+                <ul style="list-style: none; font-size: 0.9em; opacity: 0.9; line-height: 1.8;">
+                    <li>• for ও while লুপ</li>
+                    <li>• নেস্টেড লুপ</li>
+                    <li>• break ও continue</li>
+                    <li>• range() এর ব্যবহার</li>
+                </ul>
+                <div style="margin-top: 15px; font-size: 0.8em; color: var(--secondary);">🔹 ৫টি সাবটপিক | ⚡ ইটারেশন</div>
+                <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 10px; overflow: hidden;">
+                    <div style="width: 30%; height: 100%; background: #ffd93d;"></div>
+                </div>
+            </div>
+
+            <div class="hero-card" style="text-align: left; cursor: default;">
+                <div style="font-size: 1.4em; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                    <span>🥷</span> OOP কনসেপ্ট
+                </div>
+                <ul style="list-style: none; font-size: 0.9em; opacity: 0.9; line-height: 1.8;">
+                    <li>• ক্লাস ও অবজেক্ট</li>
+                    <li>• ইনহেরিট্যান্স ও পলিমরফিজম</li>
+                    <li>• এনক্যাপসুলেশন</li>
+                    <li>• ম্যাজিক মেথড</li>
+                </ul>
+                <div style="margin-top: 15px; font-size: 0.8em; color: var(--secondary);">🔹 ৫টি সাবটপিক | ⚡ অ্যাডভান্স</div>
+                <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 10px; overflow: hidden;">
+                    <div style="width: 15%; height: 100%; background: #c56cf0;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 50px; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);">
+            <h3 style="text-align: center; margin-bottom: 25px; color: var(--secondary);">📊 কোর্স সারসংক্ষেপ</h3>
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; text-align: center;">
+                <div>
+                    <div style="font-size: 2.2em; font-weight: bold; color: var(--primary);">১৫</div>
+                    <div style="font-size: 0.9em; opacity: 0.7;">প্রধান টপিক</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.2em; font-weight: bold; color: var(--secondary);">৭৫</div>
+                    <div style="font-size: 0.9em; opacity: 0.7;">সাবটপিক</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.2em; font-weight: bold; color: #ff6b6b;">৩.১২</div>
+                    <div style="font-size: 0.9em; opacity: 0.7;">পাইথন ভার্সন</div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 25px; font-size: 0.85em; opacity: 0.6;">
+                প্রতিটি টপিক ৫টি করে সাবটপিকে বিভক্ত। নিয়মিত প্র্যাকটিস লজিক বিল্ডআপে সাহায্য করবে।
+            </p>
+        </div>
+    </div>
+</section>
+        <section id="lecture" class="page-section">
+            <div class="glass-card">
+                
+    <div class="bg-animation"></div>
+    <div class="stars"></div>
+    <div id="particles"></div>
+    <div class="container"> 
+
+        <!-- স্লাইড ১: টাইটেল পৃষ্ঠা -->
+    <div class="slide">
+        <div class="slide-number">০১</div>
+        <div style="text-align: center; margin-top: 150px;">
+            <h1>ষষ্ঠ অধ্যায়: প্রোগ্রামের মাধ্যমে সমস্যার সমাধান</h1>
+            <h2 style="border:none; text-align:center;">Python (Guido Van Rossum)</h2>
+            <hr style="width: 50%; border: 1px solid var(--primary); margin: 20px auto;">
+            <!-- <p>প্রোগ্রাম ডিজাইন, ভ্যারিয়েবল, অপারেটর ও লজিক বিশ্লেষণ</p> -->
+        </div>
+        <div class="footer"><color> TARIKUL ISLAM(ICE-12) </color></div>
+    </div>
+
+    <!-- স্লাইড ২: প্রোগ্রাম ডিজাইন ও অনুবাদক -->
+    <div class="slide">
+        <div class="slide-number">০২</div>
+        <div class="slide-header"><h2>১. প্রোগ্রাম ডিজাইন ও অনুবাদক</h2></div>
+        <p>প্রোগ্রাম তৈরির প্রথম ধাপ সমস্যা বিশ্লেষণ। ভুল খোঁজার নাম ডিবাগিং। কম্পাইলার সোর্স কোডকে মেশিন কোডে রূপান্তর করে।</p>
+
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">১. প্রোগ্রাম ডিজাইনের প্রথম ধাপ কী হওয়া উচিত?</span>
+                <span class="options">
+                    <span class="opt-item">ক) কোড লেখা</span>
+                    <span class="opt-item">খ) সমস্যাটি বোঝা ও বিশ্লেষণ করা</span>
+                    <span class="opt-item">গ) কম্পাইল করা</span>
+                    <span class="opt-item">ঘ) আউটপুট দেখা</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">২. প্রোগ্রামে ভুল বা বাগ খুঁজে বের করার প্রক্রিয়াকে কী বলে?</span>
+                <span class="options">
+                    <span class="opt-item">ক) কম্পাইলিং</span>
+                    <span class="opt-item">খ) ডিবাগিং</span>
+                    <span class="opt-item">গ) এক্সিকিউশন</span>
+                    <span class="opt-item">ঘ) টেস্টিং</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৩. কম্পাইলার এর কাজ কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) সোর্স কোডকে মেশিন কোডে রূপান্তর করা</span>
+                    <span class="opt-item">খ) ইনপুট নেওয়া</span>
+                    <span class="opt-item">গ) আউটপুট দেখানো</span>
+                    <span class="opt-item">ঘ) ডেটা সংরক্ষণ করা</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৪. ইন্টারপ্রেটার এবং কম্পাইলারের মধ্যে প্রধান পার্থক্য কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) ইন্টারপ্রেটার দ্রুত কাজ করে</span>
+                    <span class="opt-item">খ) ইন্টারপ্রেটার লাইন বাই লাইন এক্সিকিউট করে</span>
+                    <span class="opt-item">গ) কম্পাইলার ধীর গতির</span>
+                    <span class="opt-item">ঘ) কোন পার্থক্য নেই</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+        </div>
+        <div class="footer">ডিবাগিং ও কম্পাইলিং কনসেপ্ট</div>
+    </div>
+
+    <!-- স্লাইড ৩: ডেটা টাইপ ও ভ্যারিয়েবল -->
+    <div class="slide">
+        <div class="slide-number">০৩</div>
+        <div class="slide-header"><h2>২. ডেটা টাইপ ও ভ্যারিয়েবল</h2></div>
+        <p>ভ্যারিয়েবল হলো ডেটা সংরক্ষণের মাধ্যম। টাইপ কাস্টিং এর মাধ্যমে ডেটা টাইপ পরিবর্তন করা যায়। পাইথন ডায়নামিক টাইপেড ভাষা।</p>
+        
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">৫. int, float, str এগুলো কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) কীওয়ার্ড</span>
+                    <span class="opt-item">খ) অপারেটর</span>
+                    <span class="opt-item">গ) ডেটা টাইপ</span>
+                    <span class="opt-item">ঘ) ফাংশন</span>
+                </span>
+                <span class="ans">উত্তর: গ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৬. num = "১০০" এর ডাটা টাইপ কি হবে?</span>
+                <span class="options">
+                    <span class="opt-item">ক) int</span>
+                    <span class="opt-item">খ) bool</span>
+                    <span class="opt-item">গ) float</span>
+                    <span class="opt-item">ঘ) str</span>
+                </span>
+                <span class="ans">উত্তর: ঘ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৭. নিচের কোনটি পাইথনে সঠিক ভেরিয়েবল নাম?</span>
+                <span class="options">
+                    <span class="opt-item">ক) 2ndNumber</span>
+                    <span class="opt-item">খ) second-number</span>
+                    <span class="opt-item">গ) second_number</span>
+                    <span class="opt-item">ঘ) second number</span>
+                </span>
+                <span class="ans">উত্তর: গ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৮. টাইপ কাস্টিং বলতে কী বোঝায়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) ডেটা টাইপ পরিবর্তন করা</span>
+                    <span class="opt-item">খ) নতুন ভেরিয়েবল তৈরি</span>
+                    <span class="opt-item">গ) ডেটা ডিলিট করা</span>
+                    <span class="opt-item">ঘ) প্রিন্ট করা</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+        </div>
+        <div class="footer">ভ্যারিয়েবল ও ডেটা টাইপ</div>
+    </div>
+
+    <!-- স্লাইড ৪: অপারেটর বিশ্লেষণ -->
+    <div class="slide">
+        <div class="slide-number">০৪</div>
+        <div class="slide-header"><h2>৩. অপারেটর বিশ্লেষণ</h2></div>
+        <p>অ্যাসাইনমেন্ট (=), গাণিতিক (+, -, *, /, %, //, **), তুলনা (>, <, ==, !=) এবং লজিক্যাল (and, or, not) অপারেটরসমূহ।</p>
+        
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">৯. sum = a + b এই স্টেটমেন্টে = চিহ্নটি কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) এসাইনমেন্ট অপারেটর</span>
+                    <span class="opt-item">খ) গাণিতিক অপারেটর</span>
+                    <span class="opt-item">গ) তুলনা অপারেটর</span>
+                    <span class="opt-item">ঘ) লজিক্যাল অপারেটর</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+            <div class="q-box">
+                <span class="question">১০. x = 17 % 5 এক্সিকিউট করলে x এর মান কত হবে?</span>
+                <span class="options">
+                    <span class="opt-item">ক) 3.4</span>
+                    <span class="opt-item">খ) 3</span>
+                    <span class="opt-item">গ) 2</span>
+                    <span class="opt-item">ঘ) 5</span>
+                </span>
+                <span class="ans">উত্তর: গ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">১১. // অপারেটরটি কী করে?</span>
+                <span class="options">
+                    <span class="opt-item">ক) ভাগশেষ</span>
+                    <span class="opt-item">খ) পূর্ণসংখ্যা ভাগ</span>
+                    <span class="opt-item">গ) গুণ</span>
+                    <span class="opt-item">ঘ) পাওয়ার</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">১২. not অপারেটরের কাজ কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) বিপরীত মান তৈরি</span>
+                    <span class="opt-item">খ) যোগ করা</span>
+                    <span class="opt-item">গ) বিয়োগ করা</span>
+                    <span class="opt-item">ঘ) গুণ করা</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+        </div>
+        <div class="footer">অপারেটর ও এক্সপ্রেশন</div>
+    </div>
+
+    <!-- স্লাইড ৫: ইনপুট ও আউটপুট ফাংশন -->
+    <div class="slide">
+        <div class="slide-number">০৫</div>
+        <div class="slide-header"><h2>৪. ইনপুট ও আউটপুট ফাংশন</h2></div>
+        <code>
+            name = input("তোমার নাম: ")<br>
+            print("হ্যালো", name)  # আউটপুট দেখানো<br>
+            age = int(input("বয়স: "))  # টাইপ কাস্টিং সহ ইনপুট
+        </code>
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">১৩. input() ফাংশনের কাজ কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) আউটপুট দেখা</span>
+                    <span class="opt-item">খ) ডেটা সংরক্ষণ</span>
+                    <span class="opt-item">গ) ইউজার থেকে ডেটা ইনপুট নেওয়া</span>
+                    <span class="opt-item">ঘ) গাণিতিক হিসাব করা</span>
+                </span>
+                <span class="ans">উত্তর: গ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">১৪. পাইথনে # চিহ্নের ব্যবহার কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) গুণ</span>
+                    <span class="opt-item">খ) কমেন্ট লেখা</span>
+                    <span class="opt-item">গ) ফাংশন কল করা</span>
+                    <span class="opt-item">ঘ) ভেরিয়েবল ডিক্লেয়ার</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">১৫. প্রোগ্রামিং-এ \n এর মানে কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) ট্যাব</span>
+                    <span class="opt-item">খ) নিউ লাইন (লাইন ব্রেক)</span>
+                    <span class="opt-item">গ) স্পেস</span>
+                    <span class="opt-item">ঘ) ব্যাকস্ল্যাশ</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">১৬. print() ফাংশনে sep প্যারামিটার ব্যবহার করা হয় কেন?</span>
+                <span class="options">
+                    <span class="opt-item">ক) লাইনের শেষ নির্ধারণে</span>
+                    <span class="opt-item">খ) একাধিক আর্গুমেন্টের মাঝে কী বসবে তা নির্ধারণে</span>
+                    <span class="opt-item">গ) ফাইল সংরক্ষণে</span>
+                    <span class="opt-item">ঘ) কালার পরিবর্তনে</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+        </div>
+        <div class="footer">ফাংশন ও সিম্বল</div>
+    </div>
+
+    <!-- স্লাইড ৬: শর্ত ও সিদ্ধান্ত গ্রহণ -->
+    <div class="slide">
+        <div class="slide-number">০৬</div>
+        <div class="slide-header"><h2>৫. শর্ত ও সিদ্ধান্ত গ্রহণ</h2></div>
+        <code>
+            if condition:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;statement<br>
+            elif condition:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;statement<br>
+            else:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;statement
+        </code>
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">১৭. if-else স্টেটমেন্টের কাজ কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) গণনা করা</span>
+                    <span class="opt-item">খ) ডেটা ইনপুট নেওয়া</span>
+                    <span class="opt-item">গ) শর্তসাপেক্ষে সিদ্ধান্ত নেওয়া</span>
+                    <span class="opt-item">ঘ) লুপ চালানো</span>
+                </span>
+                <span class="ans">উত্তর: গ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">১৮. পাইথনে elif কীওয়ার্ডটি ব্যবহার করা হয় কখন?</span>
+                <span class="options">
+                    <span class="opt-item">ক) প্রথম শর্ত</span>
+                    <span class="opt-item">খ) একাধিক শর্ত পরীক্ষা করার জন্য</span>
+                    <span class="opt-item">গ) লুপ বন্ধ করা</span>
+                    <span class="opt-item">ঘ) ভেরিয়েবল ডিফাইন</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">১৯. x = 5;</span>
+                <span class="question">if x == 5: </span>
+                <span class="question">&emsp;print("True") </span>
+                <span class="question">else: print("False")</span>
+                <span class="question"> - আউটপুট কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) True</span>
+                    <span class="opt-item">খ) False</span>
+                    <span class="opt-item">গ) Error</span>
+                    <span class="opt-item">ঘ) কিছুই না</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+            <div class="q-box">
+                <span class="question">২০. নেস্টেড if বলতে কী বোঝায়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) একাধিক if-else</span>
+                    <span class="opt-item">খ) if-এর ভিতরে if</span>
+                    <span class="opt-item">গ) লুপের ভিতরে if</span>
+                    <span class="opt-item">ঘ) if ছাড়া else</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+        </div>
+        <div class="footer">কন্ট্রোল স্ট্রাকচার</div>
+    </div>
+
+    <!-- স্লাইড ৭: লুপের ব্যবহার -->
+    <div class="slide">
+        <div class="slide-number">০৭</div>
+        <div class="slide-header"><h2>৬. লুপের ব্যবহার (Loop)</h2></div>
+        <code>
+            for i in range(5):<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print(i)<br><br>
+            while condition:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;statement
+        </code>
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">২১. প্রোগ্রামে একই কাজ বারবার করার কৌশলকে কী বলে?</span>
+                <span class="options">
+                    <span class="opt-item">ক) শর্ত</span>
+                    <span class="opt-item">খ) ফাংশন</span>
+                    <span class="opt-item">গ) লুপ</span>
+                    <span class="opt-item">ঘ) ভেরিয়েবল</span>
+                </span>
+                <span class="ans">উত্তর: গ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">২২. for লুপ সাধারণত কখন ব্যবহৃত হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) শর্ত সত্য না হওয়া পর্যন্ত</span>
+                    <span class="opt-item">খ) পুনরাবৃত্তির সংখ্যা জানা থাকলে</span>
+                    <span class="opt-item">গ) ইনপুট নেওয়ার জন্য</span>
+                    <span class="opt-item">ঘ) আউটপুট দেখানোর জন্য</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">২৩. while লুপ কখন ব্যবহৃত হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) সংখ্যা জানা থাকলে</span>
+                    <span class="opt-item">খ) শর্ত সত্য থাকা পর্যন্ত</span>
+                    <span class="opt-item">গ) একবারের জন্য</span>
+                    <span class="opt-item">ঘ) কখনো নয়</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">২৪. লুপের ভিতর থেকে লুপ থামানোর জন্য কোনটি ব্যবহৃত হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) stop</span>
+                    <span class="opt-item">খ) break</span>
+                    <span class="opt-item">গ) exit</span>
+                    <span class="opt-item">ঘ) continue</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+        </div>
+        <div class="footer">লুপ ও ইটারেশন</div>
+    </div>
+
+    <!-- স্লাইড ৮: রেঞ্জ ও টাইপ কাস্টিং -->
+    <div class="slide">
+        <div class="slide-number">০৮</div>
+        <div class="slide-header"><h2>৭. রেঞ্জ ও টাইপ কাস্টিং</h2></div>
+        <code>
+            range(start, stop, step)<br>
+            int(), float(), str(), bool()
+        </code>
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">২৫. পাইথনে range(5) কোন সংখ্যাগুলো জেনারেট করে?</span>
+                <span class="options">
+                    <span class="opt-item">ক) 1,2,3,4,5</span>
+                    <span class="opt-item">খ) 0,1,2,3,4</span>
+                    <span class="opt-item">গ) 5,4,3,2,1</span>
+                    <span class="opt-item">ঘ) 0,1,2,3,4,5</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">২৬. for i in range(2, 8, 2): print(i) - আউটপুট কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) 2,4,6,8</span>
+                    <span class="opt-item">খ) 2,4,6</span>
+                    <span class="opt-item">গ) 2,3,4,5,6,7</span>
+                    <span class="opt-item">ঘ) 2,4,6,8,10</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">২৭. a = 10.7;<br>&ensp;&emsp;y = int(a); <br>&emsp;&emsp;&emsp;print(y) <br>- ফলাফল কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) 10.7</span>
+                    <span class="opt-item">খ) 11</span>
+                    <span class="opt-item">গ) 10</span>
+                    <span class="opt-item">ঘ) Error</span>
+                </span>
+                <span class="ans">উত্তর: গ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">২৮. bool(0) এর আউটপুট কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) True</span>
+                    <span class="opt-item">খ) False</span>
+                    <span class="opt-item">গ) 0</span>
+                    <span class="opt-item">ঘ) None</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+        </div>
+        <div class="footer">রেঞ্জ ও টাইপ কাস্টিং</div>
+    </div>
+
+    <!-- স্লাইড ৯: লিস্ট ও টাপল -->
+    <div class="slide">
+        <div class="slide-number">০৯</div>
+        <div class="slide-header"><h2>৮. লিস্ট ও টাপল</h2></div>
+        <code>
+            list1 = [1, 2, 3, 4]  # mutable<br>
+            tuple1 = (1, 2, 3, 4)  # immutable
+        </code>
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">২৯. লিস্ট এবং টাপলের মধ্যে প্রধান পার্থক্য কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) লিস্ট mutable, টাপল immutable</span>
+                    <span class="opt-item">খ) লিস্ট দ্রুত, টাপল ধীর</span>
+                    <span class="opt-item">গ) টাপল পরিবর্তন করা যায়</span>
+                    <span class="opt-item">ঘ) কোন পার্থক্য নেই</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৩০. নিচের কোনটি সঠিক লিস্ট ডিক্লেয়ারেশন?</span>
+                <span class="options">
+                    <span class="opt-item">ক) list = [1, 2, 3]</span>
+                    <span class="opt-item">খ) list = (1, 2, 3)</span>
+                    <span class="opt-item">গ) list = {1, 2, 3}</span>
+                    <span class="opt-item">ঘ) list = 1, 2, 3</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৩১. tuple-এর মান পরিবর্তন করা যায়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) যায়</span>
+                    <span class="opt-item">খ) যায় না</span>
+                    <span class="opt-item">গ) কখনো কখনো যায়</span>
+                    <span class="opt-item">ঘ) শর্তসাপেক্ষে</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৩২. append() মেথড কী করে?</span>
+                <span class="options">
+                    <span class="opt-item">ক) লিস্টের শেষে নতুন এলিমেন্ট যোগ</span>
+                    <span class="opt-item">খ) লিস্ট থেকে এলিমেন্ট ডিলিট</span>
+                    <span class="opt-item">গ) লিস্ট সর্ট করা</span>
+                    <span class="opt-item">ঘ) লিস্ট রিভার্স করা</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+        </div>
+        <div class="footer">ডেটা স্ট্রাকচার</div>
+    </div>
+
+    <!-- স্লাইড ১০: ডিকশনারি ও সেট -->
+    <div class="slide">
+        <div class="slide-number">১০</div>
+        <div class="slide-header"><h2>৯. ডিকশনারি ও সেট</h2></div>
+        <code>
+            dict = {"name": "Rahim", "age": 20}<br>
+            set1 = {1, 2, 3, 4}
+        </code>
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">৩৩. ডিকশনারিতে ডেটা কীভাবে সংরক্ষিত থাকে?</span>
+                <span class="options">
+                    <span class="opt-item">ক) ইনডেক্স অনুযায়ী</span>
+                    <span class="opt-item">খ) কী-ভ্যালু পেয়ার আকারে</span>
+                    <span class="opt-item">গ) এলোমেলোভাবে</span>
+                    <span class="opt-item">ঘ) সেট হিসেবে</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৩৪. সেটের বৈশিষ্ট্য কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) ডুপ্লিকেট এলিমেন্ট রাখে</span>
+                    <span class="opt-item">খ) অর্ডারড</span>
+                    <span class="opt-item">গ) ডুপ্লিকেট এলিমেন্ট রাখে না</span>
+                    <span class="opt-item">ঘ) কী-ভ্যালু পেয়ার</span>
+                </span>
+                <span class="ans">উত্তর: গ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৩৫. ডিকশনারি থেকে মান বের করতে কী ব্যবহার করা হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) ইনডেক্স</span>
+                    <span class="opt-item">খ) কী</span>
+                    <span class="opt-item">গ) ভ্যালু</span>
+                    <span class="opt-item">ঘ) পজিশন</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৩৬. সেটে নতুন এলিমেন্ট যোগ করতে কোন মেথড ব্যবহার করা হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) append()</span>
+                    <span class="opt-item">খ) add()</span>
+                    <span class="opt-item">গ) insert()</span>
+                    <span class="opt-item">ঘ) push()</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+        </div>
+        <div class="footer">ডিকশনারি ও সেট</div>
+    </div>
+
+    <!-- স্লাইড ১১: ফাংশন -->
+    <div class="slide">
+        <div class="slide-number">১১</div>
+        <div class="slide-header"><h2>১০. ফাংশন (Function)</h2></div>
+        <code>
+            def function_name(parameters):<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"""docstring"""<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;statement(s)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;return value
+        </code>
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">৩৭. ফাংশন কেন ব্যবহার করা হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) কোড পুনরায় ব্যবহারের জন্য</span>
+                    <span class="opt-item">খ) প্রোগ্রাম ধীর করার জন্য</span>
+                    <span class="opt-item">গ) জটিলতা বাড়ানোর জন্য</span>
+                    <span class="opt-item">ঘ) মেমরি নষ্ট করার জন্য</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৩৮. পাইথনে ফাংশন ডিফাইন করতে কী 키ওয়ার্ড ব্যবহার করা হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) function</span>
+                    <span class="opt-item">খ) def</span>
+                    <span class="opt-item">গ) func</span>
+                    <span class="opt-item">ঘ) define</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৩৯. return স্টেটমেন্টের কাজ কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) ফাংশন থামিয়ে মান ফেরত দেয়</span>
+                    <span class="opt-item">খ) ফাংশন চালিয়ে যায়</span>
+                    <span class="opt-item">গ) কিছুই করে না</span>
+                    <span class="opt-item">ঘ) প্রিন্ট করে</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৪০. প্যারামিটার এবং আর্গুমেন্টের মধ্যে পার্থক্য কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) একই জিনিস</span>
+                    <span class="opt-item">খ) প্যারামিটার ডিফিনিশনে, আর্গুমেন্ট কল করার সময়</span>
+                    <span class="opt-item">গ) প্যারামিটার কল করার সময়</span>
+                    <span class="opt-item">ঘ) কোন পার্থক্য নেই</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+        </div>
+        <div class="footer">ফাংশন ও মডুলারিটি</div>
+    </div>
+
+    <!-- স্লাইড ১২: স্ট্রিং ম্যানিপুলেশন -->
+    <div class="slide">
+        <div class="slide-number">১২</div>
+        <div class="slide-header"><h2>১১. স্ট্রিং ম্যানিপুলেশন</h2></div>
+        <code>
+            str = "Hello Python"<br>
+            str.upper(), str.lower(), str.strip()<br>
+            str.split(), " ".join(list)
+        </code>
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">৪১. স্ট্রিং কি mutable নাকি immutable?</span>
+                <span class="options">
+                    <span class="opt-item">ক) mutable</span>
+                    <span class="opt-item">খ) immutable</span>
+                    <span class="opt-item">গ) উভয়ই</span>
+                    <span class="opt-item">ঘ) কোনটিই নয়</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৪২. "Hello" + "World" এর ফলাফল কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) Hello World</span>
+                    <span class="opt-item">খ) HelloWorld</span>
+                    <span class="opt-item">গ) Hello+World</span>
+                    <span class="opt-item">ঘ) Error</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৪৩. স্ট্রিং-এর দৈর্ঘ্য বের করতে কোন ফাংশন ব্যবহার করা হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) length()</span>
+                    <span class="opt-item">খ) len()</span>
+                    <span class="opt-item">গ) size()</span>
+                    <span class="opt-item">ঘ) count()</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৪৪. স্ট্রিং স্লাইসিং-এ str[2:5] বলতে কী বোঝায়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) ইনডেক্স ২ থেকে ৪ পর্যন্ত</span>
+                    <span class="opt-item">খ) ইনডেক্স ২ থেকে ৫ পর্যন্ত</span>
+                    <span class="opt-item">গ) ইনডেক্স ২ থেকে শুরু করে ৫টি অক্ষর</span>
+                    <span class="opt-item">ঘ) ইনডেক্স ২ থেকে ৫ বাদে</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+        </div>
+        <div class="footer">স্ট্রিং অপারেশন</div>
+    </div>
+
+    <!-- স্লাইড ১৩: ফাইল হ্যান্ডলিং -->
+    <div class="slide">
+        <div class="slide-number">১৩</div>
+        <div class="slide-header"><h2>১২. ফাইল হ্যান্ডলিং</h2></div>
+        <code>
+            file = open("filename.txt", "r")  # read mode<br>
+            file = open("filename.txt", "w")  # write mode<br>
+            file = open("filename.txt", "a")  # append mode
+        </code>
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">৪৫. ফাইল ওপেন করার জন্য কোন ফাংশন ব্যবহার করা হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) file()</span>
+                    <span class="opt-item">খ) open()</span>
+                    <span class="opt-item">গ) read()</span>
+                    <span class="opt-item">ঘ) write()</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৪৬. 'w' মোডে ফাইল ওপেন করলে কী হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) ফাইল থেকে পড়া যায়</span>
+                    <span class="opt-item">খ) ফাইলের শেষে লেখা যায়</span>
+                    <span class="opt-item">গ) ফাইল নতুন করে তৈরি বা ওভাররাইট করে</span>
+                    <span class="opt-item">ঘ) ফাইল ডিলিট হয়</span>
+                </span>
+                <span class="ans">উত্তর: গ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৪৭. ফাইল থেকে সব কন্টেন্ট পড়তে কোন মেথড ব্যবহার করা হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) readline()</span>
+                    <span class="opt-item">খ) read()</span>
+                    <span class="opt-item">গ) readlines()</span>
+                    <span class="opt-item">ঘ) readall()</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৪৮. ফাইল ক্লোজ না করলে কী সমস্যা হতে পারে?</span>
+                <span class="options">
+                    <span class="opt-item">ক) মেমরি লিক</span>
+                    <span class="opt-item">খ) ডেটা হারানো</span>
+                    <span class="opt-item">গ) ফাইল দুর্নীতিগ্রস্ত</span>
+                    <span class="opt-item">ঘ) সবগুলো</span>
+                </span>
+                <span class="ans">উত্তর: ঘ</span>
+            </div>
+        </div>
+        <div class="footer">ফাইল অপারেশন</div>
+    </div>
+
+    <!-- স্লাইড ১৪: এক্সেপশন হ্যান্ডলিং -->
+    <div class="slide">
+        <div class="slide-number">১৪</div>
+        <div class="slide-header"><h2>১৩. এক্সেপশন হ্যান্ডলিং</h2></div>
+        <code>
+            try:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# risky code<br>
+            except ExceptionType:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# handle error<br>
+            finally:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;# always execute
+        </code>
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">৪৯. এক্সেপশন হ্যান্ডলিং কেন ব্যবহার করা হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) প্রোগ্রাম ক্র্যাশ রোধে</span>
+                    <span class="opt-item">খ) প্রোগ্রাম ধীর করার জন্য</span>
+                    <span class="opt-item">গ) ইচ্ছাকৃত ভুল তৈরি করতে</span>
+                    <span class="opt-item">ঘ) মেমরি ব্যবহার বাড়াতে</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৫০. try ব্লকের পর কোন ব্লক ব্যবহার করা বাধ্যতামূলক?</span>
+                <span class="options">
+                    <span class="opt-item">ক) finally</span>
+                    <span class="opt-item">খ) except</span>
+                    <span class="opt-item">গ) else</span>
+                    <span class="opt-item">ঘ) কোনটিই নয়</span>
+                </span>
+                <span class="ans">উত্তর: খ (অন্তত একটি except বা finally)</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৫১. finally ব্লক কখন এক্সিকিউট হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) এক্সেপশন হলে</span>
+                    <span class="opt-item">খ) এক্সেপশন না হলেও</span>
+                    <span class="opt-item">গ) কখনোই না</span>
+                    <span class="opt-item">ঘ) শুধু এক্সেপশন না হলে</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৫২. এক্সেপশন intentionally তৈরি করতে কোন কীওয়ার্ড ব্যবহার করা হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) throw</span>
+                    <span class="opt-item">খ) raise</span>
+                    <span class="opt-item">গ) error</span>
+                    <span class="opt-item">ঘ) exception</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+        </div>
+        <div class="footer">এরর হ্যান্ডলিং</div>
+    </div>
+
+    <!-- স্লাইড ১৫: মডিউল ও প্যাকেজ -->
+    <div class="slide">
+        <div class="slide-number">১৫</div>
+        <div class="slide-header"><h2>১৪. মডিউল ও প্যাকেজ</h2></div>
+        <code>
+            import math<br>
+            from math import sqrt<br>
+            import numpy as np
+        </code>
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">৫৩. মডিউল কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) একটি ফাংশন</span>
+                    <span class="opt-item">খ) একটি পাইথন ফাইল যাতে ফাংশন/ক্লাস থাকে</span>
+                    <span class="opt-item">গ) একটি ভেরিয়েবল</span>
+                    <span class="opt-item">ঘ) একটি লুপ</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৫৪. মডিউল ইম্পোর্ট করতে কোন কীওয়ার্ড ব্যবহার করা হয়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) include</span>
+                    <span class="opt-item">খ) import</span>
+                    <span class="opt-item">গ) using</span>
+                    <span class="opt-item">ঘ) from</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৫৫. math.sqrt(25) এর মান কত?</span>
+                <span class="options">
+                    <span class="opt-item">ক) ৫</span>
+                    <span class="opt-item">খ) ২৫</span>
+                    <span class="opt-item">গ) ৬২৫</span>
+                    <span class="opt-item">ঘ) ৫.০</span>
+                </span>
+                <span class="ans">উত্তর: ঘ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৫৬. প্যাকেজ এবং মডিউলের মধ্যে সম্পর্ক কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) প্যাকেজে একাধিক মডিউল থাকে</span>
+                    <span class="opt-item">খ) মডিউলে একাধিক প্যাকেজ থাকে</span>
+                    <span class="opt-item">গ) একই জিনিস</span>
+                    <span class="opt-item">ঘ) কোন সম্পর্ক নেই</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+        </div>
+        <div class="footer">মডিউল ও প্যাকেজ</div>
+    </div>
+
+    <!-- স্লাইড ১৬: OOP কনসেপ্ট -->
+    <div class="slide">
+        <div class="slide-number">১৬</div>
+        <div class="slide-header"><h2>১৫. অবজেক্ট ওরিয়েন্টেড প্রোগ্রামিং</h2></div>
+        <code>
+            class Student:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, name):<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.name = name<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;def display(self):<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(self.name)
+        </code>
+        <div class="mcq-container">
+            <div class="q-box">
+                <span class="question">৫৭. ক্লাস কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) অবজেক্টের ব্লুপ্রিন্ট</span>
+                    <span class="opt-item">খ) একটি ফাংশন</span>
+                    <span class="opt-item">গ) একটি ভেরিয়েবল</span>
+                    <span class="opt-item">ঘ) একটি মডিউল</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৫৮. __init__ মেথড কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) ডেস্ট্রাক্টর</span>
+                    <span class="opt-item">খ) কনস্ট্রাক্টর (ইনিশিয়ালাইজার)</span>
+                    <span class="opt-item">গ) নরমাল মেথড</span>
+                    <span class="opt-item">ঘ) স্ট্যাটিক মেথড</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৫৯. self প্যারামিটার কী বোঝায়?</span>
+                <span class="options">
+                    <span class="opt-item">ক) নিজস্ব ক্লাস</span>
+                    <span class="opt-item">খ) নিজস্ব অবজেক্ট</span>
+                    <span class="opt-item">গ) প্যারেন্ট ক্লাস</span>
+                    <span class="opt-item">ঘ) গ্লোবাল ভেরিয়েবল</span>
+                </span>
+                <span class="ans">উত্তর: খ</span>
+            </div>
+            <div class="q-box">
+                <span class="question">৬০. ইনহেরিট্যান্স কী?</span>
+                <span class="options">
+                    <span class="opt-item">ক) এক ক্লাসের বৈশিষ্ট্য অন্য ক্লাসে ব্যবহার</span>
+                    <span class="opt-item">খ) ডেটা লুকানো</span>
+                    <span class="opt-item">গ) মেথড ওভারলোডিং</span>
+                    <span class="opt-item">ঘ) ফাংশন কল করা</span>
+                </span>
+                <span class="ans">উত্তর: ক</span>
+            </div>
+        </div>
+        <div class="footer">অবজেক্ট ওরিয়েন্টেড প্রোগ্রামিং</div>
+    </div>
+    </div> 
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // পেজ সুইচিং লজিক
+        function showPage(pageId, btn) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+            document.getElementById(pageId).classList.add('active');
+            btn.classList.add('active');
+            
+            // পেজ চেঞ্জ হলে স্ক্রল উপরে নিয়ে যাবে
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // এনিমেটেড পার্টিকেল জেনারেশন
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 70; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 5 + 2;
+                p.style.cssText = `
+                    width: ${size}px; height: ${size}px;
+                    left: ${Math.random() * 100}%;
+                    background: ${['#FFD43B', '#4ecdc4', '#ff6b6b'][Math.floor(Math.random()*3)]};
+                    box-shadow: 0 0 ${size*2}px currentColor;
+                    animation-duration: ${Math.random() * 6 + 4}s;
+                    animation-delay: -${Math.random() * 10}s;
+                `;
+                container.appendChild(p);
+            }
+        }
+        window.onload = createParticles;
+    </script>
+</body>
+</html>
