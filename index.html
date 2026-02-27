@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #FFD43B;
+            --primary: #d5ff3b;
             --secondary: #4ecdc4;
             --glass: rgba(255, 255, 255, 0.1);
             --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -32,15 +32,28 @@
         .container { max-width: 950px; margin: 0 auto; padding: 40px 20px; }
 
         /* --- নেভিগেশন মেনু --- */
-        .nav-menu {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-            position: sticky;
-            top: 20px;
-            z-index: 100;
-        }
+
+         .nav-menu {
+        /* প্রধান পরিবর্তন: sticky থেকে fixed */
+        position: fixed; 
+        top: 0;         /* স্ক্রিনের একদম উপরে আটকে থাকবে */
+        left: 0;        /* বাম দিক থেকে শুরু হবে */
+        width: 100%;    /* পুরো স্ক্রিন জুড়ে থাকবে */
+        
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        padding: 20px 0;
+        z-index: 1000;  /* যাতে অন্য সব কন্টেন্টের উপরে থাকে */
+        
+        /* আপনার প্রিয় গ্লাস ইফেক্ট */
+        background: rgba(255, 255, 255, 0); 
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-bottom: 1px solid rgba(226, 181, 181, 0.1);
+    }
+
+        
 
         .nav-btn {
             background: var(--glass);
@@ -64,7 +77,7 @@
             background: var(--primary);
             color: #000;
             border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(255, 212, 59, 0.4);
+            box-shadow: 0 0 20px rgba(213, 247, 61, 0.4);
         }
 
         /* --- পেজ সেকশন --- */
@@ -320,12 +333,14 @@
             <button class="nav-btn active" onclick="showPage('home', this)">🏠 হোম</button>
             <button class="nav-btn" onclick="showPage('topics', this)">📋 টপিক তালিকা</button>
             <button class="nav-btn" onclick="showPage('lecture', this)">📖 লেকচার শিট</button>
+            <button class="nav-btn" onclick="showPage('mcq', this)">⚡ MCQ সমাধান</button>
+            <button class="nav-btn" onclick="showPage('video', this)">🎥 ভিডিও লেকচার</button>
         </nav>
 
         <section id="home" class="page-section active">
             <div class="glass-card home-content">
                 <h1>Python 2026</h1>
-                <p>স্বাগতম! আপনার পাইথন লার্নিং ড্যাশবোর্ড এখন প্রস্তুত।</p>
+                <p>স্বাগতম! <br>আপনার পাইথন লার্নিং ড্যাশবোর্ড<br>,পুরোটা আমার ইচ্ছা।</p>
                 
                 <div class="hero-grid">
                     <div class="hero-card" onclick="document.querySelector('[onclick*=\'topics\']').click()">
@@ -334,14 +349,22 @@
                     </div>
                     <div class="hero-card" onclick="document.querySelector('[onclick*=\'lecture\']').click()">
                         <h3>লেকচার শিট</h3>
-                        <p>অধ্যায় ভিত্তিক বিস্তারিত আলোচনা ও MCQ সমাধান।</p>
+                        <p>অধ্যায় ভিত্তিক বিস্তারিত আলোচনা।</p>
+                    </div>
+                    <div class="hero-card" onclick="document.querySelector('[onclick*=\'mcq\']').click()">
+                        <h3>MCQ সমাধান</h3>
+                        <p>অধ্যায় ভিত্তিক MCQ সমাধান।</p>
+                    </div>
+                    <div class="hero-card" onclick="document.querySelector('[onclick*=\'video\']').click()">
+                        <h3>🎥 ভিডিও লেকচার</h3>
+                        <p>অধ্যায় ভিত্তিক ভিডিও লেকচার</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="topics" class="page-section">
-    <div class="glass-card">
+    <div class="glass-card home-content">
         <h1 style="margin-bottom: 30px; text-align: center;">🐍 Python পূর্ণাঙ্গ রোডম্যাপ</h1>
         
         <div class="topic-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
@@ -460,13 +483,732 @@
                 </div>
             </div>
             <p style="text-align: center; margin-top: 25px; font-size: 0.85em; opacity: 0.6;">
-                প্রতিটি টপিক ৫টি করে সাবটপিকে বিভক্ত। নিয়মিত প্র্যাকটিস লজিক বিল্ডআপে সাহায্য করবে।
+                <b>উন্মুক্ত প্রঙ্গনে চোখ বন্ধ হোক,এক নতুন প্রভাতের আসাই..</b>
             </p>
         </div>
     </div>
 </section>
-        <section id="lecture" class="page-section">
-            <div class="glass-card">
+
+
+
+    
+<!-- mcq -->
+    <section id="lecture" class="page-section">
+    <div class="glass-card">
+        <div style="text-align: center; border-bottom: 2px solid var(--glass); padding-bottom: 20px; margin-bottom: 30px;">
+            <h1 style="color: var(--primary);">Python লেকচার নোট</h1>
+            <p style="opacity: 0.8;">প্রোগ্রামিং ভাষা ও অনুবাদক মেকানিজম</p>
+        </div>
+
+        <div style="line-height: 1.8; color: #e0e0e0;">
+            
+            <h2 style="color: var(--secondary);"><span style="margin-right: 10px;">💻</span>প্রোগ্রামিং ভাষা কী?</h2>
+            <p>প্রোগ্রামিং ভাষা হলো এমন এক ধরনের ভাষা মাধ্যম যা প্রধানত কম্পিউটারকে নিয়ন্ত্রণ করতে দিক-নির্দেশনা প্রদান করে। 
+            যেমন: <span style="color: var(--primary);">C (Mother of Language), C++, Python, Java, SQL</span> ইত্যাদি।</p>
+
+            <div style="background: rgba(255, 212, 59, 0.1); padding: 20px; border-radius: 15px; margin: 25px 0; border-left: 5px solid var(--primary);">
+                <h3 style="color: var(--primary); margin-bottom: 10px;">Application/Apps:</h3>
+                <ul style="list-style: none; padding-left: 10px;">
+                    <li>🔹 প্রোগ্রামিং ভাষার সমষ্টি।</li>
+                    <li>🔹 কাজ সম্পাদনকারী মাধ্যম, যা একগুচ্ছ নির্দেশনার মাধ্যমে চলে।</li>
+                    <li>🔹 <strong>প্রয়োজনীয়তা:</strong> এটি আমাদের সময় বাঁচায় এবং পুনরাবৃত্তিমূলক কাজকে সহজ করে।</li>
+                </ul>
+            </div>
+
+            <h3 style="text-align: center; margin: 40px 0; color: var(--secondary); font-style: italic;">
+                "কম্পিউটার কীভাবে ভাষা বোঝে? তার ম্যাকানিজম নিচে আলোচনা করা হলো"
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+                <div class="hero-card" style="cursor: default; background: rgba(255,255,255,0.03);">
+                    <h3 style="color: var(--primary);">উচ্চ-স্তরের ভাষা (High-level)</h3>
+                    <p style="font-size: 0.9em;">মানুষের ভাষার (ইংরেজি) কাছাকাছি। যেমন: Python। এটি সহজে বোঝা ও শেখা যায়।</p>
+                </div>
+                <div class="hero-card" style="cursor: default; background: rgba(255,255,255,0.03);">
+                    <h3 style="color: var(--primary);">মেশিন ভাষা (Machine Code)</h3>
+                    <p style="font-size: 0.9em;">কম্পিউটারের প্রসেসর সরাসরি বোঝে (০ এবং ১)। এটি বাইনারি কোড নামে পরিচিত।</p>
+                </div>
+            </div>
+
+            
+
+            <h2 style="color: var(--secondary); border-bottom: 1px solid var(--glass); padding-bottom: 10px;">অনুবাদক (Translators)</h2>
+            <p>উচ্চ-স্তরের ভাষাকে মেশিন ভাষায় রূপান্তর করার জন্য অনুবাদক প্রয়োজন। এটি প্রধানত ২ প্রকার:</p>
+
+            <div style="margin-top: 20px;">
+                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 15px; margin-bottom: 15px; border: 1px solid rgba(78,205,196,0.3);">
+                    <h3 style="color: var(--secondary);">১. কম্পাইলার (Compiler)</h3>
+                    <p>সম্পূর্ণ সোর্স কোডকে একইসাথে মেশিন ভাষায় রূপান্তর করে। এটি তুলনামূলক দ্রুত রান করে।</p>
+                    <ul style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">
+                        <li>✅ পুরো কোড একসাথে এনালাইসিস করে।</li>
+                        <li>✅ এরর না থাকলে সরাসরি মেশিন কোড তৈরি করে।</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,107,107,0.3);">
+                    <h3 style="color: #ff6b6b;">২. ইন্টারপ্রেটার (Interpreter)</h3>
+                    <p>সোর্স কোডকে লাইন বাই লাইন এনালাইসিস এবং মেশিন ভাষায় রূপান্তর করে।</p>
+                    <ul style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">
+                        <li>⚠️ লাইনে এরর থাকলে কোড সেখানেই থেমে যায়।</li>
+                        <li>✅ এরর না থাকলে সাথে সাথে ফলাফল দেখায়।</li>
+                    </ul>
+                </div>
+            </div>
+
+           
+        </div>
+
+        <!-- ..... -->
+           
+    <div style="margin-bottom: 30px;">
+        <h2 style="color: var(--primary);">🔧 পাইথন অপারেটর বিশ্লেষণ</h2>
+        <p style="opacity: 0.8;">প্রোগ্রামিংয়ে গাণিতিক ও যৌক্তিক কাজ সম্পাদনের মাধ্যম</p>
+    </div>
+
+    <h3 style="color: var(--secondary); margin-bottom: 15px;">১. গাণিতিক অপারেটর (Arithmetic Operators)</h3>
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.2); border-radius: 10px; overflow: hidden;">
+            <thead style="background: var(--glass);">
+                <tr>
+                    <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--glass);">অপারেটর</th>
+                    <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--glass);">নাম</th>
+                    <th style="padding: 12px; text-align: left; border-bottom: 1px solid var(--glass);">উদাহরণ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05);">+</td><td>যোগ</td><td>5 + 2 = 7</td></tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05);">-</td><td>বিয়োগ</td><td>5 - 2 = 3</td></tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05);">*</td><td>গুণ</td><td>5 * 2 = 10</td></tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05);">/</td><td>ভাগ (Float)</td><td>5 / 2 = 2.5</td></tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05);">//</td><td>পূর্ণ সংখ্যা ভাগ (Floor)</td><td>5 // 2 = 2</td></tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05);">%</td><td>ভাগশেষ (Modulus)</td><td>5 % 2 = 1</td></tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05);">**</td><td>পাওয়ার (Exponentiation)</td><td>5 ** 2 = 25</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+
+    <div style="margin-top: 40px;">
+        <h3 style="color: var(--secondary); margin-bottom: 15px;">২. লজিক্যাল অপারেটর (Logical Operators)</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+            <div class="hero-card" style="cursor: default; padding: 20px; border-left: 4px solid #4ecdc4;">
+                <h4 style="color: var(--primary);">and</h4>
+                <p style="font-size: 0.9em;">সবগুলো শর্ত সত্য হলে ফলাফল সত্য (True) হয়।</p>
+            </div>
+            <div class="hero-card" style="cursor: default; padding: 20px; border-left: 4px solid #ff6b6b;">
+                <h4 style="color: var(--primary);">or</h4>
+                <p style="font-size: 0.9em;">যেকোনো একটি শর্ত সত্য হলেই ফলাফল সত্য হয়।</p>
+            </div>
+            <div class="hero-card" style="cursor: default; padding: 20px; border-left: 4px solid #ffd93d;">
+                <h4 style="color: var(--primary);">not</h4>
+                <p style="font-size: 0.9em;">ফলাফলকে উল্টে দেয় (সত্যকে মিথ্যা, মিথ্যাকে সত্য)।</p>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    
+    
+        <h3 style="color: var(--secondary); display: flex; align-items: center; gap: 10px;">
+            ৩. Comparison Operators (তুলনা করার অপারেটর)
+        </h3><br>
+        <p style="opacity: 0.8;">দুটি ভ্যালুর মধ্যে তুলনা করার জন্য এই অপারেটরগুলো ব্যবহৃত হয়। এদের ফলাফল সবসময় <strong>True</strong> অথবা <strong>False</strong> আসে।</p>
+    
+
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.2); border-radius: 12px; overflow: hidden;">
+            <thead style="background: rgba(78,205,196,0.2);">
+                <tr>
+                    <th style="padding: 15px; text-align: left; border-bottom: 1px solid var(--glass);">অপারেটর</th>
+                    <th style="padding: 15px; text-align: left; border-bottom: 1px solid var(--glass);">নাম</th>
+                    <th style="padding: 15px; text-align: left; border-bottom: 1px solid var(--glass);">উদাহরণ (x=10, y=5)</th>
+                    <th style="padding: 15px; text-align: left; border-bottom: 1px solid var(--glass);">ফলাফল</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--primary); font-weight: bold;">==</td>
+                    <td>Equal (সমান)</td>
+                    <td>x == y</td>
+                    <td style="color: #ff6b6b;">False</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--primary); font-weight: bold;">!=</td>
+                    <td>Not Equal (অসমান)</td>
+                    <td>x != y</td>
+                    <td style="color: #4ecdc4;">True</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--primary); font-weight: bold;">&gt;</td>
+                    <td>Greater Than (বড়)</td>
+                    <td>x &gt; y</td>
+                    <td style="color: #4ecdc4;">True</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--primary); font-weight: bold;">&lt;</td>
+                    <td>Less Than (ছোট)</td>
+                    <td>x &lt; y</td>
+                    <td style="color: #ff6b6b;">False</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--primary); font-weight: bold;">&gt;=</td>
+                    <td>Greater than or Equal</td>
+                    <td>x &gt;= 10</td>
+                    <td style="color: #4ecdc4;">True</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--primary); font-weight: bold;">&lt;=</td>
+                    <td>Less than or Equal</td>
+                    <td>y &lt;= 3</td>
+                    <td style="color: #ff6b6b;">False</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+
+    <div style="margin-top: 30px;">
+        <h3 style="color: var(--primary); margin-bottom: 15px;">প্রাকটিক্যাল ব্যবহার (If-Else এর সাথে):</h3>
+        <code style="display: block; background: #1e1e1e; color: #9cdcfe; padding: 20px; border-radius: 12px; border: 1px solid #333;">
+age = int(input("আপনার বয়স লিখুন: "))<br>
+
+if age >= 18:<br>
+<span></span>  print("আপনি ভোট দিতে পারবেন।") # True হলে এটি চলবে<br>
+else:<br>
+  <span></span>  print("আপনি এখনো ছোট।")      # False হলে এটি চলবে
+        </code>
+    </div>
+
+    <div style="background: rgba(255,107,107,0.1); padding: 15px; border-radius: 10px; margin-top: 20px; border: 1px solid rgba(255,107,107,0.2);">
+        <p style="font-size: 0.9em;"><strong>সতর্কতা:</strong> গণিতে আমরা সমান বুঝাতে একটি ব্যবহার করি, কিন্তু প্রোগ্রামিংয়ে একটি মানে হলো মান রাখা (Assignment),
+             আর দুটি  মানে হলো তুলনা করা। 
+            <code>A=20</code> এখানে A-তে 20 মানটি রাখা হচ্ছে,<br>
+
+            <code>A==B</code> এখানে A ও B মানটি তুলনা করা হচ্ছে।</p>   
+    </div>
+
+
+    <div class="glass-card" style="margin-top: 30px; border-left: 5px solid #FFD43B;">
+    <div style="margin-bottom: 25px;">
+        <h2 style="color: #FFD43B; display: flex; align-items: center; gap: 10px;">
+            <span>📝</span> ভ্যারিয়েবল নামকরণের নিয়ম (Variable Name Rules)
+        </h2>
+        <p style="opacity: 0.8;">পাইথনে ভ্যারিয়েবল ডিক্লেয়ার করার সময় কিছু নির্দিষ্ট নিয়ম মেনে চলতে হয়। ভুল নিয়মে নাম লিখলে কোডে <strong>SyntaxError</strong> দেখাবে।</p>
+    </div>
+
+    <div style="overflow-x: auto; margin-bottom: 30px;">
+        <table style="width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.2); border-radius: 12px; overflow: hidden;">
+            <thead style="background: rgba(255, 212, 59, 0.1);">
+                <tr>
+                    <th style="padding: 15px; text-align: left; border-bottom: 1px solid var(--glass);">বিষয়</th>
+                    <th style="padding: 15px; text-align: left; border-bottom: 1px solid var(--glass);">নিয়ম ও উদাহরণ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: bold;">শুরুতে(Starting point)</td>
+                    <td>অক্ষর (A-Z, a-z) অথবা আন্ডারস্কোর (_) দিয়ে শুরু হতে হবে। কখনো সংখ্যা (০-৯) দিয়ে শুরু করা যাবে না।<br>
+                        <small style="color: #4ecdc4;">সঠিক: _myvar, name</small> | <small style="color: #ff6b6b;">ভুল: 1name</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: bold;">অক্ষর (Characters)</td>
+                    <td>নামে শুধুমাত্র *এই আলফা-নিউমেরিক অক্ষর এবং আন্ডারস্কোর থাকতে পারে (A-Z, a-z, 0-9, এবং _ )। কোনো স্পেশাল ক্যারেক্টার যেমন: @, $, %, - ব্যবহার করা যাবে না।<br>
+                        <small style="color: #ff6b6b;">ভুল: user-name, my$var</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: bold;">কেস সেনসিটিভ (Sensitive)</td>
+                    <td>পাইথন কেস সেনসিটিভ। অর্থাৎ <code>age</code>, <code>Age</code> এবং <code>AGE</code> তিনটি আলাদা ভ্যারিয়েবল।</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: bold;">কি-ওয়ার্ড (Reserved)</td>
+                    <td>পাইথনের নিজস্ব কি-ওয়ার্ডগুলো (যেমন: if, else, for, while, print ইত্যাদি) ভ্যারিয়েবল নাম হিসেবে ব্যবহার করা যাবে না।</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+
+    <div style="margin-top: 20px; background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px;">
+        <h3 style="color: #4ecdc4; margin-bottom: 10px;">প্রফেশনাল স্টাইল (Naming Conventions):</h3>
+        <ul style="line-height: 1.8; opacity: 0.9;">
+            <li><strong>Snake Case:</strong> পাইথনে এটি সবচেয়ে জনপ্রিয়। সব অক্ষর ছোট হাতের এবং শব্দের মাঝে আন্ডারস্কোর থাকে। যেমন: <code>user_full_name</code></li>
+            <li><strong>Camel Case:</strong> প্রথম শব্দ ছোট হাতের এবং পরের শব্দগুলোর প্রথম অক্ষর বড় হাতের। যেমন: <code>userFullName</code></li>
+            <li><strong>Pascal Case:</strong> প্রতিটি শব্দের প্রথম অক্ষর বড় হাতের। যেমন: <code>UserFullName</code></li>
+        </ul>
+    </div>
+
+    <div style="background: rgba(78, 205, 196, 0.1); padding: 15px; border-radius: 10px; margin-top: 20px; border: 1px solid rgba(78, 205, 196, 0.2);">
+        <p style="font-size: 0.9em; margin: 0;">💡 <strong>প্রো টিপ:</strong> ভ্যারিয়েবলের নাম সবসময় অর্থবহ দেওয়ার চেষ্টা করুন। যেমন <code>a = 25</code> এর চেয়ে <code>age = 25</code> লেখা অনেক বেশি ভালো।</p>
+    </div>
+</div>
+
+
+
+<div class="glass-card" style="margin-top: 30px; border-left: 5px solid var(--primary);">
+    <h2 style="color: var(--primary);">🖨️ ১. print() ফাংশন</h2>
+    <p>পাইথনে কোনো তথ্য আউটপুট হিসেবে দেখানোর জন্য <code>print()</code> ফাংশন ব্যবহৃত হয়।</p>
+    
+    <div style="background: #1e1e1e; padding: 15px; border-radius: 10px; margin: 15px 0;">
+        <code style="color: #9cdcfe;">
+            print("Hello World") <span style="color: #6a9955;"># সাধারণ টেক্সট</span><br>
+            print("Python", "is", "fun", sep="-") <span style="color: #6a9955;"># আউটপুট: Python-is-fun</span><br>
+            print("Hello", end="!") <span style="color: #6a9955;"># লাইন শেষ না করে শেষে চিহ্ন যোগ করা</span>
+        </code>
+    </div>
+</div>
+
+<div class="glass-card" style="margin-top: 30px; border-left: 5px solid #4ecdc4;">
+    <h2 style="color: #4ecdc4;">📥 ২. input() ফাংশন</h2>
+    <p>ব্যবহারকারীর কাছ থেকে তথ্য সংগ্রহ করার জন্য <code>input()</code> ব্যবহৃত হয়। মনে রাখবেন, এটি সবসময় <strong>String</strong> হিসেবে তথ্য নেয়।</p>
+    
+    <div style="background: #1e1e1e; padding: 15px; border-radius: 10px; margin: 15px 0;">
+        <code style="color: #ce9178;">
+            name = input("আপনার নাম লিখুন: ")<br>
+            age = int(input("বয়স দিন: ")) <span style="color: #6a9955;"># সংখ্যায় রূপান্তর (Type Casting)</span>
+        </code>
+    </div>
+    <p style="font-size: 0.9em; color: #ff6b6b;">⚠️ নোট: সংখ্যা নিয়ে কাজ করতে চাইলে অবশ্যই <code>int()</code> বা <code>float()</code> দিয়ে কনভার্ট করে নিতে হবে।</p>
+</div>
+
+<div class="glass-card" style="margin-top: 30px; border-left: 5px solid #ff6b6b;">
+    <h2 style="color: #ff6b6b;">📊 ৩. পাইথন ডেটা টাইপ (Data Types)</h2>
+    <p>পাইথনে প্রধানত ৪ ধরনের বেসিক ডেটা টাইপ নিয়ে আমরা কাজ করি:</p>
+
+    
+
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.2); border-radius: 12px; overflow: hidden;">
+            <thead style="background: rgba(255, 107, 107, 0.1);">
+                <tr>
+                    <th style="padding: 12px; text-align: left;">টাইপ নাম</th>
+                    <th style="padding: 12px; text-align: left;">বর্ণনা</th>
+                    <th style="padding: 12px; text-align: left;">উদাহরণ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid var(--glass);"><strong>Integer (int)</strong></td>
+                    <td>পূর্ণসংখ্যা</td>
+                    <td><code>x = 10</code></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid var(--glass);"><strong>Float</strong></td>
+                    <td>দশমিক সংখ্যা</td>
+                    <td><code>y = 10.5</code></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid var(--glass);"><strong>String (str)</strong></td>
+                    <td>যেকোনো টেক্সট বা অক্ষর</td>
+                    <td><code>name = "Abir"</code></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid var(--glass);"><strong>Boolean (bool)</strong></td>
+                    <td>সত্য বা মিথ্যা (True/False)</td>
+                    <td><code>is_valid = True</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <p>ভ্যারিয়েবলের টাইপ চেক করার কমান্ড: <code>type(variable_name) #output: &lt;class 'type_name'&gt;</code></p>
+    </div>
+</div>
+
+
+<div class="glass-card" style="margin-top: 30px; border-left: 5px solid #4ecdc4;">
+    <div style="margin-bottom: 25px;">
+        <h2 style="color: #4ecdc4; display: flex; align-items: center; gap: 10px;">
+            <span>🔄</span> টাইপ কাস্টিং (Type Casting)
+        </h2>
+        <p style="opacity: 0.8;">এক ধরনের ডেটা টাইপকে অন্য ডেটা টাইপে পরিবর্তন করার প্রক্রিয়াকে <strong>Type Casting</strong> বলা হয়। পাইথনে এটি দুইভাবে ঘটে:</p>
+    </div>
+
+    <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1);">
+        <h3 style="color: #FFD43B;">১. Implicit Type Conversion (স্বয়ংক্রিয়)</h3>
+        <p>পাইথন নিজে থেকেই যখন ছোট ডেটা টাইপকে বড় ডেটা টাইপে রূপান্তর করে।</p>
+        <code style="display: block; background: #1a1a1a; padding: 10px; border-radius: 8px; color: #9cdcfe;">
+            a = 10 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;"># Integer</span><br>
+            b = 5.5 &nbsp;&nbsp;&nbsp;<span style="color: #6a9955;"># Float</span><br>
+            sum = a + b <span style="color: #6a9955;"># sum হবে 15.5 (Float)</span>
+        </code>
+    </div>
+
+    
+
+    <div style="margin-bottom: 30px;">
+        <h3 style="color: #FFD43B;">২. Explicit Type Casting (ম্যানুয়াল)</h3>
+        <p>যখন প্রোগ্রামার নিজে নির্দিষ্ট ফাংশন ব্যবহার করে টাইপ পরিবর্তন করেন।</p>
+        
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.2); border-radius: 12px;">
+                <thead style="background: rgba(78, 205, 196, 0.1);">
+                    <tr>
+                        <th style="padding: 12px; text-align: left;">ফাংশন</th>
+                        <th style="padding: 12px; text-align: left;">কাজ</th>
+                        <th style="padding: 12px; text-align: left;">উদাহরণ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 10px; border-bottom: 1px solid var(--glass);"><code>int()</code></td>
+                        <td>অন্য টাইপ থেকে পূর্ণসংখ্যায় রূপান্তর</td>
+                        <td><code>int("10")</code> → 10</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border-bottom: 1px solid var(--glass);"><code>float()</code></td>
+                        <td>অন্য টাইপ থেকে দশমিকে রূপান্তর</td>
+                        <td><code>float(5)</code> → 5.0</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border-bottom: 1px solid var(--glass);"><code>str()</code></td>
+                        <td>যেকোনো ডেটাকে টেক্সটে রূপান্তর</td>
+                        <td><code>str(100)</code> → "100"</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="background: rgba(255, 107, 107, 0.1); padding: 15px; border-radius: 10px; border: 1px solid rgba(255, 107, 107, 0.2);">
+        <p style="margin: 0; font-size: 0.95em;">
+            ⚠️ <strong>সতর্কতা:</strong> আপনি যদি <code>int("abc")</code> করার চেষ্টা করেন তবে পাইথন <strong>ValueError</strong> দিবে, কারণ "abc" কোনো বৈধ সংখ্যা নয়।
+        </p>
+    </div>
+
+    <div style="margin-top: 20px; background: #1e1e1e; padding: 20px; border-radius: 15px;">
+        <h4 style="color: #4ecdc4; margin-bottom: 10px;">Practical Use (Input Handling):</h4>
+        <code style="display: block; color: #ce9178;">
+            age = input("Enter age: ") <span style="color: #6a9955;"># এটি স্ট্রিং দিবে</span><br>
+            actual_age = int(age) &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;"># এখন এটি সংখ্যা</span><br>
+            print(actual_age + 5) &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;"># যোগ করা সম্ভব</span>
+        </code>
+    </div>
+</div>
+
+
+<div class="glass-card" style="margin-top: 30px; border-left: 5px solid #ff6b6b;">
+    <div style="margin-bottom: 25px;">
+        <h2 style="color: #ff6b6b; display: flex; align-items: center; gap: 10px;">
+            <span>⚠️</span> টাইপ কাস্টিং এর সাধারণ ভুল (Common Error)
+        </h2>
+        <p style="opacity: 0.8;">আপনি যখন <code>input()</code> থেকে পাওয়া ডেটাকে <code>int()</code> এ রূপান্তর করেন, তখন একটি বিশেষ সতর্কতা অবলম্বন করতে হয়।</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+        
+        <div style="background: rgba(255, 107, 107, 0.05); padding: 20px; border-radius: 15px; border: 1px solid rgba(255, 107, 107, 0.2);">
+            <h4 style="color: #ff6b6b; margin-top: 0;">❌ ভুল পদ্ধতি:</h4>
+            <code style="color: #ccc;">
+                a = input("Enter Name: ") <span style="color: #666;"># User দেয়: Abir</span><br>
+                b = int(a) <span style="color: #ff6b6b;"># এটি Error দিবে!</span><br>
+                print(b)
+            </code>
+            <p style="font-size: 0.85em; margin-top: 10px; color: #ff9999;">
+                <strong>কেন এরর?</strong> কারণ "Abir" একটি নাম, এটিকে অংকে (Number) রূপান্তর করা অসম্ভব। পাইথন এখানে <strong>ValueError</strong> দেখাবে।
+            </p>
+        </div>
+
+        <div style="background: rgba(78, 205, 196, 0.05); padding: 20px; border-radius: 15px; border: 1px solid rgba(78, 205, 196, 0.2);">
+            <h4 style="color: #4ecdc4; margin-top: 0;">✅ সঠিক পদ্ধতি:</h4>
+            <code style="color: #ccc;">
+                a = input("Enter Age: ") <span style="color: #666;"># User দেয়: 25</span><br>
+                b = int(a) <span style="color: #4ecdc4;"># এটি কাজ করবে।</span><br>
+                print(b)
+            </code>
+            <p style="font-size: 0.85em; margin-top: 10px; color: #aeece8;">
+                <strong>সফল হওয়ার কারণ:</strong> ইনপুট হিসেবে একটি বৈধ সংখ্যা (String formatted number) দেওয়া হয়েছে, যা <code>int()</code> সহজেই গ্রহণ করতে পারে।
+            </p>
+        </div>
+
+    </div>
+
+    
+
+    <div style="background: rgba(255, 212, 59, 0.1); padding: 15px; border-radius: 10px; margin-top: 25px; border: 1px solid rgba(255, 212, 59, 0.2);">
+        <p style="margin: 0; font-size: 0.9em;">
+            💡 <strong>আমার মনে রাখা জন্য ,আপনাদের না:</strong> কোড করার সময় সব সময় মনে রাখবেন ইউজার কী ধরনের ইনপুট দিচ্ছে। যদি ইনপুট সংখ্যা হওয়ার নিশ্চয়তা না থাকে, তবে সরাসরি ব্যবহার করা ঝুঁকিপূর্ণ। <code>int()</code> 
+        </p>
+    </div>
+</div>
+
+
+
+<div class="glass-card" style="margin-top: 30px; border-left: 5px solid #FFD43B;">
+    <div style="margin-bottom: 25px;">
+        <h2 style="color: #FFD43B; display: flex; align-items: center; gap: 10px;">
+            <span>⚖️</span> কনডিশনাল স্টেটমেন্ট (if, elif, else)
+        </h2>
+        <p style="opacity: 0.8;">প্রোগ্রামে যখন কোনো শর্তের ভিত্তিতে সিদ্ধান্ত নিতে হয়, তখন আমরা এই স্টেটমেন্টগুলো ব্যবহার করি।</p>
+    </div>
+
+    <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1);">
+        <h3 style="color: #4ecdc4; margin-top: 0;">গঠন (Structure):</h3>
+        <code style="display: block; color: #9cdcfe; line-height: 1.8;">
+            <span style="color: #c586c0;">if</span> শর্ত ১:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;"># শর্ত ১ সত্য হলে এটি চলবে</span><br>
+            <span style="color: #c586c0;">elif</span> শর্ত ২:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;"># শর্ত ২ সত্য হলে এটি চলবে</span><br>
+            <span style="color: #c586c0;">else</span>:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;"># কোনো শর্তই সত্য না হলে এটি চলবে</span>
+        </code>
+    </div>
+
+    
+
+    <div style="margin-top: 20px;">
+        <h3 style="color: #FFD43B;">১. Max ও Min বের করা</h3>
+        <div style="background: #1e1e1e; padding: 15px; border-radius: 10px;">
+            <code style="color: #ce9178;">
+                a, b = 10, 20<br>
+                <span style="color: #c586c0;">if</span> a > b:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;print("Max is a")<br>
+                <span style="color: #c586c0;">else</span>:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;print("Max is b")
+            </code>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px;">
+        <h3 style="color: #FFD43B;">২. লিপ ইয়ার (Leap Year) লজিক</h3>
+        <p style="font-size: 0.9em; opacity: 0.8;">একটি বছর লিপ ইয়ার হবে যদি সেটি ৪০০ দিয়ে বিভাজ্য হয় অথবা ৪ দিয়ে বিভাজ্য কিন্তু ১০০ দিয়ে নয়।</p>
+        <div style="background: #1e1e1e; padding: 15px; border-radius: 10px;">
+            <code style="color: #ce9178;">
+                year = 2024<br>
+                <span style="color: #c586c0;">if</span> (year % 400 == 0) <span style="color: #c586c0;">or</span> (year % 4 == 0 <span style="color: #c586c0;">and</span> year % 100 != 0):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;print("Leap Year")<br>
+                <span style="color: #c586c0;">else</span>:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;print("Not Leap Year")
+            </code>
+        </div>
+    </div>
+
+    
+
+    <div style="background: rgba(78, 205, 196, 0.1); padding: 15px; border-radius: 10px; margin-top: 25px; border: 1px solid rgba(78, 205, 196, 0.2);">
+        <p style="margin: 0; font-size: 0.9em;">
+            💡 <strong>মনে রাখুন:</strong> পাইথনে <code>if</code> ব্লকের পর অবশ্যই ৪টি স্পেস (Indentation) দিতে হয়। স্পেস না দিলে <strong>IndentationError</strong> দেখাবে।বুঝেন তাই তো,তা আমিও জানি।
+        </p>
+    </div>
+</div>
+
+
+
+<div class="glass-card" style="margin-top: 30px; border-left: 5px solid #ff6b6b;">
+    <div style="margin-bottom: 20px;">
+        <h2 style="color: #ff6b6b; display: flex; align-items: center; gap: 10px;">
+            <span>📐</span> পাইথন ইন্ডেন্টেশন (Indentation)
+        </h2>
+        <p style="opacity: 0.8;">পাইথনে কোডের ব্লক (যেমন: if, for, while) আলাদা করার জন্য ৪টি স্পেস বা একটি <b>Tab</b> ব্যবহার করা বাধ্যতামূলক।</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+        
+        <div style="background: rgba(78, 205, 196, 0.05); padding: 15px; border-radius: 10px; border: 1px solid rgba(78, 205, 196, 0.2);">
+            <h4 style="color: #4ecdc4; margin-top: 0;">✅ সঠিক (Correct)</h4>
+            <pre style="color: #ccc; font-family: monospace; line-height: 1.5;">
+if True:
+<span style="background: rgba(78, 205, 196, 0.3); border-radius: 3px;">&nbsp;&bull;&bull;&bull;&bull;&nbsp;</span>print("Correct Space")
+<span style="background: rgba(78, 205, 196, 0.3); border-radius: 3px;">&nbsp;&bull;&bull;&bull;&bull;&nbsp;</span>print("Inside Block")
+            </pre>
+            <p style="font-size: 0.8em; color: #aeece8;">এখানে ৪টি ডট বা স্পেস কোডটিকে <b>if</b> এর অধীনে রেখেছে।</p>
+        </div>
+
+        <div style="background: rgba(255, 107, 107, 0.05); padding: 15px; border-radius: 10px; border: 1px solid rgba(255, 107, 107, 0.2);">
+            <h4 style="color: #ff6b6b; margin-top: 0;">❌ ভুল (Incorrect)</h4>
+            <pre style="color: #ccc; font-family: monospace; line-height: 1.5;">
+if True:
+print("No Space!")
+<span style="color: #ff6b6b; font-weight: bold;"># IndentationError আসবে</span>
+            </pre>
+            <p style="font-size: 0.8em; color: #ff9999;">কোলনের (:) পর স্পেস না দিলে পাইথন বুঝতে পারে না কোডটি কার অধীনে।</p>
+        </div>
+    </div>
+
+    
+
+    <div style="background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 3px solid #FFD43B;">
+        <p style="margin: 0; font-size: 0.9em; line-height: 1.6;">
+            🔍 <b>কেন এটি দরকার?</b><br>
+            পাইথনে ইন্ডেন্টেশন কোডকে আরও পরিষ্কার এবং সুন্দর করে তোলে। এটি ভুল করলে পাইথন এরর মেসেজ দেয়।
+            <code>IndentationError: expected an indented block</code> 
+        </p>
+    </div>
+</div>
+
+
+
+
+
+
+ <div class="glass-card" style="margin-top: 30px; border-left: 5px solid #4ecdc4;">
+    <div style="margin-bottom: 25px;">
+        <h2 style="color: #4ecdc4; display: flex; align-items: center; gap: 10px;">
+            <span>🔄</span> for loop এর ব্যবহার
+        </h2>
+        <p style="opacity: 0.8;">পাইথনে কোনো কাজ বারবার করার জন্য <code>for loop</code> ব্যবহার করা হয়। এটি সাধারণত কোনো লিস্ট, স্ট্রিং বা নির্দিষ্ট রেঞ্জ (range) এর উপর ভিত্তি করে চলে।</p>
+    </div>
+
+    <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1);">
+        <h3 style="color: #FFD43B; margin-top: 0;">সিনট্যাক্স (Syntax):</h3>
+        <code style="display: block; color: #9cdcfe; line-height: 1.8;">
+            <span style="color: #c586c0;">for</span> variable <span style="color: #c586c0;">in</span> sequence:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #6a9955;"># লুপের ভেতরে কাজ (ইন্ডেন্টেশন জরুরি)</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print(variable)
+        </code>
+    </div>
+
+    
+
+    <div style="margin-top: 20px;">
+        <h3 style="color: #FFD43B;">range() ফাংশন বুঝুন:</h3>
+        <p style="font-size: 0.9em; opacity: 0.8;">লুপ কতবার চলবে তা নির্ধারণ করতে <code>range(start, stop, step)</code> ব্যবহার করা হয়।</p>
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.2); border-radius: 12px;">
+                <thead style="background: rgba(78, 205, 196, 0.1);">
+                    <tr>
+                        <th style="padding: 12px; text-align: left;">উদাহরণ</th>
+                        <th style="padding: 12px; text-align: left;">আউটপুট</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 10px; border-bottom: 1px solid var(--glass);"><code>range(5)</code></td>
+                        <td>0, 1, 2, 3, 4 (৫ এর আগে শেষ হবে)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border-bottom: 1px solid var(--glass);"><code>range(1, 6)</code></td>
+                        <td>1, 2, 3, 4, 5</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border-bottom: 1px solid var(--glass);"><code>range(2, 11, 2)</code></td>
+                        <td>2, 4, 6, 8, 10 (২ ঘর করে বাড়বে)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px; background: #1e1e1e; padding: 20px; border-radius: 15px;">
+        <h4 style="color: #4ecdc4; margin-bottom: 10px;">বাস্তব উদাহরণ: ১ থেকে ৫ প্রিন্ট করা</h4>
+        <code style="display: block; color: #ce9178; line-height: 1.6;">
+            <span style="color: #c586c0;">for</span> i <span style="color: #c586c0;">in</span> range(1, 6):<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print("সংখ্যাটি হলো:", i)
+        </code>
+    </div>
+
+    
+
+    <div style="background: rgba(255, 107, 107, 0.1); padding: 15px; border-radius: 10px; margin-top: 25px; border: 1px solid rgba(255, 107, 107, 0.2);">
+        <p style="margin: 0; font-size: 0.9em;">
+            💡 <strong>মনে রাখুন:VVI</strong> <code>range(n)</code> দিলে লুপ সব সময় <code>0</code> থেকে শুরু হয়ে <code>n-1</code> পর্যন্ত চলে। অর্থাৎ <code>range(10)</code> দিলে এটি ১০ পর্যন্ত যাবে না, ৯ এ শেষ হবে।
+        </p>
+    </div>
+</div>
+
+
+
+<div style="margin-top: 20px; background: #1e1e1e; padding: 20px; border-radius: 15px; border-left: 3px solid #FFD43B;">
+        <h4 style="color: #FFD43B; margin-bottom: 10px;">গুণফল বা নামতা (Multiplication Table):</h4>
+        <p style="font-size: 0.85em; color: #ccc; margin-bottom: 10px;">ধরি, আমরা ৫ এর নামতা প্রিন্ট করতে চাই:</p>
+        <code style="display: block; color: #9cdcfe; line-height: 1.6;">
+            num = 5<br>
+            <span style="color: #c586c0;">for</span> i <span style="color: #c586c0;">in</span> range(1, 11):<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print(num ,'x', i ,'=',num*i)
+        </code>
+    </div>
+
+
+
+
+    <div class="glass-card" style="margin-top: 30px; border-left: 5px solid #4ecdc4;">
+    <div style="margin-bottom: 25px;">
+        <h2 style="color: #4ecdc4; display: flex; align-items: center; gap: 10px;">
+            <span>🎭</span> Match Case (Pattern Matching)
+        </h2>
+        <p style="opacity: 0.8;">একাধিক <code>if-elif</code> ব্যবহারের পরিবর্তে সুন্দরভাবে কোড সাজাতে <code>match</code> ব্যবহৃত হয়।</p>
+    </div>
+
+    <div style="background: #1e1e1e; padding: 20px; border-radius: 15px;">
+        <h4 style="color: #FFD43B; margin-bottom: 15px;">উদাহরণ: Vowel ও Consonant চেক করা</h4>
+        <code style="display: block; color: #ce9178; line-height: 1.6;">
+            char = input("একটি অক্ষর দিন: ").lower()<br><br>
+            <span style="color: #c586c0;">match</span> char:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">case</span> 'a' | 'e' | 'i' | 'o' | 'u':<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("এটি একটি Vowel")<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #c586c0;">case</span> _ <span style="color: #6a9955;"># এখানে _ মানে অন্য সব কিছু</span>:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("এটি একটি Consonant")
+        </code>
+    </div>
+
+    
+
+    <div style="margin-top: 20px; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 10px;">
+        <p style="font-size: 0.9em; margin: 0;">
+            💡 <strong>টিপস:VVVI</strong> এখানে <code>|</code> (Pipe symbol) ব্যবহার করা হয়েছে 'অথবা' (OR) বোঝাতে। আর <code>case _</code> ব্যবহার করা হয় 'Default' হিসেবে, অর্থাৎ উপরের কোনো শর্ত না মিললে এটি চলবে।
+        </p>
+    </div>
+</div>
+
+
+
+
+<div class="glass-card" style="margin-top: 30px; border-left: 5px solid #FFD43B;">
+    <div style="margin-bottom: 25px;">
+        <h2 style="color: #FFD43B; display: flex; align-items: center; gap: 10px;">
+            <span>🔄</span> while loop এর ব্যবহার
+        </h2>
+        <p style="opacity: 0.8;"><strong>সংজ্ঞা:</strong> যখন কোনো নির্দিষ্ট শর্ত (Condition) সত্য থাকা পর্যন্ত একটি কোড ব্লককে বারবার চালাতে হয়, তখন ব্যবহৃত হয়। <code>while loop</code> </p>
+    </div>
+
+    <div style="background: #1e1e1e; padding: 20px; border-radius: 15px; border: 1px solid #333;">
+        <h3 style="color: #4ecdc4; margin-top: 0;">গঠন ও উদাহরণ:</h3>
+        <code style="display: block; color: #9cdcfe; line-height: 1.8;">
+            i = 1 <span style="color: #6a9955;"># Initialization</span><br>
+            <span style="color: #c586c0;">while</span> (i <= 5): <span style="color: #6a9955;"># Condition</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print("ধাপ নম্বর:", i)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;i += 1 <span style="color: #6a9955;"># Increment (খুবই জরুরি)</span>
+        </code>
+    </div>
+
+    
+
+    <div style="background: rgba(255, 107, 107, 0.1); padding: 15px; border-radius: 10px; margin-top: 20px; border: 1px solid rgba(255, 107, 107, 0.2);">
+        <p style="margin: 0; font-size: 0.9em;">
+            ⚠️ <strong>সতর্কতা:</strong> যদি শর্তটি কখনো মিথ্যা না হয় (যেমন আপনি লিখতে ভুলে যান), তবে লুপটি অনন্তকাল চলতে থাকবে, একে <strong>Infinite Loop</strong> বলে।<code>i += 1</code> 
+            
+        </p>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+
+        <div style="text-align: center; margin-top: 40px; opacity: 0.5; font-size: 0.9em;">
+            <p>Thank you all for your attention!</p>
+        </div>
+    </div>
+
+
+</section>
+
+<!-- ...... -->
+
+
+
+
+
+
+    <section id="mcq" class="page-section">
+            <!-- <div class="glass-card"> -->
                 
     <div class="bg-animation"></div>
     <div class="stars"></div>
@@ -484,6 +1226,7 @@
         </div>
         <div class="footer"><color> TARIKUL ISLAM(ICE-12) </color></div>
     </div>
+
 
     <!-- স্লাইড ২: প্রোগ্রাম ডিজাইন ও অনুবাদক -->
     <div class="slide">
@@ -861,9 +1604,243 @@
         <div class="footer">রেঞ্জ ও টাইপ কাস্টিং</div>
     </div>
 
+    <div class="mcq-container">
+        <!-- ... -->
+    <div class="q-box">
+           <div class="slide-header"><h2>Extra Practice</h2></div> 
+        </div>
+        <div class="mcq-container">
+    
+    <div class="q-box">
+        <span class="question">১. পাইথনে for i in range(5) লুপটি কতবার চলবে?</span>
+        <span class="options">
+            <span class="opt-item">ক) ৪ বার</span>
+            <span class="opt-item">খ) ৫ বার</span>
+            <span class="opt-item">গ) ৬ বার</span>
+            <span class="opt-item">ঘ) আনলিমিটেড</span>
+        </span>
+        <span class="ans">উত্তর: খ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">২. while লুপের কন্ডিশন সবসময় True থাকলে কী ঘটবে?</span>
+        <span class="options">
+            <span class="opt-item">ক) লুপটি বন্ধ হয়ে যাবে</span>
+            <span class="opt-item">খ) এটি একটি ইনফিনিট লুপ হবে</span>
+            <span class="opt-item">গ) এরর দেখাবে</span>
+            <span class="opt-item">ঘ) একবার চলে বন্ধ হবে</span>
+        </span>
+        <span class="ans">উত্তর: খ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">৩. লুপের ভেতর থেকে তাৎক্ষণিক বের হয়ে যাওয়ার কমান্ড কোনটি?</span>
+        <span class="options">
+            <span class="opt-item">ক) exit</span>
+            <span class="opt-item">খ) stop</span>
+            <span class="opt-item">গ) break</span>
+            <span class="opt-item">ঘ) continue</span>
+        </span>
+        <span class="ans">উত্তর: গ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">৪. লুপের একটি নির্দিষ্ট স্টেপ বাদ দিয়ে পরের স্টেপে যেতে কী ব্যবহৃত হয়?</span>
+        <span class="options">
+            <span class="opt-item">ক) skip</span>
+            <span class="opt-item">খ) continue</span>
+            <span class="opt-item">গ) break</span>
+            <span class="opt-item">ঘ) pass</span>
+        </span>
+        <span class="ans">উত্তর: খ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">৫. (True and False) এর ফলাফল কী?</span>
+        <span class="options">
+            <span class="opt-item">ক) True</span>
+            <span class="opt-item">খ) False</span>
+            <span class="opt-item">গ) None</span>
+            <span class="opt-item">ঘ) Error</span>
+        </span>
+        <span class="ans">উত্তর: খ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">৬. or অপারেটরে কখন ফলাফল True হয়?</span>
+        <span class="options">
+            <span class="opt-item">ক) অন্তত একটি শর্ত সত্য হলে</span>
+            <span class="opt-item">খ) সব শর্ত সত্য হলে</span>
+            <span class="opt-item">গ) সব শর্ত মিথ্যা হলে</span>
+            <span class="opt-item">ঘ) শর্ত না থাকলে</span>
+        </span>
+        <span class="ans">উত্তর: ক</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">৭. পাইথনে ব্যবহারকারীর থেকে ইনপুট নিতে কোন ফাংশন ব্যবহৃত হয়?</span>
+        <span class="options">
+            <span class="opt-item">ক) get()</span>
+            <span class="opt-item">খ) input()</span>
+            <span class="opt-item">গ) scan()</span>
+            <span class="opt-item">ঘ) read()</span>
+        </span>
+        <span class="ans">উত্তর: খ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">৮. print("Hello", end="*") দিলে আউটপুটের শেষে কী আসবে?</span>
+        <span class="options">
+            <span class="opt-item">ক) নতুন লাইন</span>
+            <span class="opt-item">খ) একটি স্পেস</span>
+            <span class="opt-item">গ) একটি স্টার (*)</span>
+            <span class="opt-item">ঘ) কিছুই না</span>
+        </span>
+        <span class="ans">উত্তর: গ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">৯. ইন্টারপ্রেটার কোড কীভাবে অনুবাদ করে?</span>
+        <span class="options">
+            <span class="opt-item">ক) সব একসাথে</span>
+            <span class="opt-item">খ) লাইন বাই লাইন</span>
+            <span class="opt-item">গ) প্যারাগ্রাফ আকারে</span>
+            <span class="opt-item">ঘ) শব্দ করে</span>
+        </span>
+        <span class="ans">উত্তর: খ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">১০. কম্পাইলার কোন ভাষার জন্য ব্যবহৃত হয়?</span>
+        <span class="options">
+            <span class="opt-item">ক) C/C++</span>
+            <span class="opt-item">খ) Python</span>
+            <span class="opt-item">গ) JavaScript</span>
+            <span class="opt-item">ঘ) PHP</span>
+        </span>
+        <span class="ans">উত্তর: ক</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">১১. কোড লেখার ব্যাকরণগত ভুলকে কী বলা হয়?</span>
+        <span class="options">
+            <span class="opt-item">ক) Logic Error</span>
+            <span class="opt-item">খ) Runtime Error</span>
+            <span class="opt-item">গ) Syntax Error</span>
+            <span class="opt-item">ঘ) Bug</span>
+        </span>
+        <span class="ans">উত্তর: গ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">১২. ডিবাগিং (Debugging) শব্দের অর্থ কী?</span>
+        <span class="options">
+            <span class="opt-item">ক) কোড লেখা</span>
+            <span class="opt-item">খ) কোড সাজানো</span>
+            <span class="opt-item">গ) ভুল খুঁজে সংশোধন করা</span>
+            <span class="opt-item">ঘ) কোড ডিলিট করা</span>
+        </span>
+        <span class="ans">উত্তর: গ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">১৩. পাইথনে f-string ব্যবহারের সঠিক নিয়ম কোনটি?</span>
+        <span class="options">
+            <span class="opt-item">ক) print(f"Name is {name}")</span>
+            <span class="opt-item">খ) print("f Name is {name}")</span>
+            <span class="opt-item">গ) print(f"Name is name")</span>
+            <span class="opt-item">ঘ) format("Name")</span>
+        </span>
+        <span class="ans">উত্তর: ক</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">১৪. নিচের কোনটি একটি ফ্লোট (Float) সংখ্যা?</span>
+        <span class="options">
+            <span class="opt-item">ক) 10</span>
+            <span class="opt-item">খ) "10.5"</span>
+            <span class="opt-item">গ) 10.5</span>
+            <span class="opt-item">ঘ) 10+5j</span>
+        </span>
+        <span class="ans">উত্তর: গ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">১৫. bool("") অর্থাৎ খালি স্ট্রিংয়ের বুলিয়ান মান কত?</span>
+        <span class="options">
+            <span class="opt-item">ক) True</span>
+            <span class="opt-item">খ) False</span>
+            <span class="opt-item">গ) 0</span>
+            <span class="opt-item">ঘ) Error</span>
+        </span>
+        <span class="ans">উত্তর: খ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">১৬. নিচের কোনটি সঠিক ভ্যারিয়েবল ডিক্লেয়ারেশন?</span>
+        <span class="options">
+            <span class="opt-item">ক) 1st_name = "Abir"</span>
+            <span class="opt-item">খ) first name = "Abir"</span>
+            <span class="opt-item">গ) first_name = "Abir"</span>
+            <span class="opt-item">ঘ) first-name = "Abir"</span>
+        </span>
+        <span class="ans">উত্তর: গ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">১৭. "100" স্ট্রিংকে ইন্টিজারে রূপান্তরের সঠিক কোড কোনটি?</span>
+        <span class="options">
+            <span class="opt-item">ক) str(100)</span>
+            <span class="opt-item">খ) float("100")</span>
+            <span class="opt-item">গ) int("100")</span>
+            <span class="opt-item">ঘ) Integer("100")</span>
+        </span>
+        <span class="ans">উত্তর: গ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">১৮. 10 % 3 এর ফলাফল কী?</span>
+        <span class="options">
+            <span class="opt-item">ক) 3</span>
+            <span class="opt-item">খ) 1</span>
+            <span class="opt-item">গ) 0.33</span>
+            <span class="opt-item">ঘ) 10</span>
+        </span>
+        <span class="ans">উত্তর: খ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">১৯. পাইথনের উদ্ভাবক কে?</span>
+        <span class="options">
+            <span class="opt-item">ক) ডেনিস রিচি</span>
+            <span class="opt-item">খ) গুইডো ভ্যান রসাম</span>
+            <span class="opt-item">গ) বিল গেটস</span>
+            <span class="opt-item">ঘ) জেমস গসলিং</span>
+        </span>
+        <span class="ans">উত্তর: খ</span>
+    </div>
+
+    <div class="q-box">
+        <span class="question">২০. range(2, 10, 2) সিরিজের শেষ সংখ্যাটি কত হবে?</span>
+        <span class="options">
+            <span class="opt-item">ক) 10</span>
+            <span class="opt-item">খ) 8</span>
+            <span class="opt-item">গ) 9</span>
+            <span class="opt-item">ঘ) 2</span>
+        </span>
+        <span class="ans">উত্তর: খ</span>
+    </div>
+</div>
+
+        <!-- ... -->
+
+        <div class="q-box">
+           <div class="slide-header"><h2>Extra Topic</h2></div> 
+        </div>
+    
     <!-- স্লাইড ৯: লিস্ট ও টাপল -->
     <div class="slide">
-        <div class="slide-number">০৯</div>
+        <div class="slide-number">০৯ </div>
         <div class="slide-header"><h2>৮. লিস্ট ও টাপল</h2></div>
         <code>
             list1 = [1, 2, 3, 4]  # mutable<br>
@@ -1297,8 +2274,44 @@
         <div class="footer">অবজেক্ট ওরিয়েন্টেড প্রোগ্রামিং</div>
     </div>
     </div> 
+            <!-- </div> -->
+    </section>
+
+
+
+        
+<!-- video -->
+    <section id="video" class="page-section">
+    <div class="glass-card">
+        <div style="text-align: center; border-bottom: 2px solid var(--glass); padding-bottom: 20px; margin-bottom: 30px;">
+            <h1 style="color: var(--primary);">Python ভিডিও লেকচার</h1>
+            <p style="opacity: 0.8;">প্রোগ্রামিং ভাষা ও অনুবাদক মেকানিজম</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 30px;">
+            <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                <h3 style="color: var(--primary); margin-bottom: 15px;">১. প্রোগ্রামিং ভাষা ও অনুবাদক</h3>
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/VIDEO_ID_1" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
             </div>
-        </section>
+
+            <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                <h3 style="color: var(--primary); margin-bottom: 15px;">২. অপারেটর বিশ্লেষণ</h3>
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/VIDEO_ID_2" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+            <!-- আরও ভিডিও সেকশন এখানে যোগ করা যেতে পারে -->
+        </div>
+
+         <!-- .... -->
+
+        <div style="text-align: center; margin-top: 40px; opacity: 0.5; font-size: 0.9em;">
+            <p>Thank you all for watching!</p>
+        </div>
+    
+    </section>
+
+<!-- ....... -->
+
     </div>
 
     <script>
