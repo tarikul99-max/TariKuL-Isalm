@@ -32,114 +32,142 @@
         @keyframes pulseLive { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
         .login-bg {
             background: linear-gradient(135deg, #0f172a 0%, #14532d 100%);
+            background-attachment: fixed;
+        }
+
+        /* লগইন স্ক্রিন স্ক্রল ঠিক করার CSS */
+        #loginScreen {
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            -webkit-overflow-scrolling: touch;
+            align-items: flex-start !important;
+            padding-top: 1rem !important;
+            padding-bottom: 1.5rem !important;
+        }
+        #loginScreen > div {
+            margin: auto;
+            width: 100%;
+        }
+
+        /* মোবাইলে আরো ছোট */
+        @media (max-height: 750px) {
+            #loginScreen { padding-top: 0.5rem !important; padding-bottom: 1rem !important; }
+            #loginScreen .login-card { padding: 1rem !important; }
+            #loginScreen .login-logo { width: 3rem; height: 3rem; font-size: 1.5rem; margin-bottom: 0.5rem; }
+            #loginScreen h1 { font-size: 1.25rem; }
+            #loginScreen .login-input { padding: 0.55rem 0.75rem !important; font-size: 0.8rem !important; }
+            #loginScreen .login-btn { padding: 0.65rem !important; font-size: 0.8rem !important; }
+            #loginScreen form { gap: 0.6rem !important; }
+            #loginScreen .bismillah { font-size: 1.15rem; }
+            #loginScreen .bismillah-sub { font-size: 0.6rem; }
         }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 antialiased min-h-screen flex flex-col transition-colors duration-200">
 
     <!-- ============================================================ -->
-    <!-- 🔐 LOGIN SCREEN (প্রথমে এটা দেখাবে)                          -->
+    <!-- 🔐 LOGIN SCREEN (স্ক্রল-যোগ্য)                               -->
     <!-- ============================================================ -->
-    <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center p-4 login-bg">
-        <div class="w-full max-w-md">
+    <div id="loginScreen" class="fixed inset-0 z-50 flex p-3 sm:p-4 login-bg">
+        <div class="w-full max-w-md mx-auto my-auto">
             <!-- Bismillah -->
-            <div class="text-center mb-6">
-                <p class="font-arabic text-amber-300 text-2xl tracking-widest font-bold drop-shadow mb-1">
+            <div class="text-center mb-4 sm:mb-6">
+                <p class="bismillah font-arabic text-amber-300 text-xl sm:text-2xl tracking-widest font-bold drop-shadow mb-1">
                     بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
                 </p>
-                <p class="text-xs text-emerald-300/80">বিসমিল্লাহির রহমানির রহিম</p>
+                <p class="bismillah-sub text-[10px] sm:text-xs text-emerald-300/80">বিসমিল্লাহির রহমানির রহিম</p>
             </div>
 
-            <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800">
-                <div class="text-center mb-6">
-                    <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center mx-auto mb-3 text-3xl shadow-inner border border-emerald-300 dark:border-emerald-800">
+            <div class="login-card bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800">
+                <div class="text-center mb-5 sm:mb-6">
+                    <div class="login-logo w-14 h-14 sm:w-16 sm:h-16 bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl sm:text-3xl shadow-inner border border-emerald-300 dark:border-emerald-800">
                         <i class="fa-solid fa-utensils"></i>
                     </div>
-                    <h1 class="text-2xl font-bold text-slate-900 dark:text-slate-100">মেস ম্যানেজার</h1>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">আপনার মেসে প্রবেশ করুন বা নতুন মেস তৈরি করুন</p>
+                    <h1 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">মেস ম্যানেজার</h1>
+                    <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-1">আপনার মেসে প্রবেশ করুন বা নতুন মেস তৈরি করুন</p>
                 </div>
 
                 <!-- Tab: Login / New -->
-                <div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl mb-5">
-                    <button onclick="showLoginTab('join')" id="tabLoginJoin" class="flex-1 py-2 rounded-lg text-xs font-bold transition bg-white dark:bg-slate-900 text-emerald-600 shadow-sm">
+                <div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl mb-4 sm:mb-5">
+                    <button onclick="showLoginTab('join')" id="tabLoginJoin" class="flex-1 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition bg-white dark:bg-slate-900 text-emerald-600 shadow-sm">
                         <i class="fa-solid fa-right-to-bracket mr-1"></i> মেসে প্রবেশ
                     </button>
-                    <button onclick="showLoginTab('create')" id="tabLoginCreate" class="flex-1 py-2 rounded-lg text-xs font-bold transition text-slate-600 dark:text-slate-400">
+                    <button onclick="showLoginTab('create')" id="tabLoginCreate" class="flex-1 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition text-slate-600 dark:text-slate-400">
                         <i class="fa-solid fa-plus mr-1"></i> নতুন মেস
                     </button>
                 </div>
 
                 <!-- JOIN FORM -->
-                <form id="joinForm" onsubmit="handleJoinMess(event)" class="space-y-4">
+                <form id="joinForm" onsubmit="handleJoinMess(event)" class="space-y-3 sm:space-y-4">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                        <label class="block text-[11px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                             <i class="fa-solid fa-hashtag text-emerald-600 mr-1"></i> Mess ID
                         </label>
                         <input type="text" id="joinMessId" placeholder="যেমন: dhanmondi-paradise" required 
-                            class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3.5 py-2.5 text-sm font-mono focus:ring-2 focus:ring-emerald-500">
+                            class="login-input w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3 py-2 sm:px-3.5 sm:py-2.5 text-sm font-mono focus:ring-2 focus:ring-emerald-500">
                         <p class="text-[10px] text-slate-400 mt-1">মেস এডমিন আপনাকে এই ID দিয়েছেন</p>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                        <label class="block text-[11px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                             <i class="fa-solid fa-key text-emerald-600 mr-1"></i> View Password
                         </label>
                         <input type="password" id="joinPassword" placeholder="মেসের কমন পাসওয়ার্ড" required 
-                            class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-emerald-500">
+                            class="login-input w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3 py-2 sm:px-3.5 sm:py-2.5 text-sm focus:ring-2 focus:ring-emerald-500">
                         <p class="text-[10px] text-slate-400 mt-1">ডাটা দেখতে এই পাসওয়ার্ড দিন</p>
                     </div>
-                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-sm shadow-lg transition flex items-center justify-center gap-2">
+                    <button type="submit" class="login-btn w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 sm:py-3 rounded-xl text-sm shadow-lg transition flex items-center justify-center gap-2">
                         <i class="fa-solid fa-right-to-bracket"></i>
                         <span>মেসে প্রবেশ করুন</span>
                     </button>
                 </form>
 
                 <!-- CREATE FORM -->
-                <form id="createForm" onsubmit="handleCreateMess(event)" class="space-y-4 hidden">
+                <form id="createForm" onsubmit="handleCreateMess(event)" class="space-y-3 sm:space-y-4 hidden">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                        <label class="block text-[11px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                             <i class="fa-solid fa-hashtag text-indigo-600 mr-1"></i> নতুন Mess ID
                         </label>
                         <input type="text" id="createMessId" placeholder="যেমন: karim-mess-2026" required 
                             pattern="[a-z0-9\-]{3,30}"
-                            class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3.5 py-2.5 text-sm font-mono focus:ring-2 focus:ring-indigo-500">
+                            class="login-input w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3 py-2 sm:px-3.5 sm:py-2.5 text-sm font-mono focus:ring-2 focus:ring-indigo-500">
                         <p class="text-[10px] text-slate-400 mt-1">ছোট হাতের ইংরেজি, সংখ্যা ও হাইফেন (-) — কমপক্ষে ৩ অক্ষর</p>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                        <label class="block text-[11px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                             <i class="fa-solid fa-house text-indigo-600 mr-1"></i> মেসের নাম
                         </label>
-                        <input type="text" id="createMessName" placeholder="যেমন: ধানমন্ডি প্যারাডাইস মেস" required 
-                            class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-indigo-500">
+                        <input type="text" id="createMessName" placeholder="ধানমন্ডি প্যারাডাইস মেস" required 
+                            class="login-input w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3 py-2 sm:px-3.5 sm:py-2.5 text-sm focus:ring-2 focus:ring-indigo-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                        <label class="block text-[11px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                             <i class="fa-solid fa-users text-indigo-600 mr-1"></i> View Password (সব মেম্বারের জন্য)
                         </label>
-                        <input type="text" id="createViewPassword" placeholder="যেমন: mess2026" required minlength="3"
-                            class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3.5 py-2.5 text-sm font-mono focus:ring-2 focus:ring-indigo-500">
-                        <p class="text-[10px] text-slate-400 mt-1">এই পাসওয়ার্ড সব মেম্বারকে শেয়ার করবেন (ডাটা দেখার জন্য)</p>
+                        <input type="text" id="createViewPassword" placeholder="mess2026" required minlength="3"
+                            class="login-input w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3 py-2 sm:px-3.5 sm:py-2.5 text-sm font-mono focus:ring-2 focus:ring-indigo-500">
+                        <p class="text-[10px] text-slate-400 mt-1">সব মেম্বারকে এইটা দিবেন (শুধু দেখার জন্য)</p>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                            <i class="fa-solid fa-shield-halved text-rose-600 mr-1"></i> Admin Password (শুধু আপনি জানবেন)
+                        <label class="block text-[11px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                            <i class="fa-solid fa-shield-halved text-rose-600 mr-1"></i> Admin Password (শুধু আপনি)
                         </label>
-                        <input type="text" id="createAdminPassword" placeholder="যেমন: mySecret123" required minlength="4"
-                            class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3.5 py-2.5 text-sm font-mono focus:ring-2 focus:ring-rose-500">
-                        <p class="text-[10px] text-slate-400 mt-1">এডিট করার জন্য এই পাসওয়ার্ড লাগবে — কারো সাথে শেয়ার করবেন না</p>
+                        <input type="text" id="createAdminPassword" placeholder="mySecret123" required minlength="4"
+                            class="login-input w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3 py-2 sm:px-3.5 sm:py-2.5 text-sm font-mono focus:ring-2 focus:ring-rose-500">
+                        <p class="text-[10px] text-slate-400 mt-1">এডিট করার পাসওয়ার্ড — কারো সাথে শেয়ার করবেন না</p>
                     </div>
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-sm shadow-lg transition flex items-center justify-center gap-2">
+                    <button type="submit" class="login-btn w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 sm:py-3 rounded-xl text-sm shadow-lg transition flex items-center justify-center gap-2">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
                         <span>নতুন মেস তৈরি করুন</span>
                     </button>
                 </form>
 
-                <div id="loginError" class="hidden mt-4 p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl text-xs text-rose-700 dark:text-rose-300 flex items-center gap-2">
+                <div id="loginError" class="hidden mt-3 sm:mt-4 p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl text-[11px] sm:text-xs text-rose-700 dark:text-rose-300 flex items-center gap-2">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <span id="loginErrorMsg"></span>
                 </div>
             </div>
 
-            <p class="text-center text-xs text-slate-400 dark:text-slate-500 mt-6">
+            <p class="text-center text-[10px] sm:text-xs text-slate-400 dark:text-slate-500 mt-4 sm:mt-6 pb-2">
                 <i class="fa-solid fa-shield-halved mr-1"></i>
                 প্রতিটি মেসের ডাটা আলাদা ও সুরক্ষিত
             </p>
@@ -147,11 +175,10 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- MAIN APP (লগইনের পরে দেখাবে)                                  -->
+    <!-- MAIN APP                                                     -->
     <!-- ============================================================ -->
     <div id="mainApp" class="hidden min-h-screen flex flex-col">
 
-        <!-- Header Banner -->
         <header class="bg-slate-900 text-white shadow-xl sticky top-0 z-40 border-b border-slate-800">
             <div class="bg-gradient-to-r from-emerald-950 via-slate-950 to-emerald-950 border-b border-emerald-900/60 py-2 px-4 text-center">
                 <p class="font-arabic text-amber-300 text-lg sm:text-xl tracking-widest font-bold drop-shadow select-none">
@@ -173,7 +200,7 @@
                         </h1>
                         <p class="text-xs text-emerald-300 font-medium flex items-center gap-1.5">
                             <i class="fa-solid fa-calendar-days text-amber-400"></i>
-                            <span>চলতি মাস: <strong id="headerMonthText" class="text-white font-bold">অক্টোবর ২০২৬</strong></span>
+                            <span>চলতি মাস: <strong id="headerMonthText" class="text-white font-bold">-</strong></span>
                         </p>
                     </div>
                 </div>
@@ -210,7 +237,6 @@
                 </div>
             </div>
 
-            <!-- Mess ID chip -->
             <div class="bg-slate-950/50 border-t border-slate-800 py-1.5 px-4 text-center">
                 <span class="text-[10px] text-emerald-300 font-mono">
                     <i class="fa-solid fa-hashtag mr-1"></i>Mess ID: <strong id="headerMessId" class="text-amber-300">-</strong>
@@ -619,7 +645,8 @@
 
     <script>
         // ============================================================
-        // 🔥 FIREBASE CONFIG — আপনার databaseURL এখানে বসান
+        // 🔥 FIREBASE CONFIG
+        // ⚠️ databaseURL এখানে আপনার প্রকৃত URL বসান
         // ============================================================
         const firebaseConfig = {
             apiKey: "AIzaSyA6c69hOzq8eauL3lQoY2QkCKXm47RD09E",
@@ -646,18 +673,15 @@
         }
 
         // ============================================================
-        // CURRENT SESSION STATE
+        // APP STATE
         // ============================================================
-        let currentMessId = null;         // যেই মেসে এখন আছি
-        let currentMessMeta = null;       // { name, viewPassword, adminPassword }
+        let currentMessId = null;
+        let currentMessMeta = null;
         let isAdmin = false;
         let pendingAdminCallback = null;
         let isRemoteUpdate = false;
         let currentListenerRef = null;
 
-        // ============================================================
-        // MESS DATA (current mess)
-        // ============================================================
         let messDetails = { name: "মেস মিল ও হিসাব সিস্টেম" };
         let selectedMonth = new Date().toISOString().slice(0, 7);
         let members = [];
@@ -675,21 +699,18 @@
         // INIT
         // ============================================================
         window.onload = function() {
-            // Dark theme load
             if (localStorage.getItem('mess_theme') === 'dark') {
                 document.documentElement.classList.add('dark');
                 const icon = document.getElementById('themeIcon');
                 if (icon) icon.className = "fa-solid fa-sun text-base text-amber-400";
             }
 
-            // আগে লগইন করা ছিল কিনা চেক করি
             const savedMessId = localStorage.getItem('current_mess_id');
             const savedViewPwd = localStorage.getItem('current_mess_viewpwd');
             const savedAdminPwd = localStorage.getItem('current_mess_adminpwd');
             const savedIsAdmin = localStorage.getItem('current_mess_isadmin') === 'true';
 
             if (savedMessId && savedViewPwd) {
-                // অটো-লগইন করার চেষ্টা
                 attemptJoinMess(savedMessId, savedViewPwd, savedAdminPwd, savedIsAdmin, true);
             } else {
                 showLoginScreen();
@@ -716,13 +737,13 @@
             const createForm = document.getElementById('createForm');
 
             if (tab === 'join') {
-                joinTab.className = "flex-1 py-2 rounded-lg text-xs font-bold transition bg-white dark:bg-slate-900 text-emerald-600 shadow-sm";
-                createTab.className = "flex-1 py-2 rounded-lg text-xs font-bold transition text-slate-600 dark:text-slate-400";
+                joinTab.className = "flex-1 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition bg-white dark:bg-slate-900 text-emerald-600 shadow-sm";
+                createTab.className = "flex-1 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition text-slate-600 dark:text-slate-400";
                 joinForm.classList.remove('hidden');
                 createForm.classList.add('hidden');
             } else {
-                createTab.className = "flex-1 py-2 rounded-lg text-xs font-bold transition bg-white dark:bg-slate-900 text-indigo-600 shadow-sm";
-                joinTab.className = "flex-1 py-2 rounded-lg text-xs font-bold transition text-slate-600 dark:text-slate-400";
+                createTab.className = "flex-1 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition bg-white dark:bg-slate-900 text-indigo-600 shadow-sm";
+                joinTab.className = "flex-1 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition text-slate-600 dark:text-slate-400";
                 createForm.classList.remove('hidden');
                 joinForm.classList.add('hidden');
             }
@@ -742,12 +763,11 @@
         }
 
         // ============================================================
-        // JOIN MESS (প্রবেশ)
+        // JOIN MESS
         // ============================================================
         function handleJoinMess(e) {
             e.preventDefault();
             hideLoginError();
-
             const messId = document.getElementById('joinMessId').value.trim().toLowerCase();
             const viewPwd = document.getElementById('joinPassword').value;
 
@@ -755,7 +775,6 @@
                 showLoginError('Mess ID এবং পাসওয়ার্ড দিন');
                 return;
             }
-
             attemptJoinMess(messId, viewPwd, null, false, false);
         }
 
@@ -765,29 +784,24 @@
                 return;
             }
 
-            // মেসের meta data পড়ি
             db.ref(`messes/${messId}/meta`).once('value').then(snapshot => {
                 const meta = snapshot.val();
                 if (!meta) {
                     if (!silent) showLoginError('এই Mess ID খুঁজে পাওয়া যায়নি!');
+                    else showLoginScreen();
                     return;
                 }
 
                 if (meta.viewPassword !== viewPwd) {
                     if (!silent) showLoginError('পাসওয়ার্ড ভুল!');
+                    else showLoginScreen();
                     return;
                 }
 
-                // সফল প্রবেশ
                 currentMessId = messId;
                 currentMessMeta = meta;
                 isAdmin = wasAdmin && adminPwd === meta.adminPassword;
 
-                if (isAdmin) {
-                    pendingAdminCallback = null;
-                }
-
-                // সেভ করি যাতে পরে অটো-লগইন হয়
                 localStorage.setItem('current_mess_id', messId);
                 localStorage.setItem('current_mess_viewpwd', viewPwd);
                 localStorage.setItem('current_mess_adminpwd', isAdmin ? adminPwd : '');
@@ -797,11 +811,12 @@
             }).catch(err => {
                 console.error('Join error:', err);
                 if (!silent) showLoginError('সংযোগে সমস্যা: ' + err.message);
+                else showLoginScreen();
             });
         }
 
         // ============================================================
-        // CREATE NEW MESS (নতুন মেস তৈরি)
+        // CREATE NEW MESS
         // ============================================================
         function handleCreateMess(e) {
             e.preventDefault();
@@ -820,20 +835,17 @@
                 showLoginError('সব ঘর পূরণ করুন');
                 return;
             }
-
             if (!firebaseReady) {
                 showLoginError('Firebase সংযোগ নেই');
                 return;
             }
 
-            // চেক করি ID আগে থেকেই আছে কিনা
             db.ref(`messes/${messId}/meta`).once('value').then(snapshot => {
                 if (snapshot.exists()) {
                     showLoginError('এই Mess ID আগেই ব্যবহৃত হয়েছে! অন্য ID দিন।');
                     return;
                 }
 
-                // নতুন মেস তৈরি
                 const newMeta = {
                     name: messName,
                     viewPassword: viewPwd,
@@ -857,8 +869,7 @@
                 };
 
                 db.ref(`messes/${messId}`).set(initialData).then(() => {
-                    showToast('নতুন মেস তৈরি হয়েছে! এখন প্রবেশ করা হচ্ছে...');
-                    // সরাসরি এডমিন হিসেবে প্রবেশ
+                    showToast('নতুন মেস তৈরি হয়েছে!');
                     currentMessId = messId;
                     currentMessMeta = newMeta;
                     isAdmin = true;
@@ -877,21 +888,21 @@
         }
 
         // ============================================================
-        // ENTER MESS (লগইনের পর মূল অ্যাপে ঢুকি)
+        // ENTER MESS
         // ============================================================
         function enterMess(messId, meta) {
             messDetails = { name: meta.name };
             document.getElementById('headerMessId').textContent = messId;
+            document.getElementById('headerMonthText').textContent = getBengaliMonthYear(selectedMonth);
+            const mp = document.getElementById('monthPicker');
+            if (mp) mp.value = selectedMonth;
             updateAdminUI();
             showMainApp();
             startMessSync(messId);
         }
 
         function startMessSync(messId) {
-            // আগের listener সরাই
-            if (currentListenerRef) {
-                currentListenerRef.off();
-            }
+            if (currentListenerRef) currentListenerRef.off();
 
             updateSyncBadge('connecting');
             currentListenerRef = db.ref(`messes/${messId}/data`);
@@ -916,10 +927,7 @@
                     if (!m.offSchedule) m.offSchedule = { m: false, l: false, d: false };
                 });
 
-                // header UI
                 document.getElementById('headerMessName').textContent = messDetails.name || currentMessMeta.name;
-                const monthPicker = document.getElementById('monthPicker');
-                if (monthPicker) monthPicker.value = selectedMonth;
                 document.getElementById('headerMonthText').textContent = getBengaliMonthYear(selectedMonth);
 
                 renderAll();
@@ -953,7 +961,6 @@
         // ============================================================
         function logoutFromMess() {
             if (!confirm('মেস থেকে বের হতে চান?')) return;
-
             if (currentListenerRef) currentListenerRef.off();
 
             localStorage.removeItem('current_mess_id');
@@ -993,7 +1000,7 @@
         }
 
         // ============================================================
-        // ADMIN AUTH
+        // ADMIN
         // ============================================================
         function toggleAdminAuth() {
             if (isAdmin) {
@@ -1104,6 +1111,7 @@
         }
 
         function getBengaliMonthYear(yearMonthStr) {
+            if (!yearMonthStr) return '-';
             const [y, m] = yearMonthStr.split('-');
             return `${bnMonths[m] || m} ${y}`;
         }
@@ -1340,7 +1348,6 @@
             const name = document.getElementById('newMemberName').value.trim();
             const phone = document.getElementById('newMemberPhone').value.trim();
             const color = document.getElementById('newMemberColor').value;
-
             if (!name) { showToast('নাম লিখুন!', 'error'); return; }
 
             if (id) {
@@ -1380,19 +1387,13 @@
                     <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition">
                         <td class="p-3.5 border border-slate-200 dark:border-slate-800 font-semibold text-slate-800 dark:text-slate-100">${m.name}</td>
                         <td class="p-3.5 border border-slate-200 dark:border-slate-800 text-center">
-                            <button onclick="requireAdmin(() => toggleOffSchedule('${m.id}', 'm'))" class="px-3 py-1.5 rounded-xl text-xs font-bold transition ${sched.m ? 'bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 border border-rose-300 dark:border-rose-800' : 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800'}">
-                                ${sched.m ? 'Off' : 'On'}
-                            </button>
+                            <button onclick="requireAdmin(() => toggleOffSchedule('${m.id}', 'm'))" class="px-3 py-1.5 rounded-xl text-xs font-bold transition ${sched.m ? 'bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 border border-rose-300 dark:border-rose-800' : 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800'}">${sched.m ? 'Off' : 'On'}</button>
                         </td>
                         <td class="p-3.5 border border-slate-200 dark:border-slate-800 text-center">
-                            <button onclick="requireAdmin(() => toggleOffSchedule('${m.id}', 'l'))" class="px-3 py-1.5 rounded-xl text-xs font-bold transition ${sched.l ? 'bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 border border-rose-300 dark:border-rose-800' : 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800'}">
-                                ${sched.l ? 'Off' : 'On'}
-                            </button>
+                            <button onclick="requireAdmin(() => toggleOffSchedule('${m.id}', 'l'))" class="px-3 py-1.5 rounded-xl text-xs font-bold transition ${sched.l ? 'bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 border border-rose-300 dark:border-rose-800' : 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800'}">${sched.l ? 'Off' : 'On'}</button>
                         </td>
                         <td class="p-3.5 border border-slate-200 dark:border-slate-800 text-center">
-                            <button onclick="requireAdmin(() => toggleOffSchedule('${m.id}', 'd'))" class="px-3 py-1.5 rounded-xl text-xs font-bold transition ${sched.d ? 'bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 border border-rose-300 dark:border-rose-800' : 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800'}">
-                                ${sched.d ? 'Off' : 'On'}
-                            </button>
+                            <button onclick="requireAdmin(() => toggleOffSchedule('${m.id}', 'd'))" class="px-3 py-1.5 rounded-xl text-xs font-bold transition ${sched.d ? 'bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 border border-rose-300 dark:border-rose-800' : 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800'}">${sched.d ? 'Off' : 'On'}</button>
                         </td>
                         <td class="p-3.5 border border-slate-200 dark:border-slate-800 text-center">
                             <button onclick="requireAdmin(() => applyBulkMealOff('${m.id}'))" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs px-3 py-1.5 rounded-xl shadow-sm transition flex items-center justify-center gap-1 mx-auto">
