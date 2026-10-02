@@ -54,6 +54,67 @@
             #loginScreen .bismillah { font-size: 1.15rem; }
             #loginScreen .bismillah-sub { font-size: 0.6rem; }
         }
+
+        /* 🌍 Justice for Hadi / Free Palestine Popup */
+        @keyframes palestineGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 122, 61, 0.6), 0 0 40px rgba(206, 17, 38, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(206, 17, 38, 0.7), 0 0 60px rgba(0, 122, 61, 0.5); }
+        }
+        @keyframes flagWave {
+            0%, 100% { transform: rotate(-3deg) scale(1); }
+            50% { transform: rotate(3deg) scale(1.05); }
+        }
+        @keyframes justiceText {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(-3px); opacity: 0.9; }
+        }
+        @keyframes colorShift {
+            0% { color: #ce1126; text-shadow: 0 0 10px #ce1126; }
+            25% { color: #ffffff; text-shadow: 0 0 10px #ffffff; }
+            50% { color: #007a3d; text-shadow: 0 0 10px #007a3d; }
+            75% { color: #000000; text-shadow: 0 0 10px #888; }
+            100% { color: #ce1126; text-shadow: 0 0 10px #ce1126; }
+        }
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        @keyframes justiceFadeIn {
+            from { opacity: 0; transform: scale(0.8) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .justice-modal {
+            animation: palestineGlow 3s infinite, justiceFadeIn 0.5s ease-out;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+            position: relative;
+        }
+        .justice-modal::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: inherit;
+            padding: 3px;
+            background: linear-gradient(135deg, #ce1126, #ffffff, #007a3d, #000000, #ce1126);
+            background-size: 300% 300%;
+            animation: gradientMove 4s ease infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+        }
+        .palestine-flag {
+            display: inline-block;
+            animation: flagWave 2s ease-in-out infinite;
+        }
+        .justice-text {
+            animation: justiceText 2s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        .colorful-text {
+            animation: colorShift 4s linear infinite;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 antialiased min-h-screen flex flex-col transition-colors duration-200">
@@ -72,13 +133,13 @@
                     <div class="login-logo w-14 h-14 sm:w-16 sm:h-16 bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl sm:text-3xl shadow-inner border border-emerald-300 dark:border-emerald-800">
                         <i class="fa-solid fa-utensils"></i>
                     </div>
-                    <h1 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">Free palestine</h1>
+                    <h1 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">মেস ম্যানেজার</h1>
                     <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-1">আপনার মেসে প্রবেশ করুন বা নতুন মেস তৈরি করুন</p>
                 </div>
 
                 <div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl mb-4 sm:mb-5">
                     <button onclick="showLoginTab('join')" id="tabLoginJoin" class="flex-1 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition bg-white dark:bg-slate-900 text-emerald-600 shadow-sm">
-                        <i class="fa-solid fa-right-to-bracket mr-1"></i> মেসে প্রবেশ(Justice For Hadi)
+                        <i class="fa-solid fa-right-to-bracket mr-1"></i> মেসে প্রবেশ
                     </button>
                     <button onclick="showLoginTab('create')" id="tabLoginCreate" class="flex-1 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition text-slate-600 dark:text-slate-400">
                         <i class="fa-solid fa-plus mr-1"></i> নতুন মেস
@@ -611,6 +672,35 @@
         </div>
     </div>
 
+    <!-- 🌍 JUSTICE FOR HADI / FREE PALESTINE POPUP -->
+    <div id="justiceModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden" style="background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);">
+        <div class="justice-modal rounded-3xl p-6 sm:p-8 w-full max-w-md text-center relative">
+            <div class="palestine-flag mb-4 text-6xl">🇵🇸</div>
+            <h2 class="colorful-text text-3xl sm:text-4xl mb-2">FREE PALESTINE</h2>
+            <p class="text-white text-sm sm:text-base mb-4 opacity-90">ফিলিস্তিন মুক্ত হোক 🇵🇸</p>
+            <div class="flex items-center justify-center gap-2 my-4">
+                <div class="h-0.5 w-12 bg-gradient-to-r from-transparent to-red-500"></div>
+                <span class="text-white text-xl">✊</span>
+                <div class="h-0.5 w-12 bg-gradient-to-l from-transparent to-green-500"></div>
+            </div>
+            <h2 class="justice-text text-3xl sm:text-4xl font-black text-amber-400 mb-2">JUSTICE FOR HADI</h2>
+            <p class="text-white text-sm sm:text-base mb-6 opacity-90">হাদির জন্য ন্যায়বিচার চাই ⚖️</p>
+            <div class="flex items-center justify-center gap-3 mb-6 text-2xl">
+                <span class="palestine-flag">🇵🇸</span>
+                <span class="justice-text">✊</span>
+                <span class="palestine-flag" style="animation-delay: 0.3s;">🇵🇸</span>
+                <span class="justice-text" style="animation-delay: 0.6s;">⚖️</span>
+                <span class="palestine-flag" style="animation-delay: 0.9s;">🇵🇸</span>
+            </div>
+            <button onclick="closeJusticeModal()" class="w-full bg-gradient-to-r from-green-600 via-white to-red-600 text-black font-black py-3 rounded-xl text-sm shadow-lg hover:scale-105 transition-transform duration-200 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-hand-fist text-black"></i>
+                <span>আমরা সমর্থন জানাই</span>
+                <i class="fa-solid fa-hand-fist text-black"></i>
+            </button>
+            <p class="text-slate-400 text-[10px] mt-4 font-mono">✊ Solidarity forever ✊</p>
+        </div>
+    </div>
+
     <!-- TOAST -->
     <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white text-xs px-4 py-3 rounded-xl shadow-xl flex items-center gap-2.5 transform translate-y-20 opacity-0 transition-all duration-300 z-50 border border-slate-800">
         <i class="fa-solid fa-circle-check text-emerald-400 text-base" id="toastIcon"></i>
@@ -624,7 +714,6 @@
     <script>
         // ============================================================
         // 🔥 FIREBASE CONFIG
-        // ✅ আপনার URL ইতিমধ্যেই বসানো হয়েছে
         // ============================================================
         const firebaseConfig = {
             apiKey: "AIzaSyA6c69hOzq8eauL3lQoY2QkCKXm47RD09E",
@@ -665,18 +754,15 @@
             console.log('✅ Firebase initialized');
             updateFirebaseStatus('ok', 'Firebase সংযুক্ত ✓');
 
-            // Test connection
             db.ref('.info/connected').on('value', (snap) => {
                 if (snap.val() === true) {
                     console.log('✅ Firebase connected');
                     updateFirebaseStatus('ok', 'Firebase সংযুক্ত ✓');
                 } else {
-                    console.log('⚠️ Firebase disconnected');
                     updateFirebaseStatus('pending', 'Firebase সংযোগ বিচ্ছিন্ন');
                 }
             });
 
-            // Test read access
             db.ref('messes').limitToFirst(1).once('value').then(() => {
                 console.log('✅ Firebase read access OK');
             }).catch(err => {
@@ -716,6 +802,18 @@
         };
 
         // ============================================================
+        // 🌍 JUSTICE POPUP FUNCTIONS
+        // ============================================================
+        function showJusticeModal() {
+            const modal = document.getElementById('justiceModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+        function closeJusticeModal() {
+            const modal = document.getElementById('justiceModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        // ============================================================
         // INIT
         // ============================================================
         window.onload = function() {
@@ -735,6 +833,11 @@
             } else {
                 showLoginScreen();
             }
+
+            // ✊ Popup on page load
+            setTimeout(() => {
+                showJusticeModal();
+            }, 800);
         };
 
         // ============================================================
@@ -846,7 +949,7 @@
         }
 
         // ============================================================
-        // CREATE NEW MESS ✅ (bug fixed)
+        // CREATE NEW MESS
         // ============================================================
         function handleCreateMess(e) {
             e.preventDefault();
@@ -886,7 +989,7 @@
                 if (snapshot.exists()) {
                     console.log('❌ Mess ID exists');
                     showLoginError('❌ এই Mess ID আগেই ব্যবহৃত হয়েছে! অন্য ID দিন।');
-                    throw new Error('MESS_EXISTS'); // stop chain
+                    throw new Error('MESS_EXISTS');
                 }
 
                 console.log('✅ ID available, creating...');
@@ -914,7 +1017,6 @@
 
                 return db.ref(`messes/${messId}`).set(initialData).then(() => newMeta);
             }).then((newMeta) => {
-                // ✅ এখানে আর bug নেই — set() সফল হলে সরাসরি এখানে আসবে
                 console.log('✅ Mess created in Firebase');
 
                 currentMessId = messId;
@@ -929,7 +1031,7 @@
                 showToast('✅ নতুন মেস তৈরি হয়েছে!');
                 enterMess(messId, newMeta);
             }).catch(err => {
-                if (err.message === 'MESS_EXISTS') return; // already shown
+                if (err.message === 'MESS_EXISTS') return;
                 console.error('❌ Create error:', err);
                 let msg = '❌ মেস তৈরি ব্যর্থ: ';
 
@@ -958,6 +1060,11 @@
             updateAdminUI();
             showMainApp();
             startMessSync(messId);
+
+            // ✊ Popup after entering mess
+            setTimeout(() => {
+                showJusticeModal();
+            }, 1000);
         }
 
         function startMessSync(messId) {
