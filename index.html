@@ -34,8 +34,6 @@
             background: linear-gradient(135deg, #0f172a 0%, #14532d 100%);
             background-attachment: fixed;
         }
-
-        /* লগইন স্ক্রিন স্ক্রল ঠিক করার CSS */
         #loginScreen {
             overflow-y: auto !important;
             overflow-x: hidden !important;
@@ -44,12 +42,7 @@
             padding-top: 1rem !important;
             padding-bottom: 1.5rem !important;
         }
-        #loginScreen > div {
-            margin: auto;
-            width: 100%;
-        }
-
-        /* মোবাইলে আরো ছোট */
+        #loginScreen > div { margin: auto; width: 100%; }
         @media (max-height: 750px) {
             #loginScreen { padding-top: 0.5rem !important; padding-bottom: 1rem !important; }
             #loginScreen .login-card { padding: 1rem !important; }
@@ -65,12 +58,9 @@
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 antialiased min-h-screen flex flex-col transition-colors duration-200">
 
-    <!-- ============================================================ -->
-    <!-- 🔐 LOGIN SCREEN (স্ক্রল-যোগ্য)                               -->
-    <!-- ============================================================ -->
+    <!-- LOGIN SCREEN -->
     <div id="loginScreen" class="fixed inset-0 z-50 flex p-3 sm:p-4 login-bg">
         <div class="w-full max-w-md mx-auto my-auto">
-            <!-- Bismillah -->
             <div class="text-center mb-4 sm:mb-6">
                 <p class="bismillah font-arabic text-amber-300 text-xl sm:text-2xl tracking-widest font-bold drop-shadow mb-1">
                     بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
@@ -87,7 +77,6 @@
                     <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-1">আপনার মেসে প্রবেশ করুন বা নতুন মেস তৈরি করুন</p>
                 </div>
 
-                <!-- Tab: Login / New -->
                 <div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl mb-4 sm:mb-5">
                     <button onclick="showLoginTab('join')" id="tabLoginJoin" class="flex-1 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition bg-white dark:bg-slate-900 text-emerald-600 shadow-sm">
                         <i class="fa-solid fa-right-to-bracket mr-1"></i> মেসে প্রবেশ
@@ -97,7 +86,6 @@
                     </button>
                 </div>
 
-                <!-- JOIN FORM -->
                 <form id="joinForm" onsubmit="handleJoinMess(event)" class="space-y-3 sm:space-y-4">
                     <div>
                         <label class="block text-[11px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
@@ -121,7 +109,6 @@
                     </button>
                 </form>
 
-                <!-- CREATE FORM -->
                 <form id="createForm" onsubmit="handleCreateMess(event)" class="space-y-3 sm:space-y-4 hidden">
                     <div>
                         <label class="block text-[11px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
@@ -141,7 +128,7 @@
                     </div>
                     <div>
                         <label class="block text-[11px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                            <i class="fa-solid fa-users text-indigo-600 mr-1"></i> View Password (সব মেম্বারের জন্য)
+                            <i class="fa-solid fa-users text-indigo-600 mr-1"></i> View Password
                         </label>
                         <input type="text" id="createViewPassword" placeholder="mess2026" required minlength="3"
                             class="login-input w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3 py-2 sm:px-3.5 sm:py-2.5 text-sm font-mono focus:ring-2 focus:ring-indigo-500">
@@ -149,7 +136,7 @@
                     </div>
                     <div>
                         <label class="block text-[11px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                            <i class="fa-solid fa-shield-halved text-rose-600 mr-1"></i> Admin Password (শুধু আপনি)
+                            <i class="fa-solid fa-shield-halved text-rose-600 mr-1"></i> Admin Password
                         </label>
                         <input type="text" id="createAdminPassword" placeholder="mySecret123" required minlength="4"
                             class="login-input w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3 py-2 sm:px-3.5 sm:py-2.5 text-sm font-mono focus:ring-2 focus:ring-rose-500">
@@ -161,9 +148,15 @@
                     </button>
                 </form>
 
-                <div id="loginError" class="hidden mt-3 sm:mt-4 p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl text-[11px] sm:text-xs text-rose-700 dark:text-rose-300 flex items-center gap-2">
-                    <i class="fa-solid fa-circle-exclamation"></i>
+                <div id="loginError" class="hidden mt-3 sm:mt-4 p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl text-[11px] sm:text-xs text-rose-700 dark:text-rose-300 flex items-start gap-2">
+                    <i class="fa-solid fa-circle-exclamation mt-0.5"></i>
                     <span id="loginErrorMsg"></span>
+                </div>
+
+                <!-- Firebase Status -->
+                <div id="firebaseStatus" class="mt-3 p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-[10px] text-slate-500 dark:text-slate-400 text-center font-mono">
+                    <i class="fa-solid fa-circle text-amber-400 text-[8px] mr-1"></i>
+                    <span id="fbStatusText">Firebase সংযোগ চেক হচ্ছে...</span>
                 </div>
             </div>
 
@@ -174,9 +167,7 @@
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- MAIN APP                                                     -->
-    <!-- ============================================================ -->
+    <!-- MAIN APP -->
     <div id="mainApp" class="hidden min-h-screen flex flex-col">
 
         <header class="bg-slate-900 text-white shadow-xl sticky top-0 z-40 border-b border-slate-800">
@@ -246,7 +237,6 @@
 
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
 
-            <!-- Metrics -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 flex items-center gap-3">
                     <div class="w-11 h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-lg shrink-0">
@@ -257,7 +247,6 @@
                         <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100" id="totalMessMeals">0.0</h3>
                     </div>
                 </div>
-
                 <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 flex items-center gap-3">
                     <div class="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-lg shrink-0">
                         <i class="fa-solid fa-hand-holding-dollar"></i>
@@ -267,7 +256,6 @@
                         <h3 class="text-xl font-bold text-emerald-600 dark:text-emerald-400">৳<span id="totalMessDeposit">0</span></h3>
                     </div>
                 </div>
-
                 <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 flex items-center gap-3">
                     <div class="w-11 h-11 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center text-lg shrink-0">
                         <i class="fa-solid fa-cart-shopping"></i>
@@ -277,7 +265,6 @@
                         <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100">৳<span id="totalMessBazar">0</span></h3>
                     </div>
                 </div>
-
                 <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 flex items-center gap-3">
                     <div class="w-11 h-11 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center text-lg shrink-0">
                         <i class="fa-solid fa-calculator"></i>
@@ -289,7 +276,6 @@
                 </div>
             </div>
 
-            <!-- Tabs -->
             <div class="flex overflow-x-auto border-b border-slate-200 dark:border-slate-800 mb-6 bg-white dark:bg-slate-900 p-1.5 rounded-2xl shadow-sm space-x-1 sm:space-x-2">
                 <button onclick="switchTab('sheet')" id="tab-sheet" class="tab-btn flex-1 py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 flex items-center justify-center gap-2 shrink-0">
                     <i class="fa-solid fa-table-cells"></i><span>মিল শীট</span>
@@ -647,11 +633,12 @@
         // ============================================================
         // 🔥 FIREBASE CONFIG
         // ⚠️ databaseURL এখানে আপনার প্রকৃত URL বসান
+        // Firebase Console → Realtime Database → Data → উপরের URL
         // ============================================================
         const firebaseConfig = {
             apiKey: "AIzaSyA6c69hOzq8eauL3lQoY2QkCKXm47RD09E",
             authDomain: "multiple-mass.firebaseapp.com",
-            databaseURL: "https://multiple-mass-default-rtdb.firebaseio.com", // ← আপনার URL বসান
+            databaseURL: "https://multiple-mass-default-rtdb.firebaseio.com",
             projectId: "multiple-mass",
             storageBucket: "multiple-mass.firebasestorage.app",
             messagingSenderId: "1042463319969",
@@ -659,17 +646,60 @@
             measurementId: "G-57SY5V1XKD"
         };
 
+        console.log('🔥 Loading Firebase...');
+
         let db = null;
         let firebaseReady = false;
+        let firebaseErrorMsg = '';
+
+        function updateFirebaseStatus(status, msg) {
+            const statusEl = document.getElementById('fbStatusText');
+            const iconEl = document.querySelector('#firebaseStatus i');
+            if (!statusEl) return;
+            statusEl.textContent = msg;
+            if (iconEl) {
+                if (status === 'ok') iconEl.className = 'fa-solid fa-circle text-emerald-400 text-[8px] mr-1';
+                else if (status === 'error') iconEl.className = 'fa-solid fa-circle text-rose-400 text-[8px] mr-1';
+                else iconEl.className = 'fa-solid fa-circle text-amber-400 text-[8px] mr-1';
+            }
+        }
 
         try {
+            if (!firebaseConfig.databaseURL || firebaseConfig.databaseURL.includes('YOUR_')) {
+                throw new Error('databaseURL সেট করা হয়নি');
+            }
             firebase.initializeApp(firebaseConfig);
             db = firebase.database();
             firebaseReady = true;
             console.log('✅ Firebase initialized');
+            updateFirebaseStatus('ok', 'Firebase সংযুক্ত ✓');
+
+            // Test connection
+            db.ref('.info/connected').on('value', (snap) => {
+                if (snap.val() === true) {
+                    console.log('✅ Firebase connected');
+                    updateFirebaseStatus('ok', 'Firebase সংযুক্ত ✓');
+                } else {
+                    console.log('⚠️ Firebase disconnected');
+                    updateFirebaseStatus('pending', 'Firebase সংযোগ বিচ্ছিন্ন');
+                }
+            });
+
+            // Test read access
+            db.ref('messes').limitToFirst(1).once('value').then(() => {
+                console.log('✅ Firebase read access OK');
+            }).catch(err => {
+                console.error('❌ Firebase read error:', err);
+                firebaseReady = false;
+                firebaseErrorMsg = 'Rules ঠিক নেই। Firebase Console → Realtime Database → Rules → ".read": true দিন';
+                updateFirebaseStatus('error', 'Rules ঠিক নেই ✗');
+            });
+
         } catch (e) {
             console.error('❌ Firebase init failed:', e);
             firebaseReady = false;
+            firebaseErrorMsg = e.message;
+            updateFirebaseStatus('error', 'Firebase init ব্যর্থ: ' + e.message);
         }
 
         // ============================================================
@@ -710,7 +740,7 @@
             const savedAdminPwd = localStorage.getItem('current_mess_adminpwd');
             const savedIsAdmin = localStorage.getItem('current_mess_isadmin') === 'true';
 
-            if (savedMessId && savedViewPwd) {
+            if (savedMessId && savedViewPwd && firebaseReady) {
                 attemptJoinMess(savedMessId, savedViewPwd, savedAdminPwd, savedIsAdmin, true);
             } else {
                 showLoginScreen();
@@ -755,7 +785,7 @@
             const msgEl = document.getElementById('loginErrorMsg');
             msgEl.textContent = msg;
             box.classList.remove('hidden');
-            setTimeout(() => box.classList.add('hidden'), 6000);
+            setTimeout(() => box.classList.add('hidden'), 10000);
         }
 
         function hideLoginError() {
@@ -768,36 +798,40 @@
         function handleJoinMess(e) {
             e.preventDefault();
             hideLoginError();
+            console.log('🔑 Join attempt');
+
             const messId = document.getElementById('joinMessId').value.trim().toLowerCase();
             const viewPwd = document.getElementById('joinPassword').value;
 
             if (!messId || !viewPwd) {
-                showLoginError('Mess ID এবং পাসওয়ার্ড দিন');
+                showLoginError('❌ Mess ID এবং পাসওয়ার্ড দিন');
                 return;
             }
+
+            if (!firebaseReady || !db) {
+                showLoginError('❌ Firebase সংযোগ নেই। ' + (firebaseErrorMsg || 'Internet চেক করুন।'));
+                return;
+            }
+
             attemptJoinMess(messId, viewPwd, null, false, false);
         }
 
         function attemptJoinMess(messId, viewPwd, adminPwd, wasAdmin, silent) {
-            if (!firebaseReady) {
-                if (!silent) showLoginError('Firebase সংযোগ নেই। Internet চেক করুন।');
-                return;
-            }
-
             db.ref(`messes/${messId}/meta`).once('value').then(snapshot => {
                 const meta = snapshot.val();
                 if (!meta) {
-                    if (!silent) showLoginError('এই Mess ID খুঁজে পাওয়া যায়নি!');
+                    if (!silent) showLoginError('❌ এই Mess ID খুঁজে পাওয়া যায়নি!');
                     else showLoginScreen();
                     return;
                 }
 
                 if (meta.viewPassword !== viewPwd) {
-                    if (!silent) showLoginError('পাসওয়ার্ড ভুল!');
+                    if (!silent) showLoginError('❌ পাসওয়ার্ড ভুল!');
                     else showLoginScreen();
                     return;
                 }
 
+                console.log('✅ Join success');
                 currentMessId = messId;
                 currentMessMeta = meta;
                 isAdmin = wasAdmin && adminPwd === meta.adminPassword;
@@ -809,8 +843,14 @@
 
                 enterMess(messId, meta);
             }).catch(err => {
-                console.error('Join error:', err);
-                if (!silent) showLoginError('সংযোগে সমস্যা: ' + err.message);
+                console.error('❌ Join error:', err);
+                let msg = '❌ সংযোগে সমস্যা: ';
+                if (err.code === 'PERMISSION_DENIED' || err.message.includes('permission')) {
+                    msg += 'Firebase Rules ঠিক নেই। Rules এ ".read": true, ".write": true দিন।';
+                } else {
+                    msg += err.message;
+                }
+                if (!silent) showLoginError(msg);
                 else showLoginScreen();
             });
         }
@@ -821,6 +861,7 @@
         function handleCreateMess(e) {
             e.preventDefault();
             hideLoginError();
+            console.log('📝 Create mess attempt');
 
             const messId = document.getElementById('createMessId').value.trim().toLowerCase();
             const messName = document.getElementById('createMessName').value.trim();
@@ -828,30 +869,43 @@
             const adminPwd = document.getElementById('createAdminPassword').value;
 
             if (!/^[a-z0-9\-]{3,30}$/.test(messId)) {
-                showLoginError('Mess ID শুধু ছোট ইংরেজি, সংখ্যা, হাইফেন (-) দিয়ে ৩-৩০ অক্ষর');
+                showLoginError('❌ Mess ID: শুধু ছোট ইংরেজি (a-z), সংখ্যা (0-9), হাইফেন (-), ৩-৩০ অক্ষর');
                 return;
             }
-            if (!messName || !viewPwd || !adminPwd) {
-                showLoginError('সব ঘর পূরণ করুন');
+            if (!messName) {
+                showLoginError('❌ মেসের নাম দিন');
                 return;
             }
-            if (!firebaseReady) {
-                showLoginError('Firebase সংযোগ নেই');
+            if (!viewPwd || viewPwd.length < 3) {
+                showLoginError('❌ View Password কমপক্ষে ৩ অক্ষর');
+                return;
+            }
+            if (!adminPwd || adminPwd.length < 4) {
+                showLoginError('❌ Admin Password কমপক্ষে ৪ অক্ষর');
                 return;
             }
 
+            if (!firebaseReady || !db) {
+                showLoginError('❌ Firebase সংযোগ নেই। ' + (firebaseErrorMsg || 'Internet ও databaseURL চেক করুন।'));
+                return;
+            }
+
+            console.log('🔍 Checking Mess ID:', messId);
+
             db.ref(`messes/${messId}/meta`).once('value').then(snapshot => {
                 if (snapshot.exists()) {
-                    showLoginError('এই Mess ID আগেই ব্যবহৃত হয়েছে! অন্য ID দিন।');
+                    console.log('❌ Mess ID exists');
+                    showLoginError('❌ এই Mess ID আগেই ব্যবহৃত হয়েছে! অন্য ID দিন।');
                     return;
                 }
+
+                console.log('✅ ID available, creating...');
 
                 const newMeta = {
                     name: messName,
                     viewPassword: viewPwd,
                     adminPassword: adminPwd,
-                    createdAt: Date.now(),
-                    createdBy: 'web'
+                    createdAt: Date.now()
                 };
 
                 const initialData = {
@@ -868,22 +922,42 @@
                     }
                 };
 
-                db.ref(`messes/${messId}`).set(initialData).then(() => {
-                    showToast('নতুন মেস তৈরি হয়েছে!');
-                    currentMessId = messId;
-                    currentMessMeta = newMeta;
-                    isAdmin = true;
+                return db.ref(`messes/${messId}`).set(initialData);
+            }).then((result) => {
+                if (!result) return; // Validation failed earlier
 
-                    localStorage.setItem('current_mess_id', messId);
-                    localStorage.setItem('current_mess_viewpwd', viewPwd);
-                    localStorage.setItem('current_mess_adminpwd', adminPwd);
-                    localStorage.setItem('current_mess_isadmin', 'true');
+                console.log('✅ Mess created in Firebase');
 
-                    enterMess(messId, newMeta);
-                }).catch(err => {
-                    console.error('Create error:', err);
-                    showLoginError('মেস তৈরি ব্যর্থ: ' + err.message);
-                });
+                currentMessId = messId;
+                currentMessMeta = {
+                    name: messName,
+                    viewPassword: viewPwd,
+                    adminPassword: adminPwd,
+                    createdAt: Date.now()
+                };
+                isAdmin = true;
+
+                localStorage.setItem('current_mess_id', messId);
+                localStorage.setItem('current_mess_viewpwd', viewPwd);
+                localStorage.setItem('current_mess_adminpwd', adminPwd);
+                localStorage.setItem('current_mess_isadmin', 'true');
+
+                showToast('✅ নতুন মেস তৈরি হয়েছে!');
+                enterMess(messId, currentMessMeta);
+            }).catch(err => {
+                console.error('❌ Create error:', err);
+                let msg = '❌ মেস তৈরি ব্যর্থ: ';
+
+                if (err.code === 'PERMISSION_DENIED' || err.message.includes('permission') || err.message.includes('denied')) {
+                    msg += 'Firebase Rules ঠিক নেই। Firebase Console → Realtime Database → Rules ট্যাবে এইটা দিন:\n{"rules": {".read": true, ".write": true}}';
+                } else if (err.message.includes('databaseURL') || err.message.includes('No Firebase App')) {
+                    msg += 'databaseURL ভুল বা সেট করা হয়নি। Firebase Console থেকে সঠিক URL কপি করুন।';
+                } else if (err.message.includes('network') || err.message.includes('offline')) {
+                    msg += 'Internet সংযোগ নেই।';
+                } else {
+                    msg += err.message;
+                }
+                showLoginError(msg);
             });
         }
 
