@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>মেস মিল ও হিসাব সিস্টেম Pro</title>
+    <title>মেস মিল ও হিসাব সিস্টেম</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,400&family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -55,19 +55,13 @@
             #loginScreen .bismillah-sub { font-size: 0.6rem; }
         }
 
-        /* 🌍 Justice Popup */
+        /* Justice Popup */
         @keyframes palestineGlow {
             0%, 100% { box-shadow: 0 0 20px rgba(0, 122, 61, 0.6), 0 0 40px rgba(206, 17, 38, 0.4); }
             50% { box-shadow: 0 0 30px rgba(206, 17, 38, 0.7), 0 0 60px rgba(0, 122, 61, 0.5); }
         }
-        @keyframes flagWave {
-            0%, 100% { transform: rotate(-3deg) scale(1); }
-            50% { transform: rotate(3deg) scale(1.05); }
-        }
-        @keyframes justiceText {
-            0%, 100% { transform: translateY(0); opacity: 1; }
-            50% { transform: translateY(-3px); opacity: 0.9; }
-        }
+        @keyframes flagWave { 0%, 100% { transform: rotate(-3deg) scale(1); } 50% { transform: rotate(3deg) scale(1.05); } }
+        @keyframes justiceText { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(-3px); opacity: 0.9; } }
         @keyframes colorShift {
             0% { color: #ce1126; text-shadow: 0 0 10px #ce1126; }
             25% { color: #ffffff; text-shadow: 0 0 10px #ffffff; }
@@ -75,14 +69,8 @@
             75% { color: #000000; text-shadow: 0 0 10px #888; }
             100% { color: #ce1126; text-shadow: 0 0 10px #ce1126; }
         }
-        @keyframes gradientMove {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        @keyframes justiceFadeIn {
-            from { opacity: 0; transform: scale(0.8) translateY(30px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
+        @keyframes gradientMove { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        @keyframes justiceFadeIn { from { opacity: 0; transform: scale(0.8) translateY(30px); } to { opacity: 1; transform: scale(1) translateY(0); } }
         .justice-modal {
             animation: palestineGlow 3s infinite, justiceFadeIn 0.5s ease-out;
             background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
@@ -102,22 +90,41 @@
             mask-composite: exclude;
             z-index: -1;
         }
-        .palestine-flag {
-            display: inline-block;
-            animation: flagWave 2s ease-in-out infinite;
+        .palestine-flag { display: inline-block; animation: flagWave 2s ease-in-out infinite; }
+        .justice-text { animation: justiceText 2s ease-in-out infinite; text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.5); }
+        .colorful-text { animation: colorShift 4s linear infinite; font-weight: 900; letter-spacing: 2px; }
+
+        /* Poll specific */
+        .poll-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
         }
-        .justice-text {
-            animation: justiceText 2s ease-in-out infinite;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.5);
+        .dark .poll-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid rgba(255,255,255,0.05);
         }
-        .colorful-text {
-            animation: colorShift 4s linear infinite;
-            font-weight: 900;
-            letter-spacing: 2px;
+        .vote-btn-yes {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            transition: all 0.2s;
         }
-        /* Poll vote bar animation */
-        .vote-bar {
-            transition: width 0.5s ease-out;
+        .vote-btn-yes:hover:not(:disabled) { transform: scale(1.05); box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4); }
+        .vote-btn-no {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            transition: all 0.2s;
+        }
+        .vote-btn-no:hover:not(:disabled) { transform: scale(1.05); box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4); }
+        .vote-btn-yes.selected { box-shadow: 0 0 0 3px #059669, 0 8px 20px rgba(16, 185, 129, 0.5); }
+        .vote-btn-no.selected { box-shadow: 0 0 0 3px #dc2626, 0 8px 20px rgba(239, 68, 68, 0.5); }
+        .member-row {
+            transition: all 0.15s;
+            border-radius: 14px;
+        }
+        .member-row:hover { background: rgba(99, 102, 241, 0.05); }
+        .date-badge {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
         }
     </style>
 </head>
@@ -127,9 +134,7 @@
     <div id="loginScreen" class="fixed inset-0 z-50 flex p-3 sm:p-4 login-bg">
         <div class="w-full max-w-md mx-auto my-auto">
             <div class="text-center mb-4 sm:mb-6">
-                <p class="bismillah font-arabic text-amber-300 text-xl sm:text-2xl tracking-widest font-bold drop-shadow mb-1">
-                    بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
-                </p>
+                <p class="bismillah font-arabic text-amber-300 text-xl sm:text-2xl tracking-widest font-bold drop-shadow mb-1">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
                 <p class="bismillah-sub text-[10px] sm:text-xs text-emerald-300/80">বিসমিল্লাহির রহমানির রহিম</p>
             </div>
 
@@ -158,7 +163,6 @@
                         </label>
                         <input type="text" id="joinMessId" placeholder="যেমন: dhanmondi-paradise" required 
                             class="login-input w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3 py-2 sm:px-3.5 sm:py-2.5 text-sm font-mono focus:ring-2 focus:ring-emerald-500">
-                        <p class="text-[10px] text-slate-400 mt-1">মেস এডমিন আপনাকে এই ID দিয়েছেন</p>
                     </div>
                     <div>
                         <label class="block text-[11px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
@@ -168,8 +172,7 @@
                             class="login-input w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3 py-2 sm:px-3.5 sm:py-2.5 text-sm focus:ring-2 focus:ring-emerald-500">
                     </div>
                     <button type="submit" class="login-btn w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 sm:py-3 rounded-xl text-sm shadow-lg transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        <span>মেসে প্রবেশ করুন</span>
+                        <i class="fa-solid fa-right-to-bracket"></i> <span>মেসে প্রবেশ করুন</span>
                     </button>
                 </form>
 
@@ -178,8 +181,7 @@
                         <label class="block text-[11px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                             <i class="fa-solid fa-hashtag text-indigo-600 mr-1"></i> নতুন Mess ID
                         </label>
-                        <input type="text" id="createMessId" placeholder="যেমন: karim-mess-2026" required 
-                            pattern="[a-z0-9\-]{3,30}"
+                        <input type="text" id="createMessId" placeholder="যেমন: karim-mess-2026" required pattern="[a-z0-9\-]{3,30}"
                             class="login-input w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3 py-2 sm:px-3.5 sm:py-2.5 text-sm font-mono focus:ring-2 focus:ring-indigo-500">
                     </div>
                     <div>
@@ -204,14 +206,12 @@
                             class="login-input w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3 py-2 sm:px-3.5 sm:py-2.5 text-sm font-mono focus:ring-2 focus:ring-rose-500">
                     </div>
                     <button type="submit" class="login-btn w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 sm:py-3 rounded-xl text-sm shadow-lg transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span>নতুন মেস তৈরি করুন</span>
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> <span>নতুন মেস তৈরি করুন</span>
                     </button>
                 </form>
 
                 <div id="loginError" class="hidden mt-3 sm:mt-4 p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl text-[11px] sm:text-xs text-rose-700 dark:text-rose-300 flex items-start gap-2">
-                    <i class="fa-solid fa-circle-exclamation mt-0.5"></i>
-                    <span id="loginErrorMsg"></span>
+                    <i class="fa-solid fa-circle-exclamation mt-0.5"></i> <span id="loginErrorMsg"></span>
                 </div>
 
                 <div id="firebaseStatus" class="mt-3 p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-[10px] text-slate-500 dark:text-slate-400 text-center font-mono">
@@ -221,23 +221,17 @@
             </div>
 
             <p class="text-center text-[10px] sm:text-xs text-slate-400 dark:text-slate-500 mt-4 sm:mt-6 pb-2">
-                <i class="fa-solid fa-shield-halved mr-1"></i>
-                প্রতিটি মেসের ডাটা আলাদা ও সুরক্ষিত
+                <i class="fa-solid fa-shield-halved mr-1"></i> প্রতিটি মেসের ডাটা আলাদা ও সুরক্ষিত
             </p>
         </div>
     </div>
 
     <!-- MAIN APP -->
     <div id="mainApp" class="hidden min-h-screen flex flex-col">
-
         <header class="bg-slate-900 text-white shadow-xl sticky top-0 z-40 border-b border-slate-800">
             <div class="bg-gradient-to-r from-emerald-950 via-slate-950 to-emerald-950 border-b border-emerald-900/60 py-2 px-4 text-center">
-                <p class="font-arabic text-amber-300 text-lg sm:text-xl tracking-widest font-bold drop-shadow select-none">
-                    بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
-                </p>
-                <p class="text-[11px] text-emerald-300/80 font-medium tracking-wider">
-                    বিসমিল্লাহির রহমানির রহিম — মেস মিল ও বাজার হিসাব ম্যানেজার
-                </p>
+                <p class="font-arabic text-amber-300 text-lg sm:text-xl tracking-widest font-bold drop-shadow select-none">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
+                <p class="text-[11px] text-emerald-300/80 font-medium tracking-wider">বিসমিল্লাহির রহমানির রহিম — মেস মিল ও বাজার হিসাব ম্যানেজার</p>
             </div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-3">
@@ -246,9 +240,7 @@
                         <i class="fa-solid fa-utensils text-xl text-amber-300"></i>
                     </div>
                     <div>
-                        <h1 class="text-xl font-bold tracking-tight flex items-center gap-2">
-                            <span id="headerMessName">মেস মিল ও হিসাব সিস্টেম</span>
-                        </h1>
+                        <h1 class="text-xl font-bold tracking-tight"><span id="headerMessName">মেস মিল ও হিসাব সিস্টেম</span></h1>
                         <p class="text-xs text-emerald-300 font-medium flex items-center gap-1.5">
                             <i class="fa-solid fa-calendar-days text-amber-400"></i>
                             <span>চলতি মাস: <strong id="headerMonthText" class="text-white font-bold">-</strong></span>
@@ -261,29 +253,21 @@
                         <i class="fa-solid fa-cloud text-slate-400" id="syncIcon"></i>
                         <span id="syncText" class="hidden sm:inline">সংযোগ...</span>
                     </div>
-
                     <button onclick="toggleDarkMode()" class="bg-slate-800 hover:bg-slate-700 text-amber-300 p-2 rounded-lg text-xs transition border border-slate-700 shadow-sm">
                         <i class="fa-solid fa-moon text-base" id="themeIcon"></i>
                     </button>
-
                     <div id="adminBadge" class="flex items-center gap-1.5 bg-slate-800 text-amber-300 border border-amber-400/30 text-xs px-3 py-1.5 rounded-full font-semibold">
                         <i class="fa-solid fa-lock text-amber-400" id="adminIcon"></i>
                         <span id="adminStatusText">ভিউয়ার মোড</span>
                     </div>
-                    
                     <button id="authBtn" onclick="toggleAdminAuth()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-3.5 py-1.5 rounded-lg text-xs shadow transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-key"></i>
-                        <span id="authBtnText">এডমিন লগইন</span>
+                        <i class="fa-solid fa-key"></i> <span id="authBtnText">এডমিন লগইন</span>
                     </button>
-
                     <button onclick="logoutFromMess()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs shadow transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <span class="hidden sm:inline">বের হন</span>
+                        <i class="fa-solid fa-right-from-bracket"></i> <span class="hidden sm:inline">বের হন</span>
                     </button>
-
                     <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-3 py-1.5 rounded-lg text-xs shadow transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-file-excel"></i>
-                        <span class="hidden sm:inline">CSV</span>
+                        <i class="fa-solid fa-file-excel"></i> <span class="hidden sm:inline">CSV</span>
                     </button>
                 </div>
             </div>
@@ -299,36 +283,28 @@
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-lg shrink-0">
-                        <i class="fa-solid fa-bowl-rice"></i>
-                    </div>
+                    <div class="w-11 h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-lg shrink-0"><i class="fa-solid fa-bowl-rice"></i></div>
                     <div>
                         <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">মোট মেস মিল</p>
                         <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100" id="totalMessMeals">0.0</h3>
                     </div>
                 </div>
                 <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-lg shrink-0">
-                        <i class="fa-solid fa-hand-holding-dollar"></i>
-                    </div>
+                    <div class="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-lg shrink-0"><i class="fa-solid fa-hand-holding-dollar"></i></div>
                     <div>
                         <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">মোট জমা</p>
                         <h3 class="text-xl font-bold text-emerald-600 dark:text-emerald-400">৳<span id="totalMessDeposit">0</span></h3>
                     </div>
                 </div>
                 <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center text-lg shrink-0">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </div>
+                    <div class="w-11 h-11 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center text-lg shrink-0"><i class="fa-solid fa-cart-shopping"></i></div>
                     <div>
                         <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">মোট বাজার</p>
                         <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100">৳<span id="totalMessBazar">0</span></h3>
                     </div>
                 </div>
                 <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center text-lg shrink-0">
-                        <i class="fa-solid fa-calculator"></i>
-                    </div>
+                    <div class="w-11 h-11 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center text-lg shrink-0"><i class="fa-solid fa-calculator"></i></div>
                     <div>
                         <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">মিল রেট</p>
                         <h3 class="text-xl font-bold text-amber-600 dark:text-amber-400">৳<span id="currentMealRate">0.00</span></h3>
@@ -341,17 +317,17 @@
                 <button onclick="switchTab('sheet')" id="tab-sheet" class="tab-btn flex-1 py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 flex items-center justify-center gap-2 shrink-0">
                     <i class="fa-solid fa-table-cells"></i><span>মিল শীট</span>
                 </button>
+                <button onclick="switchTab('polls')" id="tab-polls" class="tab-btn flex-1 py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center justify-center gap-2 shrink-0">
+                    <i class="fa-solid fa-check-to-slot text-purple-500"></i><span>দৈনিক ভোট</span>
+                </button>
+                <button onclick="switchTab('defaults')" id="tab-defaults" class="tab-btn flex-1 py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center justify-center gap-2 shrink-0">
+                    <i class="fa-solid fa-sliders text-cyan-500"></i><span>মিল ডিফল্ট</span>
+                </button>
                 <button onclick="switchTab('members')" id="tab-members" class="tab-btn flex-1 py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center justify-center gap-2 shrink-0">
                     <i class="fa-solid fa-users text-indigo-500"></i><span>মেম্বার</span>
                 </button>
                 <button onclick="switchTab('schedule')" id="tab-schedule" class="tab-btn flex-1 py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center justify-center gap-2 shrink-0">
                     <i class="fa-solid fa-toggle-off text-indigo-500"></i><span>অটো-অফ</span>
-                </button>
-                <button onclick="switchTab('defaults')" id="tab-defaults" class="tab-btn flex-1 py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center justify-center gap-2 shrink-0">
-                    <i class="fa-solid fa-sliders text-cyan-500"></i><span>মিল ডিফল্ট</span>
-                </button>
-                <button onclick="switchTab('polls')" id="tab-polls" class="tab-btn flex-1 py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center justify-center gap-2 shrink-0">
-                    <i class="fa-solid fa-check-to-slot text-purple-500"></i><span>ভোট পোল</span>
                 </button>
                 <button onclick="switchTab('deposit')" id="tab-deposit" class="tab-btn flex-1 py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center justify-center gap-2 shrink-0">
                     <i class="fa-solid fa-wallet text-emerald-600"></i><span>জমা</span>
@@ -376,7 +352,6 @@
                             <i class="fa-solid fa-plus"></i><span>নতুন মেম্বার</span>
                         </button>
                     </div>
-
                     <div class="overflow-x-auto excel-scroll relative max-h-[620px]">
                         <table class="w-full text-xs text-left border-collapse">
                             <thead class="text-xs text-slate-700 dark:text-slate-300 uppercase bg-slate-100 dark:bg-slate-800 sticky top-0 z-20 shadow-sm">
@@ -387,16 +362,118 @@
                         </table>
                     </div>
                 </div>
-
                 <div class="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/50 rounded-xl p-3 text-xs text-amber-900 dark:text-amber-200 flex items-center justify-between flex-wrap gap-2">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-lightbulb text-amber-500 text-base"></i>
-                        <span><strong>নির্দেশনা:</strong> এডমিন লগইন ছাড়া শুধু দেখতে পারবেন।</span>
+                        <span><strong>নির্দেশনা:</strong> ভোট দিলে মিল শীটে অটো বসে যাবে।</span>
                     </div>
-                    <div class="flex items-center gap-3 font-semibold text-[11px]">
-                        <span class="inline-flex items-center"><span class="w-2.5 h-2.5 bg-yellow-400 rounded-full mr-1.5"></span> সকাল</span>
-                        <span class="inline-flex items-center"><span class="w-2.5 h-2.5 bg-orange-400 rounded-full mr-1.5"></span> দুপুর</span>
-                        <span class="inline-flex items-center"><span class="w-2.5 h-2.5 bg-indigo-500 rounded-full mr-1.5"></span> রাত</span>
+                </div>
+            </section>
+
+            <!-- 🗳️ DAILY POLLS (Messenger style) -->
+            <section id="content-polls" class="tab-content hidden">
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 dark:border-slate-800 mb-4">
+                    <div class="flex flex-wrap justify-between items-center gap-3">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                                <i class="fa-solid fa-square-poll-vertical text-purple-600"></i>
+                                <span>দৈনিক মিল ভোট পোল</span>
+                            </h2>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Messenger স্টাইল — প্রতিদিন হ্যাঁ/না ভোট দিন, অটো মিলে বসবে</p>
+                        </div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <label class="text-xs font-semibold text-slate-600 dark:text-slate-400">তারিখ:</label>
+                            <input type="date" id="pollDatePicker" class="border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-purple-500" onchange="renderPollsTab()">
+                            <button onclick="goToToday()" class="bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-800 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-purple-200 transition">
+                                <i class="fa-solid fa-calendar-day mr-1"></i> আজ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poll Cards will be injected here -->
+                <div id="pollsContainer" class="space-y-4"></div>
+            </section>
+
+            <!-- MEAL DEFAULTS -->
+            <section id="content-defaults" class="tab-content hidden">
+                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-800 mb-6">
+                    <div class="border-b border-slate-100 dark:border-slate-800 pb-4 mb-6">
+                        <h2 class="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                            <i class="fa-solid fa-sliders text-cyan-500"></i>
+                            <span>মিল ডিফল্ট সেটিং</span>
+                        </h2>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">ভোটে "হ্যাঁ" দিলে এই মান মিল শীটে বসবে</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-yellow-50 dark:bg-yellow-950/40 border border-yellow-200 dark:border-yellow-800 rounded-2xl p-5">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-12 h-12 rounded-xl bg-yellow-400 text-yellow-900 flex items-center justify-center text-2xl font-bold shadow"><i class="fa-solid fa-sun"></i></div>
+                                <div>
+                                    <h3 class="font-bold text-slate-800 dark:text-slate-100">সকালের মিল</h3>
+                                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Breakfast</p>
+                                </div>
+                            </div>
+                            <input type="number" step="0.25" min="0" id="defaultM" class="w-full text-center text-2xl font-extrabold bg-white dark:bg-slate-900 border-2 border-yellow-400 dark:border-yellow-700 rounded-xl py-3 text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-yellow-500">
+                            <div class="flex flex-wrap gap-1 mt-3">
+                                <button type="button" onclick="setDefaultMeal('m', 0)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-yellow-100 transition">0</button>
+                                <button type="button" onclick="setDefaultMeal('m', 0.5)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-yellow-100 transition">0.5</button>
+                                <button type="button" onclick="setDefaultMeal('m', 0.75)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-yellow-100 transition">0.75</button>
+                                <button type="button" onclick="setDefaultMeal('m', 1)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-yellow-100 transition">1</button>
+                                <button type="button" onclick="setDefaultMeal('m', 1.5)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-yellow-100 transition">1.5</button>
+                                <button type="button" onclick="setDefaultMeal('m', 2)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-yellow-100 transition">2</button>
+                            </div>
+                        </div>
+
+                        <div class="bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-800 rounded-2xl p-5">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-12 h-12 rounded-xl bg-orange-400 text-orange-900 flex items-center justify-center text-2xl font-bold shadow"><i class="fa-solid fa-cloud-sun"></i></div>
+                                <div>
+                                    <h3 class="font-bold text-slate-800 dark:text-slate-100">দুপুরের মিল</h3>
+                                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Lunch</p>
+                                </div>
+                            </div>
+                            <input type="number" step="0.25" min="0" id="defaultL" class="w-full text-center text-2xl font-extrabold bg-white dark:bg-slate-900 border-2 border-orange-400 dark:border-orange-700 rounded-xl py-3 text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-orange-500">
+                            <div class="flex flex-wrap gap-1 mt-3">
+                                <button type="button" onclick="setDefaultMeal('l', 0)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-orange-100 transition">0</button>
+                                <button type="button" onclick="setDefaultMeal('l', 0.5)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-orange-100 transition">0.5</button>
+                                <button type="button" onclick="setDefaultMeal('l', 0.75)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-orange-100 transition">0.75</button>
+                                <button type="button" onclick="setDefaultMeal('l', 1)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-orange-100 transition">1</button>
+                                <button type="button" onclick="setDefaultMeal('l', 1.5)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-orange-100 transition">1.5</button>
+                                <button type="button" onclick="setDefaultMeal('l', 2)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-orange-100 transition">2</button>
+                            </div>
+                        </div>
+
+                        <div class="bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 rounded-2xl p-5">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-12 h-12 rounded-xl bg-indigo-500 text-white flex items-center justify-center text-2xl font-bold shadow"><i class="fa-solid fa-moon"></i></div>
+                                <div>
+                                    <h3 class="font-bold text-slate-800 dark:text-slate-100">রাতের মিল</h3>
+                                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Dinner</p>
+                                </div>
+                            </div>
+                            <input type="number" step="0.25" min="0" id="defaultD" class="w-full text-center text-2xl font-extrabold bg-white dark:bg-slate-900 border-2 border-indigo-400 dark:border-indigo-700 rounded-xl py-3 text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500">
+                            <div class="flex flex-wrap gap-1 mt-3">
+                                <button type="button" onclick="setDefaultMeal('d', 0)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-indigo-100 transition">0</button>
+                                <button type="button" onclick="setDefaultMeal('d', 0.5)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-indigo-100 transition">0.5</button>
+                                <button type="button" onclick="setDefaultMeal('d', 0.75)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-indigo-100 transition">0.75</button>
+                                <button type="button" onclick="setDefaultMeal('d', 1)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-indigo-100 transition">1</button>
+                                <button type="button" onclick="setDefaultMeal('d', 1.5)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-indigo-100 transition">1.5</button>
+                                <button type="button" onclick="setDefaultMeal('d', 2)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-indigo-100 transition">2</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-800 rounded-xl p-4 text-xs text-cyan-900 dark:text-cyan-200 mb-6">
+                        <i class="fa-solid fa-circle-info text-cyan-500 mr-1.5"></i>
+                        <strong>টিপস:</strong> ভোটে "হ্যাঁ" দিলে এই ডিফল্ট মান মিল শীটে বসবে। "না" দিলে 0 বসবে।
+                    </div>
+
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="requireAdmin(saveMealDefaults)" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-6 py-3 rounded-xl text-sm shadow transition flex items-center gap-2">
+                            <i class="fa-solid fa-floppy-disk"></i><span>ডিফল্ট সেভ করুন</span>
+                        </button>
                     </div>
                 </div>
             </section>
@@ -425,7 +502,6 @@
                         <h2 class="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
                             <i class="fa-solid fa-calendar-xmark text-indigo-600"></i><span>মিল অটো-অফ</span>
                         </h2>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">পুরো মাস বন্ধ রাখতে চাইলে টগল করুন</p>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-xs text-left border-collapse">
@@ -440,179 +516,6 @@
                             </thead>
                             <tbody id="scheduleTableBody" class="divide-y divide-slate-200 dark:divide-slate-800"></tbody>
                         </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- MEAL DEFAULTS -->
-            <section id="content-defaults" class="tab-content hidden">
-                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-800 mb-6">
-                    <div class="border-b border-slate-100 dark:border-slate-800 pb-4 mb-6">
-                        <h2 class="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                            <i class="fa-solid fa-sliders text-cyan-500"></i>
-                            <span>মিল ডিফল্ট সেটিং (সকাল/দুপুর/রাত)</span>
-                        </h2>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                            এখানে সেট করা মান নতুন মেম্বার যোগ করলে বা খালি ঘরে অটোমেটিক বসে যাবে। উদাহরণ: 0, 0.5, 0.75, 1, 1.5, 2
-                        </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                        <!-- সকাল -->
-                        <div class="bg-yellow-50 dark:bg-yellow-950/40 border border-yellow-200 dark:border-yellow-800 rounded-2xl p-5">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-12 h-12 rounded-xl bg-yellow-400 text-yellow-900 flex items-center justify-center text-2xl font-bold shadow">
-                                    <i class="fa-solid fa-sun"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-slate-800 dark:text-slate-100">সকালের মিল</h3>
-                                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Breakfast</p>
-                                </div>
-                            </div>
-                            <input type="number" step="0.25" min="0" id="defaultM" 
-                                class="w-full text-center text-2xl font-extrabold bg-white dark:bg-slate-900 border-2 border-yellow-400 dark:border-yellow-700 rounded-xl py-3 text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-yellow-500">
-                            <div class="flex flex-wrap gap-1 mt-3">
-                                <button type="button" onclick="setDefaultMeal('m', 0)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-yellow-100 transition">0</button>
-                                <button type="button" onclick="setDefaultMeal('m', 0.5)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-yellow-100 transition">0.5</button>
-                                <button type="button" onclick="setDefaultMeal('m', 0.75)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-yellow-100 transition">0.75</button>
-                                <button type="button" onclick="setDefaultMeal('m', 1)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-yellow-100 transition">1</button>
-                                <button type="button" onclick="setDefaultMeal('m', 1.5)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-yellow-100 transition">1.5</button>
-                                <button type="button" onclick="setDefaultMeal('m', 2)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-yellow-100 transition">2</button>
-                            </div>
-                        </div>
-
-                        <!-- দুপুর -->
-                        <div class="bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-800 rounded-2xl p-5">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-12 h-12 rounded-xl bg-orange-400 text-orange-900 flex items-center justify-center text-2xl font-bold shadow">
-                                    <i class="fa-solid fa-cloud-sun"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-slate-800 dark:text-slate-100">দুপুরের মিল</h3>
-                                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Lunch</p>
-                                </div>
-                            </div>
-                            <input type="number" step="0.25" min="0" id="defaultL" 
-                                class="w-full text-center text-2xl font-extrabold bg-white dark:bg-slate-900 border-2 border-orange-400 dark:border-orange-700 rounded-xl py-3 text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-orange-500">
-                            <div class="flex flex-wrap gap-1 mt-3">
-                                <button type="button" onclick="setDefaultMeal('l', 0)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-orange-100 transition">0</button>
-                                <button type="button" onclick="setDefaultMeal('l', 0.5)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-orange-100 transition">0.5</button>
-                                <button type="button" onclick="setDefaultMeal('l', 0.75)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-orange-100 transition">0.75</button>
-                                <button type="button" onclick="setDefaultMeal('l', 1)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-orange-100 transition">1</button>
-                                <button type="button" onclick="setDefaultMeal('l', 1.5)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-orange-100 transition">1.5</button>
-                                <button type="button" onclick="setDefaultMeal('l', 2)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-orange-100 transition">2</button>
-                            </div>
-                        </div>
-
-                        <!-- রাত -->
-                        <div class="bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800 rounded-2xl p-5">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-12 h-12 rounded-xl bg-indigo-500 text-white flex items-center justify-center text-2xl font-bold shadow">
-                                    <i class="fa-solid fa-moon"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-slate-800 dark:text-slate-100">রাতের মিল</h3>
-                                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Dinner</p>
-                                </div>
-                            </div>
-                            <input type="number" step="0.25" min="0" id="defaultD" 
-                                class="w-full text-center text-2xl font-extrabold bg-white dark:bg-slate-900 border-2 border-indigo-400 dark:border-indigo-700 rounded-xl py-3 text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500">
-                            <div class="flex flex-wrap gap-1 mt-3">
-                                <button type="button" onclick="setDefaultMeal('d', 0)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-indigo-100 transition">0</button>
-                                <button type="button" onclick="setDefaultMeal('d', 0.5)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-indigo-100 transition">0.5</button>
-                                <button type="button" onclick="setDefaultMeal('d', 0.75)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-indigo-100 transition">0.75</button>
-                                <button type="button" onclick="setDefaultMeal('d', 1)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-indigo-100 transition">1</button>
-                                <button type="button" onclick="setDefaultMeal('d', 1.5)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-indigo-100 transition">1.5</button>
-                                <button type="button" onclick="setDefaultMeal('d', 2)" class="text-[10px] bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 px-2 py-1 rounded-md hover:bg-indigo-100 transition">2</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-800 rounded-xl p-4 text-xs text-cyan-900 dark:text-cyan-200 mb-6">
-                        <i class="fa-solid fa-circle-info text-cyan-500 mr-1.5"></i>
-                        <strong>টিপস:</strong> এই মান শুধু <strong>নতুন মেম্বার যোগ করলে</strong> বা <strong>খালি ঘরে</strong> অটো-ফিল হবে।
-                    </div>
-
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="requireAdmin(saveMealDefaults)" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-6 py-3 rounded-xl text-sm shadow transition flex items-center gap-2">
-                            <i class="fa-solid fa-floppy-disk"></i>
-                            <span>ডিফল্ট সেভ করুন</span>
-                        </button>
-                        <button onclick="requireAdmin(applyDefaultsToEmptyCells)" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl text-sm shadow transition flex items-center gap-2">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            <span>খালি ঘরে বসান</span>
-                        </button>
-                        <button onclick="requireAdmin(applyDefaultsToAllMembers)" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-3 rounded-xl text-sm shadow transition flex items-center gap-2">
-                            <i class="fa-solid fa-users-gear"></i>
-                            <span>সবার সব ঘরে বসান</span>
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- POLLS -->
-            <section id="content-polls" class="tab-content hidden">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-slate-200 dark:border-slate-800 h-fit">
-                        <h2 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-plus-circle text-purple-600"></i>
-                            <span>নতুন ভোট পোল তৈরি করুন</span>
-                        </h2>
-
-                        <form id="pollForm" onsubmit="handleAddPoll(event)" class="space-y-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">প্রশ্ন / বিষয় *</label>
-                                <input type="text" id="pollQuestion" placeholder="যেমন: আজ রাতে মাছ খাব?" required
-                                    class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-purple-500 font-medium">
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">বিবরণ (ঐচ্ছিক)</label>
-                                <textarea id="pollDescription" rows="2" placeholder="বিস্তারিত লিখুন..."
-                                    class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-purple-500"></textarea>
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">অপশন সমূহ *</label>
-                                <div id="pollOptionsContainer" class="space-y-2">
-                                    <div class="flex gap-2">
-                                        <input type="text" placeholder="অপশন ১" value="হ্যাঁ" required
-                                            class="poll-option flex-1 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-purple-500">
-                                        <button type="button" onclick="this.parentElement.remove()" class="text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950 px-2 rounded-lg transition">
-                                            <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                    </div>
-                                    <div class="flex gap-2">
-                                        <input type="text" placeholder="অপশন ২" value="না" required
-                                            class="poll-option flex-1 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-purple-500">
-                                        <button type="button" onclick="this.parentElement.remove()" class="text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950 px-2 rounded-lg transition">
-                                            <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <button type="button" onclick="addPollOption()" class="mt-2 text-xs text-purple-600 dark:text-purple-400 hover:underline font-semibold flex items-center gap-1">
-                                    <i class="fa-solid fa-plus"></i> আরেকটি অপশন যোগ
-                                </button>
-                            </div>
-
-                            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 rounded-lg text-xs shadow transition flex items-center justify-center gap-1.5">
-                                <i class="fa-solid fa-check-to-slot"></i>
-                                <span>ভোট পোল তৈরি করুন</span>
-                            </button>
-                        </form>
-                    </div>
-
-                    <div class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-slate-200 dark:border-slate-800">
-                        <h2 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center justify-between">
-                            <span class="flex items-center gap-2">
-                                <i class="fa-solid fa-square-poll-vertical text-purple-600"></i>
-                                <span>সক্রিয় ভোট পোল</span>
-                            </span>
-                            <span class="text-xs bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-400 font-bold px-2.5 py-1 rounded-full border border-purple-200 dark:border-purple-800">
-                                মোট: <span id="pollCount">0</span>
-                            </span>
-                        </h2>
-                        <div id="pollsList" class="space-y-4 max-h-[600px] overflow-y-auto"></div>
                     </div>
                 </div>
             </section>
@@ -646,13 +549,10 @@
                             </button>
                         </form>
                     </div>
-
                     <div class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-slate-200 dark:border-slate-800">
                         <h2 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center justify-between">
                             <span class="flex items-center gap-2"><i class="fa-solid fa-receipt text-emerald-600"></i><span>জমার ইতিহাস</span></span>
-                            <span class="text-xs bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 font-bold px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">
-                                মোট: ৳<span id="depositTotalSum">0</span>
-                            </span>
+                            <span class="text-xs bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 font-bold px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-800">মোট: ৳<span id="depositTotalSum">0</span></span>
                         </h2>
                         <div class="overflow-x-auto max-h-[450px]">
                             <table class="w-full text-xs text-left">
@@ -706,18 +606,13 @@
                                 <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">বিবরণ</label>
                                 <input type="text" id="bazarNote" placeholder="১২কেজি সিলিন্ডার" class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-indigo-500">
                             </div>
-                            <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold py-2.5 rounded-lg text-xs shadow transition">
-                                বাজার সেভ
-                            </button>
+                            <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold py-2.5 rounded-lg text-xs shadow transition">বাজার সেভ</button>
                         </form>
                     </div>
-
                     <div class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-slate-200 dark:border-slate-800">
                         <h2 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center justify-between">
                             <span class="flex items-center gap-2"><i class="fa-solid fa-list-check text-rose-500"></i><span>চলতি মাসের বাজার</span></span>
-                            <span class="text-xs bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 font-bold px-2.5 py-1 rounded-full border border-rose-200 dark:border-rose-800">
-                                মোট: ৳<span id="bazarTotalSum">0</span>
-                            </span>
+                            <span class="text-xs bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 font-bold px-2.5 py-1 rounded-full border border-rose-200 dark:border-rose-800">মোট: ৳<span id="bazarTotalSum">0</span></span>
                         </h2>
                         <div class="overflow-x-auto max-h-[450px]">
                             <table class="w-full text-xs text-left">
@@ -773,9 +668,7 @@
     <div id="adminModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-slate-100 dark:border-slate-800">
             <div class="text-center mb-5">
-                <div class="w-12 h-12 bg-amber-100 dark:bg-amber-950 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-2 text-xl shadow-inner">
-                    <i class="fa-solid fa-shield-halved"></i>
-                </div>
+                <div class="w-12 h-12 bg-amber-100 dark:bg-amber-950 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-2 text-xl shadow-inner"><i class="fa-solid fa-shield-halved"></i></div>
                 <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100">এডমিন পাসওয়ার্ড</h3>
             </div>
             <div class="space-y-4">
@@ -788,12 +681,30 @@
         </div>
     </div>
 
+    <!-- VOTER IDENTITY MODAL -->
+    <div id="voterModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[150] flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-slate-100 dark:border-slate-800">
+            <div class="text-center mb-5">
+                <div class="w-14 h-14 bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 rounded-2xl flex items-center justify-center mx-auto mb-2 text-2xl shadow-inner">
+                    <i class="fa-solid fa-fingerprint"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100">আপনি কে?</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">ভোট দেওয়ার আগে নিজের নাম সিলেক্ট করুন</p>
+            </div>
+            <div class="space-y-4">
+                <select id="voterModalSelect" class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl px-3 py-3 text-sm focus:ring-2 focus:ring-purple-500 font-semibold"></select>
+                <div class="flex gap-2">
+                    <button onclick="closeVoterModal()" class="w-1/2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold py-2.5 rounded-xl text-xs">বাতিল</button>
+                    <button onclick="confirmVoterSelection()" class="w-1/2 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 rounded-xl text-xs shadow">কনফার্ম</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- EDIT DEPOSIT MODAL -->
     <div id="editDepositModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-slate-100 dark:border-slate-800">
-            <h3 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-pen-to-square text-emerald-600"></i><span>জমা এডিট</span>
-            </h3>
+            <h3 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-emerald-600"></i><span>জমা এডিট</span></h3>
             <div class="space-y-4">
                 <input type="hidden" id="editDepositId">
                 <div>
@@ -823,9 +734,7 @@
     <!-- MEMBER MODAL -->
     <div id="memberModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-slate-100 dark:border-slate-800">
-            <h3 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-user-plus text-indigo-600"></i><span id="memberModalTitle">নতুন মেম্বার</span>
-            </h3>
+            <h3 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2"><i class="fa-solid fa-user-plus text-indigo-600"></i><span id="memberModalTitle">নতুন মেম্বার</span></h3>
             <div class="space-y-4">
                 <input type="hidden" id="editMemberId">
                 <div>
@@ -932,10 +841,6 @@
                 if (snap.val() === true) updateFirebaseStatus('ok', 'Firebase সংযুক্ত ✓');
                 else updateFirebaseStatus('pending', 'Firebase সংযোগ বিচ্ছিন্ন');
             });
-            db.ref('messes').limitToFirst(1).once('value').then(() => {}).catch(err => {
-                firebaseErrorMsg = 'Rules ঠিক নেই';
-                updateFirebaseStatus('error', 'Rules ঠিক নেই ✗');
-            });
         } catch (e) {
             firebaseReady = false;
             firebaseErrorMsg = e.message;
@@ -957,23 +862,21 @@
         let depositData = [];
         let bazarData = [];
         let mealDefaults = { m: 1, l: 1, d: 1 };
-        let polls = [];
+        let polls = {};       // { "YYYY-MM-DD": { m: {votes:{}}, l: {...}, d: {...} } }
+
+        // Poll state
+        let activeVoterSelection = null; // { dateStr, mealType, memberId, voteValue }
 
         const bnMonths = {
             "01": "জানুয়ারি", "02": "ফেব্রুয়ারি", "03": "মার্চ", "04": "এপ্রিল",
             "05": "মে", "06": "জুন", "07": "জুলাই", "08": "আগস্ট",
             "09": "সেপ্টেম্বর", "10": "অক্টোবর", "11": "নভেম্বর", "12": "ডিসেম্বর"
         };
+        const bnDays = ["রবিবার", "সোমবার", "মঙ্গলবার", "বুধবার", "বৃহস্পতিবার", "শুক্রবার", "শনিবার"];
 
         // JUSTICE POPUP
-        function showJusticeModal() {
-            const modal = document.getElementById('justiceModal');
-            if (modal) modal.classList.remove('hidden');
-        }
-        function closeJusticeModal() {
-            const modal = document.getElementById('justiceModal');
-            if (modal) modal.classList.add('hidden');
-        }
+        function showJusticeModal() { const m = document.getElementById('justiceModal'); if (m) m.classList.remove('hidden'); }
+        function closeJusticeModal() { const m = document.getElementById('justiceModal'); if (m) m.classList.add('hidden'); }
 
         // INIT
         window.onload = function() {
@@ -982,6 +885,10 @@
                 const icon = document.getElementById('themeIcon');
                 if (icon) icon.className = "fa-solid fa-sun text-base text-amber-400";
             }
+
+            // Poll date picker
+            const pdp = document.getElementById('pollDatePicker');
+            if (pdp) pdp.value = new Date().toISOString().slice(0, 10);
 
             const savedMessId = localStorage.getItem('current_mess_id');
             const savedViewPwd = localStorage.getItem('current_mess_viewpwd');
@@ -997,7 +904,7 @@
             setTimeout(() => showJusticeModal(), 800);
         };
 
-        // LOGIN SCREEN
+        // LOGIN
         function showLoginScreen() {
             document.getElementById('loginScreen').classList.remove('hidden');
             document.getElementById('mainApp').classList.add('hidden');
@@ -1006,7 +913,6 @@
             document.getElementById('loginScreen').classList.add('hidden');
             document.getElementById('mainApp').classList.remove('hidden');
         }
-
         function showLoginTab(tab) {
             const joinTab = document.getElementById('tabLoginJoin');
             const createTab = document.getElementById('tabLoginCreate');
@@ -1025,18 +931,14 @@
             }
             hideLoginError();
         }
-
         function showLoginError(msg) {
             const box = document.getElementById('loginError');
             document.getElementById('loginErrorMsg').textContent = msg;
             box.classList.remove('hidden');
             setTimeout(() => box.classList.add('hidden'), 10000);
         }
-        function hideLoginError() {
-            document.getElementById('loginError').classList.add('hidden');
-        }
+        function hideLoginError() { document.getElementById('loginError').classList.add('hidden'); }
 
-        // JOIN MESS
         function handleJoinMess(e) {
             e.preventDefault();
             hideLoginError();
@@ -1050,25 +952,15 @@
         function attemptJoinMess(messId, viewPwd, adminPwd, wasAdmin, silent) {
             db.ref(`messes/${messId}/meta`).once('value').then(snapshot => {
                 const meta = snapshot.val();
-                if (!meta) {
-                    if (!silent) showLoginError('❌ Mess ID খুঁজে পাওয়া যায়নি!');
-                    else showLoginScreen();
-                    return;
-                }
-                if (meta.viewPassword !== viewPwd) {
-                    if (!silent) showLoginError('❌ পাসওয়ার্ড ভুল!');
-                    else showLoginScreen();
-                    return;
-                }
+                if (!meta) { if (!silent) showLoginError('❌ Mess ID খুঁজে পাওয়া যায়নি!'); else showLoginScreen(); return; }
+                if (meta.viewPassword !== viewPwd) { if (!silent) showLoginError('❌ পাসওয়ার্ড ভুল!'); else showLoginScreen(); return; }
                 currentMessId = messId;
                 currentMessMeta = meta;
                 isAdmin = wasAdmin && adminPwd === meta.adminPassword;
-
                 localStorage.setItem('current_mess_id', messId);
                 localStorage.setItem('current_mess_viewpwd', viewPwd);
                 localStorage.setItem('current_mess_adminpwd', isAdmin ? adminPwd : '');
                 localStorage.setItem('current_mess_isadmin', isAdmin ? 'true' : 'false');
-
                 enterMess(messId, meta);
             }).catch(err => {
                 if (!silent) showLoginError('❌ সংযোগে সমস্যা: ' + err.message);
@@ -1076,7 +968,6 @@
             });
         }
 
-        // CREATE MESS
         function handleCreateMess(e) {
             e.preventDefault();
             hideLoginError();
@@ -1084,7 +975,6 @@
             const messName = document.getElementById('createMessName').value.trim();
             const viewPwd = document.getElementById('createViewPassword').value;
             const adminPwd = document.getElementById('createAdminPassword').value;
-
             if (!/^[a-z0-9\-]{3,30}$/.test(messId)) { showLoginError('❌ Mess ID: ৩-৩০ অক্ষর (a-z, 0-9, -)'); return; }
             if (!messName) { showLoginError('❌ মেসের নাম দিন'); return; }
             if (!viewPwd || viewPwd.length < 3) { showLoginError('❌ View Password কমপক্ষে ৩ অক্ষর'); return; }
@@ -1092,10 +982,7 @@
             if (!firebaseReady || !db) { showLoginError('❌ Firebase সংযোগ নেই'); return; }
 
             db.ref(`messes/${messId}/meta`).once('value').then(snapshot => {
-                if (snapshot.exists()) {
-                    showLoginError('❌ এই Mess ID আগেই ব্যবহৃত!');
-                    throw new Error('MESS_EXISTS');
-                }
+                if (snapshot.exists()) { showLoginError('❌ এই Mess ID আগেই ব্যবহৃত!'); throw new Error('MESS_EXISTS'); }
                 const newMeta = { name: messName, viewPassword: viewPwd, adminPassword: adminPwd, createdAt: Date.now() };
                 const initialData = {
                     meta: newMeta,
@@ -1109,7 +996,7 @@
                         depositData: [],
                         bazarData: [],
                         mealDefaults: { m: 1, l: 1, d: 1 },
-                        polls: []
+                        polls: {}
                     }
                 };
                 return db.ref(`messes/${messId}`).set(initialData).then(() => newMeta);
@@ -1156,7 +1043,8 @@
                 if (Array.isArray(data.depositData)) depositData = data.depositData;
                 if (Array.isArray(data.bazarData)) bazarData = data.bazarData;
                 if (data.mealDefaults) mealDefaults = data.mealDefaults;
-                if (Array.isArray(data.polls)) polls = data.polls;
+                if (data.polls && typeof data.polls === 'object') polls = data.polls;
+                else polls = {};
 
                 members.forEach(m => {
                     if (!m.offSchedule) m.offSchedule = { m: false, l: false, d: false };
@@ -1184,7 +1072,6 @@
 
         function saveToLocalStorage() { pushDataToFirebase(); }
 
-        // LOGOUT
         function logoutFromMess() {
             if (!confirm('মেস থেকে বের হতে চান?')) return;
             if (currentListenerRef) currentListenerRef.off();
@@ -1193,7 +1080,7 @@
             localStorage.removeItem('current_mess_adminpwd');
             localStorage.removeItem('current_mess_isadmin');
             currentMessId = null; currentMessMeta = null; isAdmin = false;
-            members = []; mealsData = {}; depositData = []; bazarData = []; polls = [];
+            members = []; mealsData = {}; depositData = []; bazarData = []; polls = {};
             document.getElementById('joinForm').reset();
             document.getElementById('createForm').reset();
             showLoginTab('join');
@@ -1303,12 +1190,22 @@
             const [y, m] = yearMonthStr.split('-');
             return `${bnMonths[m] || m} ${y}`;
         }
+        function formatBengaliDate(dateStr) {
+            const [y, m, d] = dateStr.split('-').map(Number);
+            const dateObj = new Date(y, m - 1, d);
+            return `${d} ${bnMonths[String(m).padStart(2,'0')]} ${y}, ${bnDays[dateObj.getDay()]}`;
+        }
         function changeActiveMonth(monthVal) {
             if (!monthVal) return;
             selectedMonth = monthVal;
             document.getElementById('headerMonthText').textContent = getBengaliMonthYear(selectedMonth);
             renderAll();
             showToast(`মাস: ${getBengaliMonthYear(selectedMonth)}`);
+        }
+        function goToToday() {
+            const today = new Date().toISOString().slice(0, 10);
+            document.getElementById('pollDatePicker').value = today;
+            renderPollsTab();
         }
 
         function calculateStats() {
@@ -1363,12 +1260,10 @@
 
         function updateTopMetrics() {
             const stats = calculateStats();
-            document.getElementById('totalMessMeals').textContent = stats.grandTotalMeals.toFixed(1);
+            document.getElementById('totalMessMeals').textContent = stats.grandTotalMeals.toFixed(2);
             document.getElementById('totalMessDeposit').textContent = stats.grandTotalDeposit.toLocaleString('bn-BD');
             document.getElementById('totalMessBazar').textContent = stats.grandTotalBazar.toLocaleString('bn-BD');
             document.getElementById('currentMealRate').textContent = stats.mealRate.toFixed(2);
-            const mc = document.getElementById('membersTabCount');
-            if (mc) mc.textContent = members.length;
         }
 
         function setCategorySuggestion(name) { document.getElementById('bazarCategory').value = name; }
@@ -1388,7 +1283,7 @@
                         <div class="flex flex-col items-center justify-center gap-1 py-1">
                             <div class="w-7 h-7 rounded-full ${member.color || 'bg-indigo-600'} text-white font-bold flex items-center justify-center text-xs shadow-sm">${initials}</div>
                             <span class="font-bold text-slate-800 dark:text-slate-100 text-xs truncate max-w-[120px]">${member.name}</span>
-                            <span class="text-[10px] bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-extrabold px-2 py-0.5 rounded-full border border-indigo-200 dark:border-indigo-800">মোট: ${totalM.toFixed(1)}</span>
+                            <span class="text-[10px] bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-extrabold px-2 py-0.5 rounded-full border border-indigo-200 dark:border-indigo-800">মোট: ${totalM.toFixed(2)}</span>
                         </div>
                     </th>`;
             });
@@ -1458,10 +1353,7 @@
         function renderMembersDirectory() {
             const grid = document.getElementById('membersGrid');
             const stats = calculateStats();
-            if (members.length === 0) {
-                grid.innerHTML = `<div class="col-span-full p-8 text-center text-slate-400">কোনো মেম্বার নেই</div>`;
-                return;
-            }
+            if (members.length === 0) { grid.innerHTML = `<div class="col-span-full p-8 text-center text-slate-400">কোনো মেম্বার নেই</div>`; return; }
             grid.innerHTML = members.map(m => {
                 const totalMeals = stats.memberMealTotals[m.id] || 0;
                 const totalDeposit = stats.memberDepositTotals[m.id] || 0;
@@ -1528,8 +1420,6 @@
             } else {
                 const newId = 'm_' + Date.now();
                 members.push({ id: newId, name, phone, color, offSchedule: { m: false, l: false, d: false } });
-
-                // 🍽️ নতুন মেম্বার যোগ হলে চলতি মাসের সব দিনে ডিফল্ট মিল বসান
                 const daysCount = getDaysInMonth(selectedMonth);
                 for (let day = 1; day <= daysCount; day++) {
                     const dateStr = `${selectedMonth}-${String(day).padStart(2, '0')}`;
@@ -1542,7 +1432,6 @@
             closeMemberModal();
             renderAll();
         }
-
         function deleteMember(id) {
             if (confirm('ডিলিট করবেন?')) {
                 members = members.filter(m => m.id !== id);
@@ -1578,7 +1467,6 @@
                     </tr>`;
             }).join('');
         }
-
         function toggleOffSchedule(memberId, mealType) {
             const member = members.find(m => m.id === memberId);
             if (member) {
@@ -1589,7 +1477,6 @@
                 showToast('আপডেট');
             }
         }
-
         function applyBulkMealOff(memberId) {
             const member = members.find(m => m.id === memberId);
             if (!member) return;
@@ -1608,13 +1495,12 @@
             showToast(`${member.name}-এর জন্য অ্যাপ্লাই!`);
         }
 
-        // 🍽️ MEAL DEFAULTS
+        // MEAL DEFAULTS
         function setDefaultMeal(type, val) {
             const inputId = type === 'm' ? 'defaultM' : type === 'l' ? 'defaultL' : 'defaultD';
             const input = document.getElementById(inputId);
             if (input) input.value = val;
         }
-
         function saveMealDefaults() {
             const m = parseFloat(document.getElementById('defaultM').value) || 0;
             const l = parseFloat(document.getElementById('defaultL').value) || 0;
@@ -1624,7 +1510,6 @@
             renderDefaultsTab();
             showToast('✅ মিল ডিফল্ট সেভ হয়েছে!');
         }
-
         function renderDefaultsTab() {
             const mEl = document.getElementById('defaultM');
             const lEl = document.getElementById('defaultL');
@@ -1634,221 +1519,165 @@
             if (dEl) dEl.value = mealDefaults.d;
         }
 
-        function applyDefaultsToEmptyCells() {
-            if (!confirm('চলতি মাসের যে ঘরগুলো এখনো খালি (0) আছে, সেগুলোতে ডিফল্ট মিল বসিয়ে দিব?')) return;
-            const daysCount = getDaysInMonth(selectedMonth);
-            let changedCount = 0;
-
-            for (let day = 1; day <= daysCount; day++) {
-                const dateStr = `${selectedMonth}-${String(day).padStart(2, '0')}`;
-                if (!mealsData[dateStr]) mealsData[dateStr] = {};
-                members.forEach(member => {
-                    if (!mealsData[dateStr][member.id]) {
-                        mealsData[dateStr][member.id] = { ...mealDefaults };
-                        changedCount++;
-                    } else {
-                        const cell = mealsData[dateStr][member.id];
-                        if (!cell.m || cell.m === 0) { cell.m = mealDefaults.m; changedCount++; }
-                        if (!cell.l || cell.l === 0) { cell.l = mealDefaults.l; changedCount++; }
-                        if (!cell.d || cell.d === 0) { cell.d = mealDefaults.d; changedCount++; }
-                    }
-                });
-            }
-            pushDataToFirebase();
-            renderAll();
-            showToast(`✅ ${changedCount}টি ঘরে ডিফল্ট বসানো হয়েছে!`);
-        }
-
-        function applyDefaultsToAllMembers() {
-            if (!confirm('⚠️ সাবধান! চলতি মাসের সব মিল মুছে ডিফল্ট মিল বসে যাবে। আপনি কি নিশ্চিত?')) return;
-            const daysCount = getDaysInMonth(selectedMonth);
-            for (let day = 1; day <= daysCount; day++) {
-                const dateStr = `${selectedMonth}-${String(day).padStart(2, '0')}`;
-                mealsData[dateStr] = {};
-                members.forEach(member => {
-                    mealsData[dateStr][member.id] = { ...mealDefaults };
-                });
-            }
-            pushDataToFirebase();
-            renderAll();
-            showToast('✅ সবার সব ঘরে ডিফল্ট বসানো হয়েছে!');
-        }
-
-        // 🗳️ POLLS
-        function addPollOption() {
-            const container = document.getElementById('pollOptionsContainer');
-            const currentCount = container.children.length;
-            if (currentCount >= 6) { showToast('সর্বোচ্চ ৬টি অপশন', 'error'); return; }
-            const div = document.createElement('div');
-            div.className = 'flex gap-2';
-            div.innerHTML = `
-                <input type="text" placeholder="অপশন ${currentCount + 1}" required
-                    class="poll-option flex-1 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-purple-500">
-                <button type="button" onclick="this.parentElement.remove()" class="text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950 px-2 rounded-lg transition">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            `;
-            container.appendChild(div);
-        }
-
-        function handleAddPoll(e) {
-            e.preventDefault();
-            requireAdmin(() => {
-                const question = document.getElementById('pollQuestion').value.trim();
-                const description = document.getElementById('pollDescription').value.trim();
-                const optionInputs = document.querySelectorAll('.poll-option');
-                const options = [];
-                optionInputs.forEach(inp => { const v = inp.value.trim(); if (v) options.push(v); });
-
-                if (!question) { showToast('প্রশ্ন লিখুন', 'error'); return; }
-                if (options.length < 2) { showToast('কমপক্ষে ২টি অপশন দিন', 'error'); return; }
-
-                const newPoll = {
-                    id: 'poll_' + Date.now(),
-                    question, description,
-                    options: options.map(o => ({ text: o, votes: [] })),
-                    createdAt: Date.now(),
-                    createdBy: 'admin'
+        // ================================================================
+        // 🗳️ DAILY POLLS (Messenger style)
+        // ================================================================
+        function getPollForDate(dateStr) {
+            if (!polls[dateStr]) {
+                polls[dateStr] = {
+                    m: { votes: {} },  // { memberId: true/false }
+                    l: { votes: {} },
+                    d: { votes: {} }
                 };
-                polls.unshift(newPoll);
-                pushDataToFirebase();
-                document.getElementById('pollForm').reset();
-                const container = document.getElementById('pollOptionsContainer');
-                container.innerHTML = `
-                    <div class="flex gap-2">
-                        <input type="text" placeholder="অপশন ১" value="হ্যাঁ" required class="poll-option flex-1 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-purple-500">
-                        <button type="button" onclick="this.parentElement.remove()" class="text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950 px-2 rounded-lg transition"><i class="fa-solid fa-xmark"></i></button>
-                    </div>
-                    <div class="flex gap-2">
-                        <input type="text" placeholder="অপশন ২" value="না" required class="poll-option flex-1 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-purple-500">
-                        <button type="button" onclick="this.parentElement.remove()" class="text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950 px-2 rounded-lg transition"><i class="fa-solid fa-xmark"></i></button>
-                    </div>
-                `;
-                renderPollsTab();
-                showToast('✅ ভোট পোল তৈরি হয়েছে!');
-            });
-        }
-
-        function askAndVote(pollId, optionIndex) {
-            if (members.length === 0) { showToast('কোনো মেম্বার নেই', 'error'); return; }
-            const selectHtml = members.map(m => `<option value="${m.name}">${m.name}</option>`).join('');
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[200] flex items-center justify-center p-4';
-            modal.innerHTML = `
-                <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-sm shadow-2xl border border-slate-100 dark:border-slate-800">
-                    <h3 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-fingerprint text-purple-600"></i>
-                        <span>আপনি কে? (মেম্বার সিলেক্ট করুন)</span>
-                    </h3>
-                    <select id="voterSelect" class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-purple-500 mb-4">
-                        ${selectHtml}
-                    </select>
-                    <div class="flex gap-2">
-                        <button id="voteCancelBtn" class="w-1/2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold py-2.5 rounded-xl text-xs">বাতিল</button>
-                        <button id="voteConfirmBtn" class="w-1/2 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 rounded-xl text-xs shadow">ভোট দিন</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            modal.querySelector('#voteCancelBtn').onclick = () => modal.remove();
-            modal.querySelector('#voteConfirmBtn').onclick = () => {
-                const voterName = modal.querySelector('#voterSelect').value;
-                modal.remove();
-                castVote(pollId, optionIndex, voterName);
-            };
-        }
-
-        function castVote(pollId, optionIndex, voterName) {
-            const poll = polls.find(p => p.id === pollId);
-            if (!poll) return;
-
-            // পুরোনো ভোট মুছুন
-            for (let i = 0; i < poll.options.length; i++) {
-                poll.options[i].votes = (poll.options[i].votes || []).filter(v => v !== voterName);
             }
-            // নতুন ভোট
-            if (!poll.options[optionIndex].votes) poll.options[optionIndex].votes = [];
-            poll.options[optionIndex].votes.push(voterName);
-
-            pushDataToFirebase();
-            renderPollsTab();
-            showToast(`✅ ${voterName} ভোট দিয়েছেন!`);
-        }
-
-        function deletePoll(pollId) {
-            if (!confirm('এই ভোট পোলটি মুছে ফেলবেন?')) return;
-            polls = polls.filter(p => p.id !== pollId);
-            pushDataToFirebase();
-            renderPollsTab();
-            showToast('ভোট পোল মুছে ফেলা হয়েছে');
+            return polls[dateStr];
         }
 
         function renderPollsTab() {
-            const listEl = document.getElementById('pollsList');
-            const countEl = document.getElementById('pollCount');
-            if (!listEl) return;
-            if (countEl) countEl.textContent = polls.length;
+            const container = document.getElementById('pollsContainer');
+            const datePicker = document.getElementById('pollDatePicker');
+            if (!container || !datePicker) return;
 
-            if (polls.length === 0) {
-                listEl.innerHTML = `
-                    <div class="text-center py-12 text-slate-400">
-                        <i class="fa-solid fa-square-poll-vertical text-5xl mb-3 opacity-30"></i>
-                        <p class="text-sm">এখনো কোনো ভোট পোল নেই</p>
-                        <p class="text-xs mt-1">বাম দিক থেকে নতুন পোল তৈরি করুন</p>
-                    </div>`;
-                return;
-            }
+            const dateStr = datePicker.value || new Date().toISOString().slice(0, 10);
+            const poll = getPollForDate(dateStr);
 
-            listEl.innerHTML = polls.map(poll => {
-                const totalVotes = poll.options.reduce((sum, opt) => sum + (opt.votes?.length || 0), 0);
-                const createdDate = new Date(poll.createdAt).toLocaleDateString('bn-BD');
-                const optionsHTML = poll.options.map((opt, idx) => {
-                    const voteCount = opt.votes?.length || 0;
-                    const percent = totalVotes > 0 ? (voteCount / totalVotes * 100) : 0;
-                    const voters = (opt.votes || []).join(', ');
+            const mealsConfig = [
+                { key: 'm', label: 'সকালের মিল', time: 'সকাল ৭টা - ৯টা', color: 'yellow', icon: 'fa-sun' },
+                { key: 'l', label: 'দুপুরের মিল', time: 'দুপুর ১টা - ২টা', color: 'orange', icon: 'fa-cloud-sun' },
+                { key: 'd', label: 'রাতের মিল', time: 'রাত ৮টা - ১০টা', color: 'indigo', icon: 'fa-moon' }
+            ];
+
+            let html = `
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="date-badge text-white px-4 py-2 rounded-2xl shadow-lg flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span class="font-bold text-sm">${formatBengaliDate(dateStr)}</span>
+                    </div>
+                </div>
+            `;
+
+            mealsConfig.forEach(meal => {
+                const voteData = poll[meal.key].votes || {};
+                const yesCount = Object.values(voteData).filter(v => v === true).length;
+                const noCount = Object.values(voteData).filter(v => v === false).length;
+                const totalVoted = yesCount + noCount;
+
+                const memberRows = members.map(member => {
+                    const memberVote = voteData[member.id];
+                    const hasVoted = memberVote !== undefined;
+                    const isYes = memberVote === true;
+                    const isNo = memberVote === false;
+                    const initials = (member.name || '?').trim().charAt(0);
+                    const defaultVal = mealDefaults[meal.key];
+
                     return `
-                        <div class="mb-3">
-                            <div class="flex justify-between items-center mb-1.5 gap-2">
-                                <div class="flex-1">
-                                    <span class="font-bold text-slate-800 dark:text-slate-100 text-sm">${opt.text}</span>
-                                    <span class="text-xs text-slate-500 dark:text-slate-400 ml-2">(${voteCount} ভোট)</span>
+                        <div class="member-row flex items-center justify-between p-2.5 gap-2">
+                            <div class="flex items-center gap-2.5 flex-1 min-w-0">
+                                <div class="w-10 h-10 rounded-full ${member.color || 'bg-indigo-600'} text-white font-bold flex items-center justify-center text-sm shadow flex-shrink-0">
+                                    ${initials}
                                 </div>
-                                <button onclick="askAndVote('${poll.id}', ${idx})" class="bg-purple-600 hover:bg-purple-700 text-white text-[11px] font-bold px-3 py-1 rounded-lg shadow transition flex items-center gap-1 shrink-0">
+                                <div class="min-w-0 flex-1">
+                                    <p class="font-bold text-slate-800 dark:text-slate-100 text-sm truncate">${member.name}</p>
+                                    ${hasVoted ? `<p class="text-[10px] ${isYes ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'} font-semibold">
+                                        ${isYes ? `✅ হ্যাঁ — ${defaultVal} মিল` : '❌ না — 0 মিল'}
+                                    </p>` : `<p class="text-[10px] text-slate-400">ভোট দেয়নি</p>`}
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1.5 flex-shrink-0">
+                                <button onclick="askVote('${dateStr}', '${meal.key}', '${member.id}', true)"
+                                    class="vote-btn-yes ${isYes ? 'selected' : ''} text-white font-bold px-3 py-2 rounded-xl text-xs flex items-center gap-1 shadow-md min-w-[60px] justify-center">
                                     <i class="fa-solid fa-check"></i>
-                                    <span>ভোট দিন</span>
+                                    <span>হ্যাঁ</span>
+                                </button>
+                                <button onclick="askVote('${dateStr}', '${meal.key}', '${member.id}', false)"
+                                    class="vote-btn-no ${isNo ? 'selected' : ''} text-white font-bold px-3 py-2 rounded-xl text-xs flex items-center gap-1 shadow-md min-w-[60px] justify-center">
+                                    <i class="fa-solid fa-xmark"></i>
+                                    <span>না</span>
                                 </button>
                             </div>
-                            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-6 overflow-hidden border border-slate-200 dark:border-slate-700">
-                                <div class="vote-bar h-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 flex items-center justify-end pr-2 transition-all"
-                                     style="width: ${percent}%;">
-                                    ${percent > 15 ? `<span class="text-[10px] font-bold text-white">${percent.toFixed(0)}%</span>` : ''}
-                                </div>
-                            </div>
-                            ${voters ? `<p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1 truncate">👥 ${voters}</p>` : ''}
-                        </div>`;
+                        </div>
+                    `;
                 }).join('');
 
-                return `
-                    <div class="bg-slate-50 dark:bg-slate-800/60 rounded-2xl p-4 border border-slate-200 dark:border-slate-700">
-                        <div class="flex justify-between items-start gap-3 mb-3 pb-3 border-b border-slate-200 dark:border-slate-700">
-                            <div class="flex-1">
-                                <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base flex items-start gap-2">
-                                    <i class="fa-solid fa-square-poll-vertical text-purple-500 mt-0.5"></i>
-                                    <span>${poll.question}</span>
-                                </h3>
-                                ${poll.description ? `<p class="text-xs text-slate-600 dark:text-slate-400 mt-1 ml-6">${poll.description}</p>` : ''}
-                                <p class="text-[10px] text-slate-400 mt-1 ml-6">
-                                    <i class="fa-solid fa-calendar"></i> ${createdDate}
-                                    · মোট ভোট: <strong>${totalVotes}</strong>
-                                </p>
+                const colorMap = {
+                    yellow: { bg: 'bg-yellow-50 dark:bg-yellow-950/40', border: 'border-yellow-200 dark:border-yellow-800', text: 'text-yellow-800 dark:text-yellow-300', iconBg: 'bg-yellow-400 text-yellow-900' },
+                    orange: { bg: 'bg-orange-50 dark:bg-orange-950/40', border: 'border-orange-200 dark:border-orange-800', text: 'text-orange-800 dark:text-orange-300', iconBg: 'bg-orange-400 text-orange-900' },
+                    indigo: { bg: 'bg-indigo-50 dark:bg-indigo-950/40', border: 'border-indigo-200 dark:border-indigo-800', text: 'text-indigo-800 dark:text-indigo-300', iconBg: 'bg-indigo-500 text-white' }
+                };
+                const c = colorMap[meal.color];
+
+                html += `
+                    <div class="poll-card overflow-hidden">
+                        <div class="${c.bg} border-b ${c.border} p-4 flex items-center justify-between gap-3 flex-wrap">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-2xl ${c.iconBg} flex items-center justify-center text-xl shadow">
+                                    <i class="fa-solid ${meal.icon}"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base">${meal.label}</h3>
+                                    <p class="text-[11px] text-slate-500 dark:text-slate-400">${meal.time} · ডিফল্ট: ${mealDefaults[meal.key]} মিল</p>
+                                </div>
                             </div>
-                            <button onclick="requireAdmin(() => deletePoll('${poll.id}'))" class="text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950 p-1.5 rounded-lg transition shrink-0" title="পোল মুছুন">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </button>
+                            <div class="flex items-center gap-2 text-xs font-bold">
+                                <span class="bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 px-3 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+                                    ✅ ${yesCount}
+                                </span>
+                                <span class="bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 px-3 py-1.5 rounded-full border border-rose-200 dark:border-rose-800">
+                                    ❌ ${noCount}
+                                </span>
+                                <span class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700">
+                                    মোট: ${totalVoted}/${members.length}
+                                </span>
+                            </div>
                         </div>
-                        <div>${optionsHTML}</div>
-                    </div>`;
-            }).join('');
+                        <div class="p-2">
+                            ${members.length === 0 ? '<p class="text-center text-slate-400 py-6 text-sm">কোনো মেম্বার নেই</p>' : memberRows}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // ভোট চাওয়ার আগে identity confirm
+        function askVote(dateStr, mealType, memberId, voteValue) {
+            const member = members.find(m => m.id === memberId);
+            if (!member) return;
+
+            // সরাসরি confirm — কারণ মেম্বারের নামেই বাটনে ক্লিক করেছে
+            const confirmed = confirm(`${member.name} — "${voteValue ? 'হ্যাঁ' : 'না'}" ভোট দিতে চান?`);
+            if (!confirmed) return;
+
+            castDailyVote(dateStr, mealType, memberId, voteValue);
+        }
+
+        // ভোট দাও → মিল শীটে অটো বসে
+        function castDailyVote(dateStr, mealType, memberId, voteValue) {
+            const poll = getPollForDate(dateStr);
+            if (!poll[mealType]) poll[mealType] = { votes: {} };
+            if (!poll[mealType].votes) poll[mealType].votes = {};
+
+            poll[mealType].votes[memberId] = voteValue;
+
+            // 🍽️ Auto update mealsData
+            if (!mealsData[dateStr]) mealsData[dateStr] = {};
+            if (!mealsData[dateStr][memberId]) mealsData[dateStr][memberId] = { m: 0, l: 0, d: 0 };
+
+            if (voteValue === true) {
+                // হ্যাঁ → ডিফল্ট মান বসাও
+                mealsData[dateStr][memberId][mealType] = mealDefaults[mealType];
+            } else {
+                // না → 0
+                mealsData[dateStr][memberId][mealType] = 0;
+            }
+
+            pushDataToFirebase();
+            renderPollsTab();
+            renderMealSheet();
+            updateTopMetrics();
+            const member = members.find(m => m.id === memberId);
+            showToast(`✅ ${member?.name} — ${voteValue ? 'হ্যাঁ' : 'না'} ভোট রেকর্ড হয়েছে!`);
         }
 
         // DEPOSIT
@@ -1861,7 +1690,6 @@
             const currentDeposits = depositData.filter(item => item.date && item.date.startsWith(selectedMonth));
             const listTable = document.getElementById('depositListTable');
             let sum = 0;
-
             if (currentDeposits.length === 0) {
                 listTable.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">এই মাসে কোনো জমা নেই</td></tr>`;
             } else {
@@ -1885,7 +1713,6 @@
             }
             document.getElementById('depositTotalSum').textContent = sum.toLocaleString('bn-BD');
         }
-
         function handleAddDeposit(e) {
             e.preventDefault();
             requireAdmin(() => {
@@ -1902,7 +1729,6 @@
                 showToast('জমা সেভ!');
             });
         }
-
         function openEditDepositModal(id) {
             const deposit = depositData.find(d => d.id === id);
             if (!deposit) return;
@@ -1913,9 +1739,7 @@
             document.getElementById('editDepositNote').value = deposit.note || '';
             document.getElementById('editDepositModal').classList.remove('hidden');
         }
-
         function closeEditDepositModal() { document.getElementById('editDepositModal').classList.add('hidden'); }
-
         function saveEditDeposit() {
             const id = document.getElementById('editDepositId').value;
             const date = document.getElementById('editDepositDate').value;
@@ -1933,7 +1757,6 @@
                 showToast('আপডেট!');
             }
         }
-
         function deleteDeposit(id) {
             if (confirm('ডিলিট করবেন?')) {
                 depositData = depositData.filter(d => d.id !== id);
@@ -1950,7 +1773,6 @@
             const currentBazar = bazarData.filter(item => item.date && item.date.startsWith(selectedMonth));
             const listTable = document.getElementById('bazarListTable');
             let sum = 0;
-
             if (currentBazar.length === 0) {
                 listTable.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">এই মাসে কোনো বাজার নেই</td></tr>`;
             } else {
@@ -1976,7 +1798,6 @@
             }
             document.getElementById('bazarTotalSum').textContent = sum.toLocaleString('bn-BD');
         }
-
         function handleAddBazar(e) {
             e.preventDefault();
             requireAdmin(() => {
@@ -1994,7 +1815,6 @@
                 showToast('বাজার সেভ!');
             });
         }
-
         function deleteBazar(id) {
             bazarData = bazarData.filter(b => b.id !== id);
             pushDataToFirebase();
