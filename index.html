@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>মেস ম্যানেজার - মিল, জমা ও বাজার হিসাব</title>
+    <title>মেস ম্যানেজার </title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts - Hind Siliguri & Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Amiri (Arabic calligraphy), Hind Siliguri & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,400&family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -18,6 +18,7 @@
                 extend: {
                     fontFamily: {
                         sans: ['Hind Siliguri', 'Inter', 'sans-serif'],
+                        arabic: ['Amiri', 'serif'],
                     },
                     colors: {
                         mess: {
@@ -62,14 +63,23 @@
 
     <!-- Header Navbar -->
     <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-40 border-b border-slate-800">
+        <!-- Beautiful Bismillahir Rahmanir Rahim Calligraphy Banner -->
+        <div class="bg-slate-950/80 border-b border-slate-800/80 py-1.5 px-4 text-center">
+            <p class="font-arabic text-amber-300 text-lg md:text-xl tracking-wider font-bold drop-shadow-sm select-none">
+                بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+            </p>
+            <p class="text-[11px] text-amber-200/80 font-medium tracking-wide">
+                বিসমিল্লাহির রহমানির রহিম
+            </p>
+        </div>
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-3">
             <div class="flex items-center space-x-3 space-x-reverse">
                 <div class="bg-indigo-600 p-2.5 rounded-xl shadow-md flex items-center justify-center">
                     <i class="fa-solid fa-utensils text-xl text-amber-300"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold tracking-tight">মেস হিসাব ম্যানেজার Pro</h1>
-                    <p class="text-xs text-indigo-300 font-medium">মাল্টিপল মেম্বার, মিল, জমা এডিট ও গ্যাস সহ বাজার হিসাব</p>
+                    <h1 class="text-xl font-bold tracking-tight">মেস হিসাব ম্যানেজার </h1>
                 </div>
             </div>
 
@@ -133,9 +143,9 @@
                     <i class="fa-solid fa-cart-shopping"></i>
                 </div>
                 <div>
-                    <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">মোট বাজার + গ্যাস</p>
+                    <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">মোট বাজার + খরচ</p>
                     <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100">৳<span id="totalMessBazar">0</span></h3>
-                    <p class="text-[10px] text-slate-400">গ্যাস সহ সব খরচ</p>
+                    <p class="text-[10px] text-slate-400">গ্যাস সহ সব বাজার খরচ</p>
                 </div>
             </div>
 
@@ -171,7 +181,7 @@
             </button>
             <button onclick="switchTab('bazar')" id="tab-bazar" class="tab-btn flex-1 py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center justify-center gap-2 shrink-0">
                 <i class="fa-solid fa-basket-shopping text-rose-500"></i>
-                <span>বাজার ও গ্যাস খরচ</span>
+                <span>বাজার ও খরচ</span>
             </button>
             <button onclick="switchTab('summary')" id="tab-summary" class="tab-btn flex-1 py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm transition text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/60 flex items-center justify-center gap-2 shrink-0">
                 <i class="fa-solid fa-chart-pie text-amber-500"></i>
@@ -219,7 +229,7 @@
             <div class="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/50 rounded-xl p-3 text-xs text-amber-900 dark:text-amber-200 flex items-center justify-between flex-wrap gap-2">
                 <div class="flex items-center gap-2">
                     <i class="fa-solid fa-lightbulb text-amber-500 text-base"></i>
-                    <span><strong>নির্দেশনা:</strong> যত ইচ্ছা মেম্বার যোগ বা রিমুভ করা যাবে। ইনপুট এডিট করতে পিন দিয়ে এডমিন লগইন করুন।</span>
+                    <span><strong>নির্দেশনা:</strong> যত ইচ্ছা মেম্বার যোগ বা রিমুভ করা যাবে। ইনপুট এডিট করতে পিন <code class="font-mono bg-amber-100 dark:bg-amber-900 px-1 rounded text-amber-800 dark:text-amber-200 font-bold">ice999+</code> দিয়ে এডমিন লগইন করুন।</span>
                 </div>
                 <div class="flex items-center gap-3 font-semibold text-[11px]">
                     <span class="inline-flex items-center"><span class="w-2.5 h-2.5 bg-yellow-400 rounded-full mr-1.5"></span> সকাল</span>
@@ -356,13 +366,13 @@
             </div>
         </section>
 
-        <!-- TAB 5: BAZAR COST ENTRY (INCLUDING GAS) -->
+        <!-- TAB 5: BAZAR COST ENTRY (INCLUDING GAS & FLEXIBLE CUSTOM CATEGORIES) -->
         <section id="content-bazar" class="tab-content hidden">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-slate-200 dark:border-slate-800 h-fit">
                     <h2 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-cart-plus text-rose-500"></i>
-                        <span>বাজার ও গ্যাস খরচ যোগ করুন</span>
+                        <span>বাজার ও মেস খরচ যোগ করুন</span>
                     </h2>
 
                     <form id="bazarForm" onsubmit="handleAddBazar(event)" class="space-y-4">
@@ -372,20 +382,29 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">কে বাজার বা গ্যাস আনলেন?</label>
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">কে বাজার বা খরচ করলেন?</label>
                             <select id="bazarMemberSelect" required class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-indigo-500">
                                 <!-- Dynamic Member Options -->
                             </select>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">খরচের ক্যাটাগরি</label>
-                            <select id="bazarCategory" class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-indigo-500 font-semibold text-indigo-600">
-                                <option value="কাঁচাবাজার/চাল/তেল">কাঁচাবাজার/চাল/তেল (Grocery)</option>
-                                <option value="গ্যাস সিলিন্ডার (Gas)">গ্যাস সিলিন্ডার (Gas Refill)</option>
-                                <option value="মাছ ও মাংস">মাছ ও মাংস (Fish & Meat)</option>
-                                <option value="অন্যান্য মেস খরচ">অন্যান্য মেস খরচ</option>
-                            </select>
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1 flex items-center justify-between">
+                                <span>খরচের ক্যাটাগরি (লিপিবদ্ধ / কাস্টম লিখুন)</span>
+                                <span class="text-[10px] text-indigo-500 font-normal">যেকোনো নাম লিখা যাবে</span>
+                            </label>
+                            <!-- Custom Flexible Text Input for Expense Category -->
+                            <input type="text" id="bazarCategory" placeholder="যেমন: গ্যাস সিলিন্ডার, চাল/ডাল, মাছ/মাংস..." required class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-indigo-500 font-semibold text-indigo-600 dark:text-indigo-400">
+                            
+                            <!-- Quick Suggestion Badges -->
+                            <div class="flex flex-wrap gap-1.5 mt-2">
+                                <span class="text-[10px] text-slate-400 self-center mr-0.5">দ্রুত সিলেক্ট:</span>
+                                <button type="button" onclick="setCategorySuggestion('গ্যাস সিলিন্ডার')" class="text-[10px] bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 px-2 py-0.5 rounded-md hover:bg-amber-100 transition">গ্যাস</button>
+                                <button type="button" onclick="setCategorySuggestion('চাল/ডাল/তেল')" class="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded-md hover:bg-slate-200 transition">চাল/ডাল</button>
+                                <button type="button" onclick="setCategorySuggestion('মাছ ও মাংস')" class="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded-md hover:bg-slate-200 transition">মাছ/মাংস</button>
+                                <button type="button" onclick="setCategorySuggestion('শাক-সবজি ও মশলা')" class="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded-md hover:bg-slate-200 transition">সবজি</button>
+                                <button type="button" onclick="setCategorySuggestion('অন্যান্য মেস খরচ')" class="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded-md hover:bg-slate-200 transition">অন্যান্য</button>
+                            </div>
                         </div>
 
                         <div>
@@ -395,7 +414,7 @@
 
                         <div>
                             <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">ফর্দ / বিবরণ (ঐচ্ছিক)</label>
-                            <input type="text" id="bazarNote" placeholder="যেমন: গ্যাস সিলিন্ডার / রুই মাছ ও মুরগি" class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-indigo-500">
+                            <input type="text" id="bazarNote" placeholder="যেমন: ১২কেজি গ্যাস সিলিন্ডার / রুই মাছ ও ইলিশ" class="w-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-indigo-500">
                         </div>
 
                         <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold py-2.5 rounded-lg text-xs shadow transition">
@@ -408,7 +427,7 @@
                     <h2 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center justify-between">
                         <span class="flex items-center gap-2">
                             <i class="fa-solid fa-list-check text-rose-500"></i>
-                            <span>চলতি মাসের বাজারের তালিকা (গ্যাস সহ)</span>
+                            <span>চলতি মাসের বাজারের তালিকা (কাস্টম খরচ সহ)</span>
                         </span>
                         <span class="text-xs bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 font-bold px-2.5 py-1 rounded-full border border-rose-200 dark:border-rose-800">
                             মোট বাজার: ৳<span id="bazarTotalSum">0</span>
@@ -421,7 +440,7 @@
                                 <tr>
                                     <th class="p-3 rounded-l-lg">তারিখ</th>
                                     <th class="p-3">মেম্বার</th>
-                                    <th class="p-3">ধরন</th>
+                                    <th class="p-3">ক্যাটাগরি</th>
                                     <th class="p-3">বিবরণ</th>
                                     <th class="p-3 text-right">টাকা (৳)</th>
                                     <th class="p-3 text-center rounded-r-lg">অ্যাকশন</th>
@@ -522,12 +541,12 @@
                     <i class="fa-solid fa-shield-halved"></i>
                 </div>
                 <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100">এডমিন সিকিউরিটি পিন</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">ডাটা এন্ট্রি বা পরিবর্তনের জন্য পিন দিন (ডিফল্ট: <span class="font-bold text-amber-500">1234</span>)</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">ডাটা এন্ট্রি বা পরিবর্তনের জন্য পিন দিন (ডিফল্ট: <span class="font-bold text-amber-500 font-mono">ice999+</span>)</p>
             </div>
 
             <div class="space-y-4">
                 <div>
-                    <input type="password" id="adminPinInput" maxlength="6" class="w-full text-center text-2xl tracking-widest border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl py-2.5 focus:ring-2 focus:ring-indigo-500 font-bold text-slate-800 dark:text-slate-100" placeholder="••••">
+                    <input type="password" id="adminPinInput" class="w-full text-center text-xl tracking-widest border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl py-2.5 focus:ring-2 focus:ring-indigo-500 font-bold text-slate-800 dark:text-slate-100 font-mono" placeholder="••••••••">
                 </div>
 
                 <div class="flex gap-2">
@@ -603,7 +622,8 @@
     <script>
         // Global App State
         let isAdmin = false;
-        let adminPIN = "1234";
+        // Default admin PIN updated to ice999+
+        let adminPIN = "ice999+";
         let pendingAdminCallback = null;
 
         let selectedMonth = new Date().toISOString().slice(0, 7); // Format: YYYY-MM
@@ -629,8 +649,8 @@
 
         // Format: [ { id, date, memberId, category, amount, note } ]
         let bazarData = [
-            { id: 'b1', date: '2026-10-02', memberId: 'm1', category: 'গ্যাস সিলিন্ডার (Gas)', amount: 1550, note: '১টি ১২কেজি গ্যাস সিলিন্ডার' },
-            { id: 'b2', date: '2026-10-03', memberId: 'm2', category: 'কাঁচাবাজার/চাল/তেল', amount: 1250, note: 'চাল, সয়াবিন তেল ও সবজি' },
+            { id: 'b1', date: '2026-10-02', memberId: 'm1', category: 'গ্যাস সিলিন্ডার', amount: 1550, note: '১টি ১২কেজি সিলিন্ডার' },
+            { id: 'b2', date: '2026-10-03', memberId: 'm2', category: 'চাল/ডাল/তেল', amount: 1250, note: 'চাল, সয়াবিন তেল ও সবজি' },
             { id: 'b3', date: '2026-10-05', memberId: 'm3', category: 'মাছ ও মাংস', amount: 1400, note: 'রুই মাছ ও ফার্মের মুরগি' }
         ];
 
@@ -664,19 +684,19 @@
 
         // Local Storage Persistence
         function saveToLocalStorage() {
-            localStorage.setItem('mess_members_v5', JSON.stringify(members));
-            localStorage.setItem('mess_meals_v5', JSON.stringify(mealsData));
-            localStorage.setItem('mess_deposit_v5', JSON.stringify(depositData));
-            localStorage.setItem('mess_bazar_v5', JSON.stringify(bazarData));
-            localStorage.setItem('mess_pin_v5', adminPIN);
+            localStorage.setItem('mess_members_v6', JSON.stringify(members));
+            localStorage.setItem('mess_meals_v6', JSON.stringify(mealsData));
+            localStorage.setItem('mess_deposit_v6', JSON.stringify(depositData));
+            localStorage.setItem('mess_bazar_v6', JSON.stringify(bazarData));
+            localStorage.setItem('mess_pin_v6', adminPIN);
         }
 
         function loadFromLocalStorage() {
-            if (localStorage.getItem('mess_members_v5')) members = JSON.parse(localStorage.getItem('mess_members_v5'));
-            if (localStorage.getItem('mess_meals_v5')) mealsData = JSON.parse(localStorage.getItem('mess_meals_v5'));
-            if (localStorage.getItem('mess_deposit_v5')) depositData = JSON.parse(localStorage.getItem('mess_deposit_v5'));
-            if (localStorage.getItem('mess_bazar_v5')) bazarData = JSON.parse(localStorage.getItem('mess_bazar_v5'));
-            if (localStorage.getItem('mess_pin_v5')) adminPIN = localStorage.getItem('mess_pin_v5');
+            if (localStorage.getItem('mess_members_v6')) members = JSON.parse(localStorage.getItem('mess_members_v6'));
+            if (localStorage.getItem('mess_meals_v6')) mealsData = JSON.parse(localStorage.getItem('mess_meals_v6'));
+            if (localStorage.getItem('mess_deposit_v6')) depositData = JSON.parse(localStorage.getItem('mess_deposit_v6'));
+            if (localStorage.getItem('mess_bazar_v6')) bazarData = JSON.parse(localStorage.getItem('mess_bazar_v6'));
+            if (localStorage.getItem('mess_pin_v6')) adminPIN = localStorage.getItem('mess_pin_v6');
             if (localStorage.getItem('mess_theme') === 'dark') {
                 document.documentElement.classList.add('dark');
                 document.getElementById('themeIcon').className = "fa-solid fa-sun text-base text-amber-400";
@@ -689,7 +709,7 @@
             });
         }
 
-        // Admin Security Lock
+        // Admin Security Lock (Checking ice999+)
         function toggleAdminModal() {
             if (isAdmin) {
                 isAdmin = false;
@@ -718,7 +738,7 @@
                     pendingAdminCallback = null;
                 }
             } else {
-                showToast('ভুল পিন কোড! পুনরায় দিন', 'error');
+                showToast('ভুল পিন কোড! সঠিক পিন দিন', 'error');
             }
         }
 
@@ -734,8 +754,8 @@
 
         function changeAdminPinPrompt() {
             requireAdmin(() => {
-                const newPin = prompt("নতুন ৪-৬ ডিজিটের পিন নম্বর লিখুন:");
-                if (newPin && newPin.trim().length >= 4) {
+                const newPin = prompt("নতুন পিন কোড লিখুন (যেমন: ice999+):");
+                if (newPin && newPin.trim().length >= 3) {
                     adminPIN = newPin.trim();
                     saveToLocalStorage();
                     showToast('এডমিন পিন পরিবর্তন সফল হয়েছে!');
@@ -858,11 +878,16 @@
             document.getElementById('membersTabCount').textContent = members.length;
         }
 
+        // Quick Category Auto Fill Helper
+        function setCategorySuggestion(name) {
+            document.getElementById('bazarCategory').value = name;
+        }
+
         function renderMealSheet() {
             const stats = calculateStats();
             const daysCount = stats.daysInMonth;
 
-            // Render Excel Headers with Member Photos & Total Meals
+            // Render Excel Headers with Member Total Meals
             const headerRow = document.getElementById('tableHeader');
             let headerHTML = `
                 <th class="p-3 border border-slate-200 dark:border-slate-800 sticky left-0 bg-slate-100 dark:bg-slate-800 z-30 min-w-[120px]">
@@ -1314,15 +1339,16 @@
                 listTable.innerHTML = currentBazar.map(item => {
                     const member = members.find(m => m.id === item.memberId) || { name: 'অজানা মেম্বার' };
                     sum += Number(item.amount) || 0;
-                    const isGas = item.category && item.category.includes('গ্যাস');
+                    const catText = item.category || 'বাজার';
+                    const isGas = catText.includes('গ্যাস') || catText.includes('Gas');
 
                     return `
                         <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition">
                             <td class="p-3 font-medium text-slate-700 dark:text-slate-300">${item.date}</td>
                             <td class="p-3 font-semibold text-slate-800 dark:text-slate-100">${member.name}</td>
                             <td class="p-3">
-                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${isGas ? 'bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'}">
-                                    ${item.category || 'বাজার'}
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${isGas ? 'bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800' : 'bg-slate-100 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 border border-slate-200 dark:border-slate-700'}">
+                                    ${catText}
                                 </span>
                             </td>
                             <td class="p-3 text-slate-600 dark:text-slate-400">${item.note || '-'}</td>
@@ -1345,7 +1371,7 @@
             requireAdmin(() => {
                 const date = document.getElementById('bazarDate').value;
                 const memberId = document.getElementById('bazarMemberSelect').value;
-                const category = document.getElementById('bazarCategory').value;
+                const category = document.getElementById('bazarCategory').value.trim() || 'বাজার';
                 const amount = parseFloat(document.getElementById('bazarAmount').value) || 0;
                 const note = document.getElementById('bazarNote').value.trim();
 
